@@ -4,12 +4,12 @@ import { IPost } from '../../redux/Posts/PostsReducer';
 import { IRootReducer } from '../../redux/RootReducer';
 import PostItem from '../PostItem/PostItem';
 
+import './PostsPreview.scss';
+
 const PostsPreview: FC = () => {
   const { postsList } = useSelector((strate: IRootReducer) => strate.posts);
-  console.log(postsList);
-
   return (
-    <div>
+    <div className="forum_home-data-field">
       {postsList.map((item: IPost) => <PostItem key={item.id} {...item} />)}
     </div>
   );

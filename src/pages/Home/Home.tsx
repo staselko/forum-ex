@@ -1,16 +1,13 @@
 import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
 import PostsPreview from '../../components/PostsPreview/PostsPreview';
-import { IRootReducer } from '../../redux/RootReducer';
 
-const Home: FC = () => {
-  const { postsList } = useSelector((strate: IRootReducer) => strate.posts);
-  console.log(postsList);
-  return (
-    <div>
-      <PostsPreview />
-    </div>
-  );
-};
+import './Home.scss';
+
+const Home: FC = () => (
+  <div className="forum__home">
+    <h1 className="forum__home-greet">Welcome, to the forum</h1>
+    <PostsPreview />
+  </div>
+);
 
 export default Home;

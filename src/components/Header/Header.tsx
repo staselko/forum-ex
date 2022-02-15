@@ -9,11 +9,9 @@ const HeaderComponent = () => (
     <div>
       <Link to="/"><img alt="logo" src={logo} className="forum__header-logo" /></Link>
     </div>
-    <div>
-      <nav>
-        <Link to="/posts">Posts</Link>
-        <Link to="/users">Posts</Link>
-      </nav>
+    <div className="forum__header-link">
+      <Link to="/posts" className="forum__header-link-item">Posts</Link>
+      <Link to="/users" className="forum__header-link-item">Users</Link>
     </div>
   </div>
 );

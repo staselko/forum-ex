@@ -1,0 +1,23 @@
+.forum__home-data-field-item {
+  width: 65%;
+  padding: 30px 10px;
+  background-color: #c8c8c8;
+  color: #5f5f5f;
+  margin-bottom: 10px;
+  border-radius: 5px;
+
+  &-title {
+    font-size: 24px;
+    font-weight: bold;
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  &-body {
+    margin-top: 20px;
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+}

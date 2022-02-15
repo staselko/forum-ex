@@ -13,6 +13,7 @@ const App: React.FunctionComponent = () => {
   useEffect(() => {
     dispatch(getPostsStart());
   }, []);
+
   return (
     <div className="forum">
       <HeaderComponent />
