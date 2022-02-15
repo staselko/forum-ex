@@ -7,11 +7,9 @@ import { getPostsStart } from './redux/Posts/PostsActions';
 
 const App: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-
-  useEffect(():void => {
-    dispatch(getPostsStart('asdasd'));
+  useEffect(() => {
+    dispatch(getPostsStart());
   }, []);
-
   return (
     <div>
       <HeaderComponent />

@@ -1,21 +1,22 @@
 import PostsActionsTypes from './PostsTypes';
+import { IPost } from './PostsReducer';
 
 export type ActionsTypes = {
   type: string,
-  payload?: {} | string,
+  payload?: any;
 }
 
-export const getPostsStart = (url: string):ActionsTypes => ({
+export const getPostsStart = ():ActionsTypes => ({
   type: PostsActionsTypes.GET_POSTS_START,
-  payload: url,
+
 });
 
-export const getPostsSuccess = (posts: Array<Object>):ActionsTypes => ({
-  type: PostsActionsTypes.GET_POSTS_START,
+export const getPostsSuccess = (posts: IPost[]):ActionsTypes => ({
+  type: PostsActionsTypes.GET_POSTS_SUCCESS,
   payload: posts,
 });
 
-export const getPostsFailure = (error: Error):ActionsTypes => ({
-  type: PostsActionsTypes.GET_POSTS_START,
+export const getPostsFailure = (error: unknown):ActionsTypes => ({
+  type: PostsActionsTypes.GET_POSTS_FAILURE,
   payload: error,
 });

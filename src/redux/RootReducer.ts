@@ -1,8 +1,11 @@
 import { combineReducers } from 'redux';
+import postsReducer, { PostsInitialState } from './Posts/PostsReducer';
 
-import postsReducer from './Posts/PostsReducer';
+interface IRootReducer {
+  posts: PostsInitialState,
+}
 
-const rootReducer = combineReducers({
+const rootReducer = combineReducers<IRootReducer>({
   posts: postsReducer,
 });
 
