@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import postsReducer, { PostsInitialState } from './Posts/PostsReducer';
 
-interface IRootReducer {
+export interface IRootReducer {
   posts: PostsInitialState,
 }
 

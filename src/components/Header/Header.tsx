@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../../assets/images/Logo.png';
 
 import './Header.scss';
@@ -6,11 +7,13 @@ import './Header.scss';
 const HeaderComponent = () => (
   <div className="forum__header">
     <div>
-      <img alt="logo" src={logo} className="forum__header-logo" />
+      <Link to="/"><img alt="logo" src={logo} className="forum__header-logo" /></Link>
     </div>
     <div>
-      <div>Posts</div>
-      <div>Users</div>
+      <nav>
+        <Link to="/posts">Posts</Link>
+        <Link to="/users">Posts</Link>
+      </nav>
     </div>
   </div>
 );
