@@ -3,7 +3,7 @@ import {
 } from 'redux-saga/effects';
 import { SagaIterator } from 'redux-saga';
 
-import PostsActionsTypes from './PostsTypes';
+import postsActionsTypes from './PostsTypes';
 
 import { getPostsFailure, getPostsSuccess } from './PostsActions';
 import { IPost } from './PostsReducer';
@@ -23,7 +23,7 @@ export function* getPosts(): SagaIterator {
 }
 
 export function* onGetPostsStart() {
-  yield takeLatest(PostsActionsTypes.GET_POSTS_START, getPosts);
+  yield takeLatest(postsActionsTypes.GET_POSTS_START, getPosts);
 }
 
 export function* postsSaga() {

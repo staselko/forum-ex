@@ -1,5 +1,5 @@
-import PostsActionsTypes from './PostsTypes';
-import { ActionsTypes } from './PostsActions';
+import postsActionsTypes from './PostsTypes';
+import { ActionsTypes } from '../Interfaces';
 import { selectPostPage } from './PostsSelector';
 
 export interface IPost {
@@ -19,18 +19,18 @@ const INITIAL_STATE:PostsInitialState = {
   errorMessage: null,
 };
 
-const postsReducer: any = (
+const postsReducer = (
   state = INITIAL_STATE,
   action: ActionsTypes,
-) => {
+): PostsInitialState => {
   switch (action.type) {
-    case PostsActionsTypes.GET_POSTS_SUCCESS:
+    case postsActionsTypes.GET_POSTS_SUCCESS:
       return {
         ...state,
         postsList: selectPostPage(action.payload),
       };
 
-    case PostsActionsTypes.GET_POSTS_FAILURE:
+    case postsActionsTypes.GET_POSTS_FAILURE:
       return {
         ...state,
         postsList: [],

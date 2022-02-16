@@ -7,7 +7,7 @@ import PostItem from '../PostItem/PostItem';
 import './PostsPreview.scss';
 
 const PostsPreview: FC = () => {
-  const { postsList } = useSelector((strate: IRootReducer) => strate.posts);
+  const { postsList } = useSelector((state: IRootReducer) => state.posts);
   return (
     <div className="forum_home-data-field">
       {postsList.map((item: IPost) => <PostItem key={item.id} {...item} />)}

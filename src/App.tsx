@@ -7,6 +7,7 @@ import Home from './pages/Home/Home';
 import './App.scss';
 import { getPostsStart } from './redux/Posts/PostsActions';
 import PostsOverview from './pages/PostsOverview/PostsOverview';
+import Users from './pages/Users/Users';
 
 const App: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const App: React.FunctionComponent = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/posts" element={<PostsOverview />} />
+        <Route path="/users" element={<Users />} />
       </Routes>
       <Outlet />
     </div>

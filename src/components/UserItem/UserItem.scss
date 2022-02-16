@@ -1,0 +1,24 @@
+.forum__users-field-item {
+  width: 80%;
+
+  background-color: #c8c8c8;
+  color: #5f5f5f;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+
+  &-avatar {
+    border-radius: 5px 0 0 5px;
+  }
+
+  &-info {
+    padding: 20px 30px ; 
+  }
+
+  &-info-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 40px;
+  }
+}
