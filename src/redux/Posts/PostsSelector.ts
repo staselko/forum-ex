@@ -5,5 +5,5 @@ const selectPosts = (posts: IPost[]) => posts;
 
 export const selectPostPage = createSelector(
   [selectPosts],
-  (postsList) => postsList.filter((post) => post.id <= 10),
+  (postsListToShow) => postsListToShow.filter((post) => post.id <= 10),
 );

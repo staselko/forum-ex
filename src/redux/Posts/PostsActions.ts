@@ -16,3 +16,12 @@ export const getPostsFailure = (error: unknown):ActionsTypes => ({
   type: postsActionsTypes.GET_POSTS_FAILURE,
   payload: error,
 });
+
+export const showNextPage = (pageNum: Number): ActionsTypes => ({
+  type: postsActionsTypes.SHOW_NEXT_PAGE,
+  payload: pageNum,
+});
+
+export const showPreviosPage = (): ActionsTypes => ({
+  type: postsActionsTypes.SHOW_PREVIOS_PAGE,
+});

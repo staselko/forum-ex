@@ -24,6 +24,12 @@ const usersReducer = (
         errorMessage: action.payload,
       };
 
+    case allUsersActionTypes.MERGE_POSTS_TO_USER:
+      return {
+        ...state,
+        usersList: action.payload,
+      };
+
     default:
       return state;
   }

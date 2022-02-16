@@ -1,7 +1,10 @@
+import { IPost } from '../Posts/PostsReducer';
+
 export interface IUserItem {
   name: string,
   email: string,
   phone?: string,
+  id?: number,
 }
 
 export interface IUser extends IUserItem {
@@ -25,7 +28,8 @@ export interface IUser extends IUserItem {
     name: string,
     catchPhrase: string,
     bs: string
-  }
+  },
+  posts?: IPost[]
   [x: string]: any,
 }
 

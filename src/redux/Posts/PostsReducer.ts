@@ -10,12 +10,14 @@ export interface IPost {
 }
 
 export interface PostsInitialState {
-  postsList: IPost[],
+  allPosts: IPost[],
+  postsListToShow: IPost[],
   errorMessage?: unknown,
 }
 
 const INITIAL_STATE:PostsInitialState = {
-  postsList: [],
+  allPosts: [],
+  postsListToShow: [],
   errorMessage: null,
 };
 
@@ -27,13 +29,14 @@ const postsReducer = (
     case postsActionsTypes.GET_POSTS_SUCCESS:
       return {
         ...state,
-        postsList: selectPostPage(action.payload),
+        allPosts: action.payload,
+        postsListToShow: selectPostPage(action.payload),
       };
 
     case postsActionsTypes.GET_POSTS_FAILURE:
       return {
         ...state,
-        postsList: [],
+        postsListToShow: [],
         errorMessage: action.payload,
       };
 

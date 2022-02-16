@@ -2,6 +2,7 @@ export const allUsersActionTypes = {
   GET_USERS_START: 'GET_USERS_START',
   GET_USERS_SUCCESS: 'GET_USERS_SUCCESS',
   GET_USERS_FAILURE: 'GET_USERS_FAILURE',
+  MERGE_POSTS_TO_USER: 'MERGE_POSTS_TO_USER',
 };
 
 export default allUsersActionTypes;
