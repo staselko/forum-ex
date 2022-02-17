@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useLayoutEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route, Outlet } from 'react-router-dom';
 
 import HeaderComponent from './components/Header/Header';
@@ -8,12 +8,20 @@ import './App.scss';
 import { getPostsStart } from './redux/Posts/PostsActions';
 import PostsOverview from './pages/PostsOverview/PostsOverview';
 import Users from './pages/Users/Users';
+import { getUsersStart } from './redux/Users/UsersActions';
+import { IRootReducer } from './redux/RootReducer';
 
 const App: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(getPostsStart());
   }, []);
+
+  const posts = useSelector((store: IRootReducer) => store.posts.postsListToShow);
+
+  useEffect(() => {
+    dispatch(getUsersStart());
+  }, [posts]);
 
   return (
     <div className="forum">

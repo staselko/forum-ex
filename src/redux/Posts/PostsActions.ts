@@ -4,7 +4,6 @@ import { IPost } from './PostsReducer';
 
 export const getPostsStart = ():ActionsTypes => ({
   type: postsActionsTypes.GET_POSTS_START,
-
 });
 
 export const getPostsSuccess = (posts: IPost[]):ActionsTypes => ({
