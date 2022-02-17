@@ -5,6 +5,7 @@ import { ActionsTypes } from '../Interfaces';
 const INITIAL_STATE: IUserInitialState = {
   usersList: [],
   errorMessage: '',
+  userWithPosts: [],
 };
 
 const usersReducer = (
@@ -27,7 +28,7 @@ const usersReducer = (
     case allUsersActionTypes.MERGE_POSTS_TO_USER:
       return {
         ...state,
-        usersList: action.payload,
+        userWithPosts: [...state.userWithPosts, action.payload],
       };
 
     default:

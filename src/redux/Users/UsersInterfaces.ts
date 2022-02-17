@@ -36,4 +36,5 @@ export interface IUser extends IUserItem {
 export interface IUserInitialState {
   usersList: IUser[],
   errorMessage: unknown,
+  userWithPosts: IUser[],
 }

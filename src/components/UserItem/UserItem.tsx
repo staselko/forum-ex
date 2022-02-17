@@ -13,7 +13,7 @@ const UserItem = (item: IUser) => {
     email,
     phone,
   } = item;
-  const posts = useSelector((store: IRootReducer) => store.posts.allPosts);
+  const posts = useSelector((store: IRootReducer) => store.posts.postsListToShow);
   const userPosts = mergeUserAndPosts(item, posts);
   const dispatch = useDispatch();
   useEffect(() => {
