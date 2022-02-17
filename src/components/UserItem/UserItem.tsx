@@ -14,10 +14,13 @@ const UserItem = (item: IUser) => {
     phone,
   } = item;
   const posts = useSelector((store: IRootReducer) => store.posts.postsListToShow);
+  const usersWithPosts = useSelector((store: IRootReducer) => store.users.userWithPosts);
   const userPosts = mergeUserAndPosts(item, posts);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(mergePostsToUser(userPosts));
+    if (usersWithPosts.length === 0) {
+      dispatch(mergePostsToUser(userPosts));
+    }
   }, [dispatch]);
 
   return (
