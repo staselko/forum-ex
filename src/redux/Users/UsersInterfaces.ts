@@ -29,12 +29,12 @@ export interface IUser extends IUserItem {
     catchPhrase: string,
     bs: string
   },
-  posts?: IPost[]
+  posts?: IPost[],
   [x: string]: any,
 }
 
 export interface IUserInitialState {
   usersList: IUser[],
   errorMessage: unknown,
-  userWithPosts: IUser[],
+  isLoading: Boolean,
 }
