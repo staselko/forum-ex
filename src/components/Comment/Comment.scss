@@ -1,0 +1,16 @@
+.forum__comment {
+  margin-top: 40px;
+
+  &-item {
+
+    &_name {
+      font-size: 1em;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+}
