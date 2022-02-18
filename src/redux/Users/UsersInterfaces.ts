@@ -29,6 +29,7 @@ export interface IUser extends IUserItem {
     catchPhrase: string,
     bs: string
   },
+  imageUrl: string,
   posts?: IPost[],
   [x: string]: any,
 }

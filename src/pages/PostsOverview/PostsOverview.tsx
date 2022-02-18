@@ -1,9 +1,20 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import PostItem from '../../components/PostItem/PostItem';
+import { IRootReducer } from '../../redux/RootReducer';
 
-const PostsOverview = () => (
-  <div>
-    Posts overview
-  </div>
-);
+const PostsOverview = () => {
+  const { postsListToShow } = useSelector((state: IRootReducer) => state.posts);
+
+  return (
+    <div className="forum_home-data-field">
+      {
+        postsListToShow
+          .map((item) => <PostItem key={item.id} {...item} />)
+      }
+    </div>
+
+  );
+};
 
 export default PostsOverview;

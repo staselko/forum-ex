@@ -5,6 +5,7 @@ export const mergeUserAndPosts = (users: IUser[], posts: IPost[]): IUser[] => us
   const currentUserPosts: IPost[] = posts.filter((item) => item.userId === user.id);
   return {
     ...user,
+    imageUrl: 'https://picsum.photos/200/300',
     posts: currentUserPosts,
   };
 });
