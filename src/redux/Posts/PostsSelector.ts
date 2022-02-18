@@ -3,6 +3,7 @@ import { IRootReducer } from '../RootReducer';
 import { IPost } from './PostsIntefaces';
 
 const selectPosts = (posts: IPost[]) => posts;
+const selectPostsList = ((state: IRootReducer) => state.posts.postsListToShow);
 const selestIsPostsLoading = (state: IRootReducer) => state.posts.isLoading;
 
 export const selectPostPage = createSelector(
@@ -13,4 +14,9 @@ export const selectPostPage = createSelector(
 export const selectIsPostsLoading = createSelector(
   [selestIsPostsLoading],
   (isLoading) => isLoading,
+);
+
+export const selectCurrentPost = (postId: number) => createSelector(
+  [selectPostsList],
+  (postsListToShow): IPost => postsListToShow.filter((item) => item.id === postId)[0],
 );

@@ -11,6 +11,7 @@ import PostsOverview from './pages/PostsOverview/PostsOverview';
 import UsersContainer from './pages/UsersList/UsersContainer';
 import UserPageContainer from './pages/User/UserContainer';
 import './App.scss';
+import PostViewContainer from './pages/PostView/PostViewContainer';
 
 const App: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const App: React.FunctionComponent = () => {
         <Route path="/posts" element={<PostsOverview />} />
         <Route path="/users" element={<UsersContainer />} />
         <Route path="/users/:userId" element={<UserPageContainer />} />
+        <Route path="/posts/:postId" element={<PostViewContainer />} />
       </Routes>
       <Outlet />
     </div>
