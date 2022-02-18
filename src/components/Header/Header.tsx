@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/Logo.png';
+import HamburgerMenu from '../HamburgerMenu/HamburgerMenu';
 
 import './Header.scss';
 
@@ -12,6 +13,7 @@ const HeaderComponent = () => (
     <div className="forum__header-link">
       <Link to="/posts" className="forum__header-link-item">Posts</Link>
       <Link to="/users" className="forum__header-link-item">Users</Link>
+      <HamburgerMenu />
     </div>
   </div>
 );
