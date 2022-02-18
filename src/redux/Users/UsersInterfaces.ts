@@ -1,4 +1,4 @@
-import { IPost } from '../Posts/PostsReducer';
+import { IPost } from '../Posts/PostsIntefaces';
 
 export interface IUserItem {
   name: string,

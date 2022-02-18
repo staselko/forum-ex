@@ -6,7 +6,7 @@ import { SagaIterator } from 'redux-saga';
 import postsActionsTypes from './PostsTypes';
 
 import { getPostsFailure, getPostsSuccess } from './PostsActions';
-import { IPost } from './PostsReducer';
+import { IPost } from './PostsIntefaces';
 
 export function* getPosts(): SagaIterator {
   try {

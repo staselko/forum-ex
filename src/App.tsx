@@ -6,9 +6,9 @@ import { IRootReducer } from './redux/RootReducer';
 import { getPostsStart } from './redux/Posts/PostsActions';
 
 import HeaderComponent from './components/Header/Header';
-import Home from './pages/Home/Home';
+import HomePageContainer from './pages/Home/HomeContainer';
 import PostsOverview from './pages/PostsOverview/PostsOverview';
-import Users from './pages/UsersList/Users';
+import UsersContainer from './pages/UsersList/UsersContainer';
 import UserPageContainer from './pages/User/UserContainer';
 import './App.scss';
 
@@ -30,9 +30,9 @@ const App: React.FunctionComponent = () => {
     <div className="forum">
       <HeaderComponent />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<HomePageContainer />} />
         <Route path="/posts" element={<PostsOverview />} />
-        <Route path="/users" element={<Users />} />
+        <Route path="/users" element={<UsersContainer />} />
         <Route path="/users/:userId" element={<UserPageContainer />} />
       </Routes>
       <Outlet />

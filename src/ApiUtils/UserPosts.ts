@@ -1,4 +1,4 @@
-import { IPost } from '../redux/Posts/PostsReducer';
+import { IPost } from '../redux/Posts/PostsIntefaces';
 import { IUser } from '../redux/Users/UsersInterfaces';
 
 export const mergeUserAndPosts = (users: IUser[], posts: IPost[]): IUser[] => users.map((user) => {
