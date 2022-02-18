@@ -5,7 +5,7 @@ import { ActionsTypes } from '../Interfaces';
 const INITIAL_STATE: IUserInitialState = {
   usersList: [],
   errorMessage: '',
-  userWithPosts: [],
+  isLoading: true,
 };
 
 const usersReducer = (
@@ -13,10 +13,16 @@ const usersReducer = (
   action: ActionsTypes,
 ): IUserInitialState => {
   switch (action.type) {
+    case allUsersActionTypes.GET_USERS_START:
+      return {
+        ...state,
+        isLoading: true,
+      };
     case allUsersActionTypes.GET_USERS_SUCCESS:
       return {
         ...state,
         usersList: action.payload,
+        isLoading: false,
       };
 
     case allUsersActionTypes.GET_USERS_FAILURE:
@@ -28,7 +34,7 @@ const usersReducer = (
     case allUsersActionTypes.MERGE_POSTS_TO_USER:
       return {
         ...state,
-        userWithPosts: [...state.userWithPosts, action.payload],
+        usersList: [...state.usersList, action.payload],
       };
 
     default:

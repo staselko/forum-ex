@@ -1,6 +1,6 @@
 import postsActionsTypes from './PostsTypes';
 import { ActionsTypes } from '../Interfaces';
-import { IPost } from './PostsReducer';
+import { IPost } from './PostsIntefaces';
 
 export const getPostsStart = ():ActionsTypes => ({
   type: postsActionsTypes.GET_POSTS_START,

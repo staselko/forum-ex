@@ -1,0 +1,30 @@
+.forum__user-page {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  padding: 60px 70px;
+
+  &-profile {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    height: 200px;
+    padding: 20px 20px;
+    background-color: #bbdee8;
+  }
+
+  &-profile-contacts {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-profile-contacts-item {
+
+  }
+
+  &-posts {
+    color: #5f5f5f;
+  }
+}

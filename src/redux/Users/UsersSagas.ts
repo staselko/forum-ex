@@ -5,13 +5,16 @@ import { SagaIterator } from 'redux-saga';
 import { allUsersActionTypes } from './UsersTypes';
 import { getUsersFailure, getUsersSuccess } from './UsersActions';
 import { IUser } from './UsersInterfaces';
+import { mergeUserAndPosts } from '../../ApiUtils/UserPosts';
+import { ActionsTypes } from '../Interfaces';
 
-export function* getUsersList(): SagaIterator {
+export function* getUsersList({ payload }: ActionsTypes): SagaIterator {
   try {
     const usersRef = yield call(fetch, 'https://jsonplaceholder.typicode.com/users');
     const usersList: IUser[] = yield usersRef.json();
+    const newUser = mergeUserAndPosts(usersList, payload);
     yield put(
-      getUsersSuccess(usersList),
+      getUsersSuccess(newUser),
     );
   } catch (error) {
     if (error instanceof Error) {

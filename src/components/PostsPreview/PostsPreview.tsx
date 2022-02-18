@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { showNextPage } from '../../redux/Posts/PostsActions';
-// import { IPost } from '../../redux/Posts/PostsReducer';
 import { IRootReducer } from '../../redux/RootReducer';
 import Button from '../Button/Button';
 import PostItem from '../PostItem/PostItem';
