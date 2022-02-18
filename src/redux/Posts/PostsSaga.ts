@@ -1,19 +1,20 @@
 import {
   takeLatest, call, all, put,
 } from 'redux-saga/effects';
+import axios from 'axios';
 import { SagaIterator } from 'redux-saga';
-
 import postsActionsTypes from './PostsTypes';
 
 import { getPostsFailure, getPostsSuccess } from './PostsActions';
-import { IPost } from './PostsIntefaces';
+import { mergePostsAndComments } from '../../ApiUtils/PostsComments';
 
 export function* getPosts(): SagaIterator {
   try {
-    const apiFetch = yield call(fetch, 'https://jsonplaceholder.typicode.com/posts');
-    const postsData: IPost[] = yield apiFetch.json();
+    const postsList = yield call(axios.get, 'https://jsonplaceholder.typicode.com/posts');
+    const commentsList = yield call(axios.get, 'https://jsonplaceholder.typicode.com/comments');
+    const newPostsList = mergePostsAndComments(postsList.data, commentsList.data);
     yield put(
-      getPostsSuccess(postsData),
+      getPostsSuccess(newPostsList),
     );
   } catch (error: unknown) {
     if (error instanceof Error) {
