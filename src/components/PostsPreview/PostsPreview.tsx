@@ -10,18 +10,20 @@ import './PostsPreview.scss';
 const PostsPreview: FC = () => {
   const { postsListToShow } = useSelector((state: IRootReducer) => state.posts);
   const dispatch = useDispatch();
-  const [pageNum, setPageNum] = useState(10);
+  const [pageNum, setPageNum] = useState(8);
   const nextPage = () => {
-    setPageNum(pageNum + 10);
+    setPageNum(pageNum + 8);
     dispatch(showNextPage(pageNum));
   };
 
   return (
-    <div className="forum_home-data-field">
-      {
-        postsListToShow.filter((item) => item.id < pageNum)
+    <div>
+      <div className="forum_home-data-field">
+        {
+        postsListToShow.filter((item) => item.id <= pageNum)
           .map((item) => <PostItem key={item.id} {...item} />)
       }
+      </div>
       <Button onClick={nextPage}>Next Page</Button>
     </div>
   );

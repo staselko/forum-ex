@@ -1,5 +1,7 @@
 .forum_home-data-field {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 40px 10%;
 }

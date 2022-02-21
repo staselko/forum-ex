@@ -1,40 +1,44 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import './PostItem.scss';
+import {
+  Card, CardActionArea, CardMedia, CardContent, Typography,
+} from '@mui/material';
 import { IRootReducer } from '../../redux/RootReducer';
 import { IPost } from '../../redux/Posts/PostsIntefaces';
+import Post from '../../assets/images/Post.jpg';
+import './PostItem.scss';
 
 const PostItem = ({
   title,
-
-  comments,
   id,
   userId,
 }: IPost) => {
   const currentUser = useSelector((state:IRootReducer) => state.users.usersList
     .find((item) => item.id === userId));
-  // const match = useMatch(`users/${userId}`);
   return (
     <div className="forum__home-data-field-item">
       <Link to={`/posts/${id}`} className="forum__home-data-field-item_link">
-        <div className="forum__home-data-field-item-title">{title}</div>
-        <div className="forum__home-data-field-item-info">
-          <div className="forum__home-data-field-item-info">
-            Comments:
-            {' '}
-            {comments.length}
-          </div>
-          <div className="forum__home-data-field-item-info-name">{currentUser?.name}</div>
-          {/* {
-          match?.pattern.end
-            ? null : (
-              <Link to={`users/${userId}`} className="forum__home-data-field-item-info-name_link">
-                <div className="forum__home-data-field-item-info-name">{currentUser?.name}</div>
-              </Link>
-            )
-        } */}
-        </div>
+        <Card sx={{ maxWidth: 400, height: 500 }}>
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              height="300"
+              image={Post}
+              alt="green iguana"
+            />
+            <CardContent className="forum__home-data-field-item">
+              <Typography gutterBottom variant="h5" component="div" className="forum__home-data-field-item-title">
+                {title}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                by:
+                {' '}
+                {currentUser?.name}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
       </Link>
     </div>
   );
