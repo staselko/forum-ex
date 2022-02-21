@@ -1,32 +1,10 @@
 .forum__hamburger-menu {
-  width: 50px;
-  height: 50px;
-  display: none;
-
-  @media only screen and (max-width: 1064px) {
-    display: block;
-  }
-
-  &-link {
-    display: none;
-    width: 80vw;
-    position: absolute;
-    right: 0;
-    top: 70px;
-    background-color: #868686;
-    height: 60vh;
-   
-    &-opened {
-      display: flex;
-      flex-direction: column;
-      
-    }
-  }
-
+  display: flex;
+  flex-direction: column;
+  
   &-link-item {
+    color: #4e6da7;
+    font-size: 24px;
     text-decoration: none;
-    font-size: 2em;
-    color: #444;
-    margin-top: 1em;
   }
 }

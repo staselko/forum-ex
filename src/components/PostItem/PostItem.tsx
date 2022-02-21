@@ -7,7 +7,7 @@ import { IPost } from '../../redux/Posts/PostsIntefaces';
 
 const PostItem = ({
   title,
-  body,
+
   comments,
   id,
   userId,
@@ -19,7 +19,6 @@ const PostItem = ({
     <div className="forum__home-data-field-item">
       <Link to={`/posts/${id}`} className="forum__home-data-field-item_link">
         <div className="forum__home-data-field-item-title">{title}</div>
-        <div className="forum__home-data-field-item-body">{body}</div>
         <div className="forum__home-data-field-item-info">
           <div className="forum__home-data-field-item-info">
             Comments:
