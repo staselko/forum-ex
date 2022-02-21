@@ -5,7 +5,7 @@ import axios from 'axios';
 import { SagaIterator } from 'redux-saga';
 import { allUsersActionTypes } from './UsersTypes';
 import { getUsersFailure, getUsersSuccess } from './UsersActions';
-import { mergeUserAndPosts } from '../../ApiUtils/UserPosts';
+import { mergeUserAndPosts } from '../../utils/api/UserPosts';
 import { ActionsTypes } from '../Interfaces';
 
 export function* getUsersList({ payload }: ActionsTypes): SagaIterator {

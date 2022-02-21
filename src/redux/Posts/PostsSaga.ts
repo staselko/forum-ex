@@ -6,13 +6,12 @@ import { SagaIterator } from 'redux-saga';
 import postsActionsTypes from './PostsTypes';
 
 import { getPostsFailure, getPostsSuccess } from './PostsActions';
-import { mergePostsAndComments } from '../../ApiUtils/PostsComments';
+import { mergePostsAndComments } from '../../utils/api/PostsComments';
 
 export function* getPosts(): SagaIterator {
   try {
     const postsList = yield call(axios.get, 'https://jsonplaceholder.typicode.com/posts');
-    const commentsList = yield call(axios.get, 'https://jsonplaceholder.typicode.com/comments');
-    const newPostsList = mergePostsAndComments(postsList.data, commentsList.data);
+    const newPostsList = yield call(mergePostsAndComments, postsList.data);
     yield put(
       getPostsSuccess(newPostsList),
     );
