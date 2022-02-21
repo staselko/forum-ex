@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { IRootReducer } from '../RootReducer';
-import { IPost } from './PostsIntefaces';
+import { IPost } from './PostsInterfaces';
 
 const selectPosts = (posts: IPost[]) => posts;
 const selectPostsList = ((state: IRootReducer) => state.posts.postsListToShow);

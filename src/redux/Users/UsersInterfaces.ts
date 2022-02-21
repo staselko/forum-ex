@@ -1,4 +1,4 @@
-import { IPost } from '../Posts/PostsIntefaces';
+import { IPost } from '../Posts/PostsInterfaces';
 
 export interface IUserItem {
   name: string,
@@ -30,6 +30,7 @@ export interface IUser extends IUserItem {
     bs: string
   },
   imageUrl: string,
+  backgroundImageUrl?: string,
   posts?: IPost[],
   [x: string]: any,
 }

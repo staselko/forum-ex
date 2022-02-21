@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IPost } from '../../redux/Posts/PostsIntefaces';
+import { IPost } from '../../redux/Posts/PostsInterfaces';
 
 export const mergePostsAndComments = async (posts: IPost[]): Promise<IPost[]> => await Promise.all(
   posts.map(async (post) => {

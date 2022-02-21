@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { PostsInitialState } from './Posts/PostsIntefaces';
+import { PostsInitialState } from './Posts/PostsInterfaces';
 import postsReducer from './Posts/PostsReducer';
 import { IUserInitialState } from './Users/UsersInterfaces';
 import usersReducer from './Users/UsersReducer';

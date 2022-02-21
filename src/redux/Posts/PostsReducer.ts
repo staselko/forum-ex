@@ -1,7 +1,7 @@
 import postsActionsTypes from './PostsTypes';
 import { ActionsTypes } from '../Interfaces';
 import { selectPostPage } from './PostsSelector';
-import { PostsInitialState } from './PostsIntefaces';
+import { PostsInitialState } from './PostsInterfaces';
 
 const INITIAL_STATE:PostsInitialState = {
   postsListToShow: [],

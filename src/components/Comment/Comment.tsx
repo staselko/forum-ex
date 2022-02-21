@@ -1,5 +1,5 @@
 import React from 'react';
-import { IComments } from '../../redux/Posts/PostsIntefaces';
+import { IComments } from '../../redux/Posts/PostsInterfaces';
 
 import './Comment.scss';
 
