@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import {
   Card, CardMedia, CardContent, Typography, Avatar, Box, CardActions, Button,
@@ -14,10 +13,10 @@ import './User.scss';
 const User = () => {
   const { userId } = useParams();
   const {
-    mail,
+    // mail,
     name,
-    website,
-    phone,
+    // website,
+    // phone,
     posts,
     imageUrl,
   } = useSelector(selectCurrentUser(Number(userId)));
