@@ -1,17 +1,21 @@
-import React, { useEffect } from 'react';
+/* eslint-disable no-shadow */
+import React, { useEffect, useState } from 'react';
 import {
   Avatar, Box, Card, CardContent, Typography,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useHref } from 'react-router-dom';
+import { v4 } from 'uuid';
+
 import { selectCurrentPost } from '../../redux/Posts/PostsSelector';
 import Post from '../../assets/images/Post.jpg';
 import Comment from '../../components/Comment/Comment';
 
 import './PostView.scss';
 import { selectCurrentUser } from '../../redux/Users/UserSelector';
-import { getCommentsStart } from '../../redux/Posts/PostsActions';
+import { createCommentStart, getCommentsStart } from '../../redux/Posts/PostsActions';
 import { IRootReducer } from '../../redux/RootReducer';
+import FormInput from '../../FormInput/FormInput';
 
 const PostView = () => {
   const { postId } = useParams();
@@ -21,15 +25,43 @@ const PostView = () => {
     body,
     title,
   } = useSelector(selectCurrentPost(Number(postId)));
-
   const comments = useSelector((store: IRootReducer) => store.posts.comments);
 
   useEffect(() => {
     dispatch(getCommentsStart(postId));
   }, []);
 
+  const [newPostData, setNewPostData] = useState({
+    userId,
+    postId,
+    id: '',
+    email: '',
+    body: '',
+  });
+
   const location = useHref(`/users/${userId}`);
   const { name, email, imageUrl } = useSelector(selectCurrentUser(Number(userId)));
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    setNewPostData({ ...newPostData, id: v4() });
+
+    dispatch(createCommentStart(newPostData));
+
+    setNewPostData({
+      ...newPostData,
+      email: '',
+      body: '',
+      id: '',
+    });
+  };
+
+  const handleChange = (event: any) => {
+    const { value, name } = event.target;
+
+    setNewPostData({ ...newPostData, [name]: value });
+  };
+
   return (
     <div className="forum__post-page">
       <Card>
@@ -67,10 +99,29 @@ const PostView = () => {
             {body}
           </Typography>
         </Box>
+
+        <Box>
+          <form method="post" onSubmit={handleSubmit}>
+            <FormInput
+              type="text"
+              name="email"
+              label="Write email"
+              value={newPostData.email}
+              handleChange={handleChange}
+            />
+            <FormInput
+              type="text"
+              name="body"
+              label="Write comment"
+              value={newPostData.body}
+              handleChange={handleChange}
+            />
+            <button type="submit">asd</button>
+          </form>
+        </Box>
         {
           comments?.map((item) => <Comment key={item.id} {...item} />)
         }
-
       </Card>
     </div>
   );

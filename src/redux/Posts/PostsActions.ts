@@ -39,3 +39,18 @@ export const getCommentsFailure = (error: unknown): ActionsTypes => ({
   type: postsActionsTypes.GET_COMMENTS_FAILURE,
   payload: error,
 });
+
+export const createCommentStart = (post: IComments) => ({
+  type: postsActionsTypes.CREATE_COMMENT_START,
+  payload: post,
+});
+
+export const createCommentSuccess = (posts: IPost[]) => ({
+  type: postsActionsTypes.CREATE_COMMENT_SUCCESS,
+  payload: posts,
+});
+
+export const createCommentFailure = (error: unknown) => ({
+  type: postsActionsTypes.CREATE_COMMENT_FAILURE,
+  payload: error,
+});

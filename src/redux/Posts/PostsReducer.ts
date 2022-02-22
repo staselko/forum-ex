@@ -27,6 +27,12 @@ const postsReducer = (
         isLoading: false,
       };
 
+    case postsActionsTypes.CREATE_COMMENT_SUCCESS:
+      return {
+        ...state,
+        comments: [...state.comments, action.payload],
+      };
+
     case postsActionsTypes.GET_COMMENTS_SUCCESS:
       return {
         ...state,
@@ -36,9 +42,9 @@ const postsReducer = (
 
     case postsActionsTypes.GET_POSTS_FAILURE:
     case postsActionsTypes.GET_COMMENTS_FAILURE:
+    case postsActionsTypes.CREATE_COMMENT_FAILURE:
       return {
         ...state,
-        postsListToShow: [],
         errorMessage: action.payload,
         isLoading: false,
       };

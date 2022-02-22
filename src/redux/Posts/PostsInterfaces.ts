@@ -1,9 +1,10 @@
 export interface IComments {
-  postId: number,
-  id: number,
-  name: String,
-  email: String,
+  postId?: string,
+  id: string,
+  name?: String,
+  email?: String,
   body: String,
+  userId?: number,
 }
 
 export interface IPost {
@@ -11,13 +12,13 @@ export interface IPost {
   id: number,
   title: String,
   body: String,
-  comments: IComments[]
+  comments?: IComments[]
   [x: string]: any,
 }
 
 export interface PostsInitialState {
   postsListToShow: IPost[],
-  comments?: IComments[],
+  comments: IComments[],
   errorMessage?: unknown,
   isLoading: Boolean,
 }

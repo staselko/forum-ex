@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/self-closing-comp */
-import { Card, Typography } from '@mui/material';
 import React from 'react';
+import { Card, Typography } from '@mui/material';
 import { IComments } from '../../redux/Posts/PostsInterfaces';
 
 import './Comment.scss';
