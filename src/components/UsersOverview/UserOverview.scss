@@ -4,4 +4,9 @@
   flex-direction: column;
   align-items: center;
   padding-top: 40px;
+
+  &-greet {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+  }
 }

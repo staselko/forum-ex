@@ -13,7 +13,7 @@ import './User.scss';
 const User = () => {
   const { userId } = useParams();
   const {
-    // mail,
+    email,
     name,
     // website,
     // phone,
@@ -50,8 +50,7 @@ const User = () => {
               {name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over 6,000
-              species, ranging across all continents except Antarctica
+              {email}
             </Typography>
           </CardContent>
         </Box>

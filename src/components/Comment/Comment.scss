@@ -1,12 +1,14 @@
 .forum__comment {
-  margin-top: 40px;
-
+  margin-top: 20px;
+  max-width: 500px;
   &-item {
-
+    
     &_name {
-      font-size: 1em;
       font-weight: bold;
-      margin-bottom: 20px;
+    }
+
+    &_text {
+      font-size: 0.8em;
     }
 
     &::first-letter {

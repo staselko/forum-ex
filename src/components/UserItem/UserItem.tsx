@@ -23,10 +23,10 @@ const UserItem = (item: IUser) => {
         >
           <Box sx={{ display: 'flex', flexDirection: 'row' }}>
             <Avatar
-              className="forum__users-field-item-avatar"
               alt="users avatar"
               src={imageUrl}
-              sx={{ height: 100, width: 100 }}
+              sx={{ height: 100, width: 100, borderRadius: '20px 0 0 20px' }}
+              className="forum__users-field-item-avatar"
             />
             <Box className="forum__users-field-item-info">
               <Typography className="forum__users-field-item-info-name">

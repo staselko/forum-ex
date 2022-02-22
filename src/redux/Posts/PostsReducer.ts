@@ -1,10 +1,10 @@
 import postsActionsTypes from './PostsTypes';
 import { ActionsTypes } from '../Interfaces';
-import { selectPostPage } from './PostsSelector';
 import { PostsInitialState } from './PostsInterfaces';
 
 const INITIAL_STATE:PostsInitialState = {
   postsListToShow: [],
+  comments: [],
   errorMessage: null,
   isLoading: true,
 };
@@ -23,11 +23,19 @@ const postsReducer = (
     case postsActionsTypes.GET_POSTS_SUCCESS:
       return {
         ...state,
-        postsListToShow: selectPostPage(action.payload),
+        postsListToShow: action.payload,
+        isLoading: false,
+      };
+
+    case postsActionsTypes.GET_COMMENTS_SUCCESS:
+      return {
+        ...state,
+        comments: action.payload,
         isLoading: false,
       };
 
     case postsActionsTypes.GET_POSTS_FAILURE:
+    case postsActionsTypes.GET_COMMENTS_FAILURE:
       return {
         ...state,
         postsListToShow: [],

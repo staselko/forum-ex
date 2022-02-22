@@ -1,6 +1,6 @@
 import postsActionsTypes from './PostsTypes';
 import { ActionsTypes } from '../Interfaces';
-import { IPost } from './PostsInterfaces';
+import { IComments, IPost } from './PostsInterfaces';
 
 export const getPostsStart = ():ActionsTypes => ({
   type: postsActionsTypes.GET_POSTS_START,
@@ -23,4 +23,19 @@ export const showNextPage = (pageNum: Number): ActionsTypes => ({
 
 export const showPreviosPage = (): ActionsTypes => ({
   type: postsActionsTypes.SHOW_PREVIOS_PAGE,
+});
+
+export const getCommentsStart = (postId: string | undefined): ActionsTypes => ({
+  type: postsActionsTypes.GET_COMMENTS_START,
+  payload: postId,
+});
+
+export const getCommentsSuccess = (comments: IComments[]): ActionsTypes => ({
+  type: postsActionsTypes.GET_COMMENTS_SUCCESS,
+  payload: comments,
+});
+
+export const getCommentsFailure = (error: unknown): ActionsTypes => ({
+  type: postsActionsTypes.GET_COMMENTS_FAILURE,
+  payload: error,
 });

@@ -5,15 +5,14 @@ import axios from 'axios';
 import { SagaIterator } from 'redux-saga';
 import postsActionsTypes from './PostsTypes';
 
-import { getPostsFailure, getPostsSuccess } from './PostsActions';
-import { mergePostsAndComments } from '../../utils/api/PostsComments';
+import { getCommentsSuccess, getPostsFailure, getPostsSuccess } from './PostsActions';
+import { ActionsTypes } from '../Interfaces';
 
 export function* getPosts(): SagaIterator {
   try {
     const postsList = yield call(axios.get, 'https://jsonplaceholder.typicode.com/posts');
-    const newPostsList = yield call(mergePostsAndComments, postsList.data);
     yield put(
-      getPostsSuccess(newPostsList),
+      getPostsSuccess(postsList.data),
     );
   } catch (error: unknown) {
     if (error instanceof Error) {
@@ -22,12 +21,30 @@ export function* getPosts(): SagaIterator {
   }
 }
 
+export function* getComments({ payload }: ActionsTypes): SagaIterator {
+  try {
+    const comments = yield call(axios.get, `https://jsonplaceholder.typicode.com/posts/${payload}/comments`);
+    yield put(
+      getCommentsSuccess(comments.data),
+    );
+  } catch (error) {
+    yield put(
+      getPostsFailure(error),
+    );
+  }
+}
+
 export function* onGetPostsStart() {
   yield takeLatest(postsActionsTypes.GET_POSTS_START, getPosts);
+}
+
+export function* onGetCommentsStart() {
+  yield takeLatest(postsActionsTypes.GET_COMMENTS_START, getComments);
 }
 
 export function* postsSaga() {
   yield all([
     call(onGetPostsStart),
+    call(onGetCommentsStart),
   ]);
 }

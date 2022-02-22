@@ -17,6 +17,7 @@ export interface IPost {
 
 export interface PostsInitialState {
   postsListToShow: IPost[],
+  comments?: IComments[],
   errorMessage?: unknown,
   isLoading: Boolean,
 }
