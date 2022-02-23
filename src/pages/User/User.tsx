@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Card, CardMedia, CardContent, Typography, Avatar, Box, CardActions, Button,
+  Card, CardMedia, CardContent, Typography, Avatar, Box, CardActions,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -9,14 +9,13 @@ import PostItem from '../../components/PostItem/PostItem';
 import { selectCurrentUser } from '../../redux/Users/UserSelector';
 
 import './User.scss';
+import ProfileEditModal from '../../ProfileEditModal/ProfileEditModal';
 
 const User = () => {
   const { userId } = useParams();
   const {
     email,
     name,
-    // website,
-    // phone,
     posts,
     imageUrl,
   } = useSelector(selectCurrentUser(Number(userId)));
@@ -42,7 +41,7 @@ const User = () => {
               sx={{ height: 100, width: 100 }}
             />
             <CardActions>
-              <Button variant="outlined" sx={{ borderRadius: 7 }}>Edit Profile</Button>
+              <ProfileEditModal />
             </CardActions>
           </Box>
           <CardContent>

@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSelector } from 'reselect';
 import { IRootReducer } from '../RootReducer';
 import { IUser } from './UsersInterfaces';

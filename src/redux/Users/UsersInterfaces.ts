@@ -29,7 +29,7 @@ export interface IUser extends IUserItem {
     catchPhrase: string,
     bs: string
   },
-  imageUrl: string,
+  imageUrl?: string,
   backgroundImageUrl?: string,
   posts?: IPost[],
   [x: string]: any,
@@ -37,6 +37,7 @@ export interface IUser extends IUserItem {
 
 export interface IUserInitialState {
   usersList: IUser[],
+  changedUser: IUser | {},
   errorMessage: unknown,
   isLoading: Boolean,
 }

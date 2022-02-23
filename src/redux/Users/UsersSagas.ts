@@ -4,9 +4,13 @@ import {
 import axios from 'axios';
 import { SagaIterator } from 'redux-saga';
 import { allUsersActionTypes } from './UsersTypes';
-import { getUsersFailure, getUsersSuccess } from './UsersActions';
+import {
+  getUsersFailure, getUsersSuccess, changeUserProfileFailure, changeUserProfileSuccess,
+} from './UsersActions';
 import { mergeUserAndPosts } from '../../utils/api/UserPosts';
 import { ActionsTypes } from '../Interfaces';
+import { IPost } from '../Posts/PostsInterfaces';
+import { IUser } from './UsersInterfaces';
 
 export function* getUsersList({ payload }: ActionsTypes): SagaIterator {
   try {
@@ -22,6 +26,28 @@ export function* getUsersList({ payload }: ActionsTypes): SagaIterator {
   }
 }
 
+export function* changeProfile({ payload }: ActionsTypes): SagaIterator {
+  try {
+    const changeUser = yield call(axios.patch, `https://jsonplaceholder.typicode.com/users/${payload?.id}`, payload);
+    const posts = yield call(axios.get, 'https://jsonplaceholder.typicode.com/posts');
+    const user: IUser = {
+      ...changeUser.data,
+      posts: [...posts.data.filter((post: IPost) => post.userId === changeUser.data.id)],
+    };
+    yield put(
+      changeUserProfileSuccess(user),
+    );
+  } catch (error) {
+    yield put(
+      changeUserProfileFailure(error),
+    );
+  }
+}
+
+export function* onChangeUserProfileStart() {
+  yield takeLatest(allUsersActionTypes.CHANGE_USER_PROFILE_START, changeProfile);
+}
+
 export function* onGetUsersStart() {
   yield takeLatest(allUsersActionTypes.GET_USERS_START, getUsersList);
 }
@@ -29,5 +55,6 @@ export function* onGetUsersStart() {
 export function* usersSaga() {
   yield all([
     call(onGetUsersStart),
+    call(onChangeUserProfileStart),
   ]);
 }

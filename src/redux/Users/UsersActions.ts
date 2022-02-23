@@ -22,3 +22,18 @@ export const mergePostsToUser = (users: IUser[]): ActionsTypes => ({
   type: allUsersActionTypes.MERGE_POSTS_TO_USER,
   payload: users,
 });
+
+export const changeUserProfileStart = (changedUser: IUser): ActionsTypes => ({
+  type: allUsersActionTypes.CHANGE_USER_PROFILE_START,
+  payload: changedUser,
+});
+
+export const changeUserProfileSuccess = (changedUser: IUser): ActionsTypes => ({
+  type: allUsersActionTypes.CHANGE_USER_PROFILE_SUCCESS,
+  payload: changedUser,
+});
+
+export const changeUserProfileFailure = (error: unknown): ActionsTypes => ({
+  type: allUsersActionTypes.CHANGE_USER_PROFILE_FAILURE,
+  payload: error,
+});

@@ -4,6 +4,7 @@ import { ActionsTypes } from '../Interfaces';
 
 const INITIAL_STATE: IUserInitialState = {
   usersList: [],
+  changedUser: {},
   errorMessage: '',
   isLoading: true,
 };
@@ -18,6 +19,7 @@ const usersReducer = (
         ...state,
         isLoading: true,
       };
+
     case allUsersActionTypes.GET_USERS_SUCCESS:
       return {
         ...state,
@@ -26,9 +28,18 @@ const usersReducer = (
       };
 
     case allUsersActionTypes.GET_USERS_FAILURE:
+    case allUsersActionTypes.CHANGE_USER_PROFILE_FAILURE:
       return {
         ...state,
         errorMessage: action.payload,
+      };
+
+    case allUsersActionTypes.CHANGE_USER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        changedUser: action.payload,
+        usersList: [...state.usersList
+          .filter((user) => user.id !== action.payload.id), action.payload],
       };
 
     case allUsersActionTypes.MERGE_POSTS_TO_USER:

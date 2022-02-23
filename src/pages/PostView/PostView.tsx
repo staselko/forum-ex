@@ -35,7 +35,7 @@ const PostView = () => {
     userId,
     postId,
     id: '',
-    email: '',
+    email: 'ывфвыф',
     body: '',
   });
 
@@ -103,7 +103,7 @@ const PostView = () => {
         <Box>
           <form method="post" onSubmit={handleSubmit}>
             <FormInput
-              type="text"
+              type="email"
               name="email"
               label="Write email"
               value={newPostData.email}

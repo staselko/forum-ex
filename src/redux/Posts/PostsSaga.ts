@@ -38,7 +38,7 @@ export function* getComments({ payload }: ActionsTypes): SagaIterator {
 
 export function* createComment({ payload }: ActionsTypes): SagaIterator {
   try {
-    const newPost = yield call(axios.post, 'https://jsonplaceholder.typicode.com/posts', payload);
+    const newPost = yield call(axios.post, 'https://jsonplaceholder.typicode.com/comments', payload);
     yield put(
       createCommentSuccess(newPost.data),
     );
