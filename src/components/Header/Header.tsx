@@ -5,6 +5,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/Logo.png';
 import HamburgerMenu from '../HamburgerMenu/HamburgerMenu';
+import HeaderSearch from '../HeaderSearch/HeaderSearch';
 
 import './Header.scss';
 
@@ -34,7 +35,9 @@ const HeaderComponent = () => (
 
             <Link to="/posts" className="forum__header-link-item">Posts</Link>
             <Link to="/users" className="forum__header-link-item">Users</Link>
+            <Link to="/registration" className="forum__header-link-item">Sign In</Link>
           </Box>
+          <HeaderSearch />
           <HamburgerMenu />
         </Toolbar>
       </Container>

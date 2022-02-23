@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { createSelector } from 'reselect';
 import { IRootReducer } from '../RootReducer';
 import { IUser } from './UsersInterfaces';
@@ -14,4 +13,10 @@ export const selectCurrentUser = (id: number) => createSelector(
 export const selectIsUsersLoading = createSelector(
   [loading],
   (isLoading) => isLoading,
+);
+
+export const selectUserFromSearch = (searcingValue: string) => createSelector(
+  [usersWithPosts],
+  (usersList): IUser[] => usersList.filter((user) => user.name.toLocaleLowerCase()
+    .includes(searcingValue.toLocaleLowerCase())),
 );
