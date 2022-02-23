@@ -41,6 +41,7 @@ const ProfileEditModal = () => {
     event.preventDefault();
 
     dispatch(changeUserProfileStart(userData));
+    handleClose();
   };
 
   const handleChange = (event: any) => {
