@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import React, { useEffect, useState } from 'react';
 import {
   Avatar, Box, Card, CardContent, Typography,
@@ -35,7 +34,7 @@ const PostView = () => {
     userId,
     postId,
     id: '',
-    email: 'ывфвыф',
+    email: '',
     body: '',
   });
 
@@ -57,9 +56,9 @@ const PostView = () => {
   };
 
   const handleChange = (event: any) => {
-    const { value, name } = event.target;
+    const { value, name: targetName } = event.target;
 
-    setNewPostData({ ...newPostData, [name]: value });
+    setNewPostData({ ...newPostData, [targetName]: value });
   };
 
   return (

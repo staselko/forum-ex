@@ -11,11 +11,11 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-/* eslint-disable no-shadow */
 var react_1 = require("react");
 var material_1 = require("@mui/material");
 var react_redux_1 = require("react-redux");
 var react_router_dom_1 = require("react-router-dom");
+var uuid_1 = require("uuid");
 var PostsSelector_1 = require("../../redux/Posts/PostsSelector");
 var Post_jpg_1 = require("../../assets/images/Post.jpg");
 var Comment_1 = require("../../components/Comment/Comment");
@@ -32,18 +32,24 @@ var PostView = function () {
         dispatch(PostsActions_1.getCommentsStart(postId));
     }, []);
     var _b = react_1.useState({
-        userId: 1,
-        id: 122,
-        title: '',
-        body: '32'
+        userId: userId,
+        postId: postId,
+        id: '',
+        email: '',
+        body: ''
     }), newPostData = _b[0], setNewPostData = _b[1];
     var location = react_router_dom_1.useHref("/users/" + userId);
     var _c = react_redux_1.useSelector(UserSelector_1.selectCurrentUser(Number(userId))), name = _c.name, email = _c.email, imageUrl = _c.imageUrl;
-    var handleSubmit = (e);
+    var handleSubmit = function (event) {
+        event.preventDefault();
+        setNewPostData(__assign(__assign({}, newPostData), { id: uuid_1.v4() }));
+        dispatch(PostsActions_1.createCommentStart(newPostData));
+        setNewPostData(__assign(__assign({}, newPostData), { email: '', body: '', id: '' }));
+    };
     var handleChange = function (event) {
         var _a;
-        var _b = event.target, value = _b.value, name = _b.name;
-        setNewPostData(__assign(__assign({}, newPostData), (_a = {}, _a[name] = value, _a)));
+        var _b = event.target, value = _b.value, targetName = _b.name;
+        setNewPostData(__assign(__assign({}, newPostData), (_a = {}, _a[targetName] = value, _a)));
     };
     return (react_1["default"].createElement("div", { className: "forum__post-page" },
         react_1["default"].createElement(material_1.Card, null,
@@ -59,7 +65,9 @@ var PostView = function () {
                 react_1["default"].createElement(material_1.Typography, { gutterBottom: true, variant: "subtitle1", component: "div", fontWeight: 500 }, body)),
             react_1["default"].createElement(material_1.Box, null,
                 react_1["default"].createElement("form", { method: "post", onSubmit: handleSubmit },
-                    react_1["default"].createElement(FormInput_1["default"], { type: "text", name: "title", label: "Write data", value: newPostData.title, handleChange: handleChange }))), comments === null || comments === void 0 ? void 0 :
+                    react_1["default"].createElement(FormInput_1["default"], { type: "email", name: "email", label: "Write email", value: newPostData.email, handleChange: handleChange }),
+                    react_1["default"].createElement(FormInput_1["default"], { type: "text", name: "body", label: "Write comment", value: newPostData.body, handleChange: handleChange }),
+                    react_1["default"].createElement("button", { type: "submit" }, "asd"))), comments === null || comments === void 0 ? void 0 :
             comments.map(function (item) { return react_1["default"].createElement(Comment_1["default"], __assign({ key: item.id }, item)); }))));
 };
 exports["default"] = PostView;
