@@ -10,10 +10,10 @@
     width: 30%;
   }
 
-  &-user-name {
+  &-profile-user-name {
     font-size: 2em;
     font-weight: bold;
-    margin: 0;
+    margin: 100px;
   }
 
   &-user-email {
@@ -48,11 +48,53 @@
   &-post-image {
     max-width: 500px;
     width: 500px;
+    border-radius: 10px;
   }
 
   &-page-profile {
     display: flex;
     align-content: center;
     text-decoration: none;
+    margin-left: 10px;
+  }
+
+  &-post-value {
+    padding: 0 20px;
+  }
+
+  &-comment-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 60px;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 10px;
+    
+    &-submit {
+      height: 45px;
+      width: 80px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      border-radius: 30px;
+      background-color: #1976d281;
+      border: none;
+      margin-left: 15px;
+    }
+
+    .group {
+      width: 70%;
+    }
+  }
+
+  &-created {
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    color: #808080;
+
+    div {
+      margin-right: 10px;
+    }
   }
 }

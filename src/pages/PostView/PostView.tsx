@@ -22,7 +22,6 @@ const PostView = () => {
   const {
     userId,
     body,
-    title,
   } = useSelector(selectCurrentPost(Number(postId)));
   const comments = useSelector((store: IRootReducer) => store.posts.comments);
 
@@ -63,59 +62,67 @@ const PostView = () => {
 
   return (
     <div className="forum__post-page">
-      <Card>
-        <Box sx={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #000' }} className="forum__post-page-profile">
+      <Card sx={{ boxShadow: '0px 0px 10px 5px #dbdbdb69', padding: '20px' }}>
+        <Box
+          sx={{
+            display: 'flex', alignItems: 'center', padding: '10px',
+          }}
+          className="forum__post-page-profile"
+        >
           <Avatar
             className="forum__post-page-profile-avatar"
             alt="users avatar"
             src={imageUrl}
-            sx={{ height: 50, width: 50 }}
+            sx={{ height: 45, width: 45 }}
           />
           <Link to={location} className="forum__post-page-page-profile">
-            <CardContent sx={{ '&:last-child': { paddingBottom: 0 }, padding: 0, color: '#000' }}>
+            <CardContent sx={{
+              '&:last-child': { paddingBottom: 0 }, padding: 0, color: '#000', lineHeight: 1,
+            }}
+            >
               <Typography
                 gutterBottom
-                className="forum__post-page-profile-user-name"
                 variant="subtitle1"
                 component="div"
-                fontWeight={700}
+                fontWeight={500}
                 sx={{ marginBottom: 0 }}
+                className="forum__post-page-profile-user-name"
               >
                 {name}
               </Typography>
-              <Typography gutterBottom variant="subtitle2" component="div" fontWeight={500} sx={{ paddingBottom: 0 }}>
+              <Typography gutterBottom variant="subtitle2" component="div" fontWeight={500} sx={{ paddingBottom: 0, lineHeight: 1 }}>
                 {email}
               </Typography>
             </CardContent>
           </Link>
         </Box>
-        <Box className="forum__post-page-post">
-          <Typography gutterBottom variant="subtitle1" component="div" fontWeight={700}>
-            {title}
+        <Box className="forum__post-page-post" sx={{ borderBottom: '1px solid #e6e6e6', paddingBottom: '20px' }}>
+          <Typography className="forum__post-page-post-value" gutterBottom variant="subtitle1" fontSize={20} component="div" fontWeight={700}>
+            {body.charAt(0).toUpperCase() + body.slice(1)}
           </Typography>
           <img src={Post} alt="post view" className="forum__post-page-post-image" />
-          <Typography gutterBottom variant="subtitle1" component="div" fontWeight={500}>
-            {body}
-          </Typography>
+          <div className="forum__post-page-created">
+            <div>1.36 PM</div>
+            <div>Feb 24, 2022</div>
+          </div>
         </Box>
-
         <Box>
-          <form method="post" onSubmit={handleSubmit}>
-            <FormInput
-              type="email"
-              name="email"
-              label="Write email"
-              value={newPostData.email}
-              handleChange={handleChange}
+          <form method="post" className="forum__post-page-comment-form" onSubmit={handleSubmit}>
+            <Avatar
+              className="forum__post-page-profile-avatar"
+              alt="users avatar"
+              src={imageUrl}
+              sx={{ height: 45, width: 45 }}
             />
             <FormInput
               type="text"
               name="body"
-              label="Write comment"
+              placeholder="Comment it"
               value={newPostData.body}
               handleChange={handleChange}
+              className="form-input-comments"
             />
-            <button type="submit">asd</button>
+            <button type="submit" className="forum__post-page-comment-form-submit">Reply</button>
           </form>
         </Box>
         {

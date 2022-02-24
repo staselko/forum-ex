@@ -59,6 +59,23 @@ $main-color: black;
       @include shrinkLabel();
     }
   }
+
+  .form-input-comments {
+    background: none;
+    background-color: white;
+    color: $sub-color;
+    font-size: 18px;
+    display: block;
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    margin: 25px 0;
+    padding-left: 10px;
+    &:focus {
+      outline: none;
+    }
+
+  }
   
   .form-input-label {
     color: $sub-color;
