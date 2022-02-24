@@ -37,3 +37,11 @@ export const changeUserProfileFailure = (error: unknown): ActionsTypes => ({
   type: allUsersActionTypes.CHANGE_USER_PROFILE_FAILURE,
   payload: error,
 });
+
+export const toggleSearchingField = () :ActionsTypes => ({
+  type: allUsersActionTypes.TOGGLE_SEARCHING_FIELD,
+});
+
+export const closeSearchingField = () :ActionsTypes => ({
+  type: allUsersActionTypes.CLOSE_SEARCHING_FIELD,
+});

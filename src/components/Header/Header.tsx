@@ -10,7 +10,7 @@ import HeaderSearch from '../HeaderSearch/HeaderSearch';
 import './Header.scss';
 
 const HeaderComponent = () => (
-  <div>
+  <div className="">
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>

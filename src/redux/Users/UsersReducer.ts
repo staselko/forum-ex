@@ -7,6 +7,7 @@ const INITIAL_STATE: IUserInitialState = {
   changedUser: {},
   errorMessage: '',
   isLoading: true,
+  isSearching: false,
 };
 
 const usersReducer = (
@@ -46,6 +47,18 @@ const usersReducer = (
       return {
         ...state,
         usersList: [...state.usersList, action.payload],
+      };
+
+    case allUsersActionTypes.TOGGLE_SEARCHING_FIELD:
+      return {
+        ...state,
+        isSearching: !state.isSearching,
+      };
+
+    case allUsersActionTypes.CLOSE_SEARCHING_FIELD:
+      return {
+        ...state,
+        isSearching: false,
       };
 
     default:

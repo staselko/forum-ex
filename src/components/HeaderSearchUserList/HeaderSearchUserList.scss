@@ -1,3 +1,16 @@
-.forum__header-user-search {
-  
+.forum__header-user-search { 
+
+  &-item {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    text-decoration: none;
+    color: #000;
+  }
+
+  &-item-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
 }
