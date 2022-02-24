@@ -40,5 +40,5 @@ export interface IUserInitialState {
   changedUser: IUser | {},
   errorMessage: unknown,
   isLoading: Boolean,
-  isSearching: Boolean,
+  isSearching: boolean,
 }

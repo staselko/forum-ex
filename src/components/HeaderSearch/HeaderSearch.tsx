@@ -1,4 +1,7 @@
-import { Box } from '@mui/material';
+import {
+  Box, Button, Collapse,
+} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -15,6 +18,7 @@ const HeaderSearch = () => {
   const isSearching = useSelector((store: IRootReducer) => store.users.isSearching);
   const dispatch = useDispatch();
   const location = useLocation();
+
   const handleChange = (event: any) => {
     const { value } = event.target;
     setSearchingValue(value);
@@ -29,10 +33,6 @@ const HeaderSearch = () => {
     dispatch(toggleSearchingField());
   };
 
-  const handleBlur = () => {
-    dispatch(closeSearchingField());
-  };
-
   const select = useSelector(selectUserFromSearch(searchingValue));
 
   return (
@@ -45,16 +45,35 @@ const HeaderSearch = () => {
         noValidate
         autoComplete="off"
       >
-        <FormInput
-          onClick={handleClick}
-          onBlur={handleBlur}
-          title="search"
-          name="searchingValue"
-          label="Search"
-          value={searchingValue}
-          handleChange={handleChange}
-          className="form-input-header"
-        />
+        <Box sx={{ height: 40, display: 'flex', flexDirection: 'row-reverse' }}>
+          <Button onClick={handleClick} sx={{ color: '#fff' }}><SearchIcon /></Button>
+          <Box
+            sx={{
+              '& > :not(style)': {
+                display: 'flex',
+                justifyContent: 'space-around',
+                height: 40,
+                width: 300,
+              },
+            }}
+          >
+            <div>
+              <Collapse
+                in={isSearching}
+                orientation="horizontal"
+              >
+                <FormInput
+                  title="search"
+                  name="searchingValue"
+                  label="Search"
+                  value={searchingValue}
+                  handleChange={handleChange}
+                  className="form-input-header"
+                />
+              </Collapse>
+            </div>
+          </Box>
+        </Box>
       </Box>
       {
         isSearching
