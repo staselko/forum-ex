@@ -29,6 +29,10 @@ const HeaderSearch = () => {
     dispatch(toggleSearchingField());
   };
 
+  const handleBlur = () => {
+    dispatch(closeSearchingField());
+  };
+
   const select = useSelector(selectUserFromSearch(searchingValue));
 
   return (
@@ -43,6 +47,7 @@ const HeaderSearch = () => {
       >
         <FormInput
           onClick={handleClick}
+          onBlur={handleBlur}
           title="search"
           name="searchingValue"
           label="Search"
