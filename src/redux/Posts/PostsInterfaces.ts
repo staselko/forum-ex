@@ -4,12 +4,12 @@ export interface IComments {
   name?: String,
   email?: String,
   body: String,
-  userId?: number,
+  userId?: number | string,
 }
 
 export interface IPost {
-  userId: number,
-  id: number,
+  userId?: string | number,
+  id: number | string,
   title: String,
   body: String,
   comments?: IComments[]

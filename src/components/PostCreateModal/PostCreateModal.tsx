@@ -6,10 +6,10 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentUser } from '../redux/Users/UserSelector';
-import FormInput from '../components/FormInput/FormInput';
-import { changeUserProfileStart } from '../redux/Users/UsersActions';
+import { v4 as uid } from 'uuid';
+import { useDispatch } from 'react-redux';
+import FormInput from '../../components/FormInput/FormInput';
+import { createPostStart } from '../../redux/Posts/PostsActions';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -23,36 +23,40 @@ const style = {
   p: 4,
 };
 
-const ProfileEditModal = () => {
+const PostCreateModal = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
   const { userId } = useParams();
-  const {
-    name, phone, username, email, id,
-  } = useSelector(selectCurrentUser(Number(userId)));
-
-  const [userData, setUserData] = useState({
-    name, phone, username, email, id,
+  const [postData, setPostData] = useState({
+    userId,
+    id: uid(),
+    title: '',
+    body: '',
   });
-
   const handleSubmit = (event: any) => {
     event.preventDefault();
 
-    dispatch(changeUserProfileStart(userData));
+    dispatch(createPostStart(postData));
     handleClose();
+
+    setPostData({
+      userId,
+      id: uid(),
+      title: '',
+      body: '',
+    });
   };
 
   const handleChange = (event: any) => {
     const { value, name: attrName } = event.target;
-
-    setUserData({ ...userData, [attrName]: value });
+    setPostData({ ...postData, [attrName]: value });
   };
 
   return (
     <div>
-      <Button onClick={handleOpen} sx={{ borderRadius: 7, border: 1 }}>Edit Profile</Button>
+      <Button onClick={handleOpen} sx={{ borderRadius: 7, border: 1 }}>Create Post</Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -67,39 +71,25 @@ const ProfileEditModal = () => {
         <Fade in={open}>
           <Box sx={style}>
             <Typography id="transition-modal-title" variant="h6" component="h2">
-              Edit Profile
+              Create Post
             </Typography>
             <form method="PUT" onSubmit={handleSubmit}>
               <FormInput
                 type="text"
-                name="email"
+                name="title"
                 label="Change email"
-                value={userData.email}
+                value={postData.title}
                 handleChange={handleChange}
               />
               <FormInput
                 type="text"
-                name="name"
+                name="body"
                 label="Change name"
-                value={userData.name}
-                handleChange={handleChange}
-              />
-              <FormInput
-                type="text"
-                name="username"
-                label="Change Nickname"
-                value={userData.username}
-                handleChange={handleChange}
-              />
-              <FormInput
-                type="text"
-                name="phone"
-                label="Write email"
-                value={userData.phone}
+                value={postData.body}
                 handleChange={handleChange}
               />
               <Button type="submit">
-                Confirm Changes
+                Post It
               </Button>
             </form>
           </Box>
@@ -109,4 +99,4 @@ const ProfileEditModal = () => {
   );
 };
 
-export default ProfileEditModal;
+export default PostCreateModal;

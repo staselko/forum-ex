@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import FormInput from '../../FormInput/FormInput';
+import FormInput from '../FormInput/FormInput';
 import { IRootReducer } from '../../redux/RootReducer';
 import { selectUserFromSearch } from '../../redux/Users/UserSelector';
 import HeaderSearchUserList from '../HeaderSearchUserList/HeaderSearchUserList';
@@ -61,6 +61,7 @@ const HeaderSearch = () => {
               <Collapse
                 in={isSearching}
                 orientation="horizontal"
+                sx={{ transitionDuration: 400 }}
               >
                 <FormInput
                   title="search"

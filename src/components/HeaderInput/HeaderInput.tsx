@@ -2,7 +2,7 @@ import {
   Box, FormControlLabel, Collapse, Switch,
 } from '@mui/material';
 import React from 'react';
-import FormInput from '../../FormInput/FormInput';
+import FormInput from '../FormInput/FormInput';
 
 const HeaderInput = () => {
   const [checked, setChecked] = React.useState(false);

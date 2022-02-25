@@ -6,7 +6,8 @@ import { SagaIterator } from 'redux-saga';
 import postsActionsTypes from './PostsTypes';
 
 import {
-  createCommentFailure, createCommentSuccess, getCommentsSuccess, getPostsFailure, getPostsSuccess,
+  createCommentFailure, createCommentSuccess, createPostSuccess,
+  getCommentsSuccess, getPostsFailure, getPostsSuccess,
 } from './PostsActions';
 import { ActionsTypes } from '../Interfaces';
 
@@ -38,13 +39,26 @@ export function* getComments({ payload }: ActionsTypes): SagaIterator {
 
 export function* createComment({ payload }: ActionsTypes): SagaIterator {
   try {
-    const newPost = yield call(axios.post, 'https://jsonplaceholder.typicode.com/comments', payload);
+    const newComment = yield call(axios.post, 'https://jsonplaceholder.typicode.com/comments', payload);
     yield put(
-      createCommentSuccess(newPost.data),
+      createCommentSuccess(newComment.data),
     );
   } catch (error) {
     yield put(
       createCommentFailure(error),
+    );
+  }
+}
+
+export function* createPost({ payload }: ActionsTypes): SagaIterator {
+  try {
+    const newPosts = yield call(axios.post, 'https://jsonplaceholder.typicode.com/posts', payload);
+    yield put(
+      createPostSuccess(newPosts.data),
+    );
+  } catch (error) {
+    yield put(
+      getPostsFailure(error),
     );
   }
 }
@@ -61,10 +75,15 @@ export function* onCreateCommentStart() {
   yield takeLatest(postsActionsTypes.CREATE_COMMENT_START, createComment);
 }
 
+export function* onCreatePostStart() {
+  yield takeLatest(postsActionsTypes.CREATE_POST_START, createPost);
+}
+
 export function* postsSaga() {
   yield all([
     call(onGetPostsStart),
     call(onGetCommentsStart),
     call(onCreateCommentStart),
+    call(onCreatePostStart),
   ]);
 }

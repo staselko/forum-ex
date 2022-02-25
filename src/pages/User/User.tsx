@@ -10,6 +10,7 @@ import { selectCurrentUser } from '../../redux/Users/UserSelector';
 
 import './User.scss';
 import ProfileEditModal from '../../ProfileEditModal/ProfileEditModal';
+import PostCreateModal from '../../components/PostCreateModal/PostCreateModal';
 
 const User = () => {
   const { userId } = useParams();
@@ -52,6 +53,9 @@ const User = () => {
               {email}
             </Typography>
           </CardContent>
+          <CardActions>
+            <PostCreateModal />
+          </CardActions>
         </Box>
         <Box className="forum__user-page-posts">
           {

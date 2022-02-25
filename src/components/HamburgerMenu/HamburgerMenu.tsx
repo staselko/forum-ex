@@ -23,7 +23,7 @@ const HamburgerMenu = () => {
         </IconButton>
       </Tooltip>
       <Menu
-        sx={{ mt: '45px' }}
+        sx={{ mt: '45px', textAlign: 'left' }}
         id="menu-appbar"
         anchorEl={anchorElUser}
         anchorOrigin={{
@@ -39,8 +39,8 @@ const HamburgerMenu = () => {
         onClose={handleCloseUserMenu}
       >
         <MenuItem onClick={handleCloseUserMenu} className="forum__hamburger-menu">
-          <Link to="/posts" className="forum__hamburger-menu-link-item">Posts</Link>
-          <Link to="/users" className="forum__hamburger-menu-link-item">Users</Link>
+          <Link to="/registration" className="forum__hamburger-menu-link-item">Registration</Link>
+          <Link to="/im" className="forum__hamburger-menu-link-item">Current User</Link>
         </MenuItem>
 
       </Menu>

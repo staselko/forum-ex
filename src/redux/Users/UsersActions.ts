@@ -18,11 +18,6 @@ export const getUsersFailure = (error: unknown): ActionsTypes => ({
   payload: error,
 });
 
-export const mergePostsToUser = (users: IUser[]): ActionsTypes => ({
-  type: allUsersActionTypes.MERGE_POSTS_TO_USER,
-  payload: users,
-});
-
 export const changeUserProfileStart = (changedUser: IUser): ActionsTypes => ({
   type: allUsersActionTypes.CHANGE_USER_PROFILE_START,
   payload: changedUser,

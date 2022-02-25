@@ -14,7 +14,7 @@ import './PostView.scss';
 import { selectCurrentUser } from '../../redux/Users/UserSelector';
 import { createCommentStart, getCommentsStart } from '../../redux/Posts/PostsActions';
 import { IRootReducer } from '../../redux/RootReducer';
-import FormInput from '../../FormInput/FormInput';
+import FormInput from '../../components/FormInput/FormInput';
 
 const PostView = () => {
   const { postId } = useParams();

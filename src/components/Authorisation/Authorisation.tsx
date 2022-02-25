@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import FormInput from '../../FormInput/FormInput';
+import FormInput from '../FormInput/FormInput';
 
 import './Authorisation.scss';
 

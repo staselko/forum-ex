@@ -13,7 +13,7 @@ import PostItemUser from './PostItemUser';
 const PostItem = (post: IPost) => {
   const { title, id, userId } = post;
   const currentUser = useSelector((state:IRootReducer) => state.users.usersList
-    .find((item) => item.id === userId));
+    .find((item) => item.id === Number(userId)));
   const path = useParams();
   return (
     <div className="forum__home-data-field-item">

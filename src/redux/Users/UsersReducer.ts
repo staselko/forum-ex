@@ -43,12 +43,6 @@ const usersReducer = (
           .filter((user) => user.id !== action.payload.id), action.payload],
       };
 
-    case allUsersActionTypes.MERGE_POSTS_TO_USER:
-      return {
-        ...state,
-        usersList: [...state.usersList, action.payload],
-      };
-
     case allUsersActionTypes.TOGGLE_SEARCHING_FIELD:
       return {
         ...state,

@@ -32,7 +32,6 @@ const HeaderComponent = () => (
             <Link to="/"><img src={logo} className="forum__header-logo" alt="logo" /></Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-
             <Link to="/posts" className="forum__header-link-item">Posts</Link>
             <Link to="/users" className="forum__header-link-item">Users</Link>
             <Link to="/registration" className="forum__header-link-item">Sign In</Link>

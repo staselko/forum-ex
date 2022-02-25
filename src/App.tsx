@@ -7,7 +7,7 @@ import { getPostsStart } from './redux/Posts/PostsActions';
 
 import HeaderComponent from './components/Header/Header';
 import HomePageContainer from './pages/Home/HomeContainer';
-import PostsOverview from './pages/PostsOverview/PostsOverview';
+import PostsOverviewContainer from './pages/PostsOverview/PostOverviewContainer';
 import UsersContainer from './pages/UsersList/UsersContainer';
 import UserPageContainer from './pages/User/UserContainer';
 import './App.scss';
@@ -33,7 +33,7 @@ const App: React.FunctionComponent = () => {
       <HeaderComponent />
       <Routes>
         <Route path="/" element={<HomePageContainer />} />
-        <Route path="/posts" element={<PostsOverview />} />
+        <Route path="/posts" element={<PostsOverviewContainer />} />
         <Route path="/users" element={<UsersContainer />} />
         <Route path="/users/:userId" element={<UserPageContainer />} />
         <Route path="/posts/:postId" element={<PostViewContainer />} />

@@ -15,6 +15,7 @@ const postsReducer = (
 ): PostsInitialState => {
   switch (action.type) {
     case postsActionsTypes.GET_POSTS_START:
+    case postsActionsTypes.CREATE_POST_START:
       return {
         ...state,
         isLoading: true,
@@ -27,10 +28,18 @@ const postsReducer = (
         isLoading: false,
       };
 
+    case postsActionsTypes.CREATE_POST_SUCCESS:
+      return {
+        ...state,
+        postsListToShow: [action.payload, ...state.postsListToShow],
+        isLoading: false,
+      };
+
     case postsActionsTypes.CREATE_COMMENT_SUCCESS:
       return {
         ...state,
         comments: [...state.comments, action.payload],
+        isLoading: false,
       };
 
     case postsActionsTypes.GET_COMMENTS_SUCCESS:
