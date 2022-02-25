@@ -39,7 +39,7 @@ const HamburgerMenu = () => {
         onClose={handleCloseUserMenu}
       >
         <MenuItem onClick={handleCloseUserMenu} className="forum__hamburger-menu">
-          <Link to="/registration" className="forum__hamburger-menu-link-item">Registration</Link>
+          <Link to="/signin" className="forum__hamburger-menu-link-item">Registration</Link>
           <Link to="/im" className="forum__hamburger-menu-link-item">Current User</Link>
         </MenuItem>
 

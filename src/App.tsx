@@ -12,7 +12,9 @@ import UsersContainer from './pages/UsersList/UsersContainer';
 import UserPageContainer from './pages/User/UserContainer';
 import './App.scss';
 import PostViewContainer from './pages/PostView/PostViewContainer';
-import Authorisation from './components/Authorisation/Authorisation';
+import Authorisation from './pages/Authorisation/Authorisation';
+import Registration from './pages/Registration/Registration';
+import CurrentUserContainer from './components/CurrentUser/CurrentUserContainer';
 
 const App: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -37,7 +39,9 @@ const App: React.FunctionComponent = () => {
         <Route path="/users" element={<UsersContainer />} />
         <Route path="/users/:userId" element={<UserPageContainer />} />
         <Route path="/posts/:postId" element={<PostViewContainer />} />
-        <Route path="/registration" element={<Authorisation />} />
+        <Route path="/signin" element={<Authorisation />} />
+        <Route path="/reg" element={<Registration />} />
+        <Route path="im" element={<CurrentUserContainer />} />
       </Routes>
       <Outlet />
     </div>

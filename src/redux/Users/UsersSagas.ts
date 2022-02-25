@@ -5,7 +5,8 @@ import axios from 'axios';
 import { SagaIterator } from 'redux-saga';
 import { allUsersActionTypes } from './UsersTypes';
 import {
-  getUsersFailure, getUsersSuccess, changeUserProfileFailure, changeUserProfileSuccess,
+  getUsersFailure, getUsersSuccess,
+  changeUserProfileFailure, changeUserProfileSuccess, createUserFailure, createUserSuccess,
 } from './UsersActions';
 import { mergeUserAndPosts } from '../../utils/api/UserPosts';
 import { ActionsTypes } from '../Interfaces';
@@ -44,6 +45,20 @@ export function* changeProfile({ payload }: ActionsTypes): SagaIterator {
   }
 }
 
+export function* createUser({ payload }: ActionsTypes): SagaIterator {
+  try {
+    const newUser = yield call(axios.post, 'https://jsonplaceholder.typicode.com/users', payload);
+    console.log(newUser.data);
+    yield put(
+      createUserSuccess(newUser.data),
+    );
+  } catch (error) {
+    yield put(
+      createUserFailure(error),
+    );
+  }
+}
+
 export function* onChangeUserProfileStart() {
   yield takeLatest(allUsersActionTypes.CHANGE_USER_PROFILE_START, changeProfile);
 }
@@ -52,9 +67,14 @@ export function* onGetUsersStart() {
   yield takeLatest(allUsersActionTypes.GET_USERS_START, getUsersList);
 }
 
+export function* onCrateUserStart() {
+  yield takeLatest(allUsersActionTypes.CREATE_USER_START, createUser);
+}
+
 export function* usersSaga() {
   yield all([
     call(onGetUsersStart),
     call(onChangeUserProfileStart),
+    call(onCrateUserStart),
   ]);
 }

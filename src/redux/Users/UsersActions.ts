@@ -37,6 +37,21 @@ export const toggleSearchingField = () :ActionsTypes => ({
   type: allUsersActionTypes.TOGGLE_SEARCHING_FIELD,
 });
 
-export const closeSearchingField = () :ActionsTypes => ({
+export const closeSearchingField = () : ActionsTypes => ({
   type: allUsersActionTypes.CLOSE_SEARCHING_FIELD,
+});
+
+export const createUserStart = (newUser: IUser): ActionsTypes => ({
+  type: allUsersActionTypes.CREATE_USER_START,
+  payload: newUser,
+});
+
+export const createUserSuccess = (newUser: IUser): ActionsTypes => ({
+  type: allUsersActionTypes.CREATE_USER_SUCCESS,
+  payload: newUser,
+});
+
+export const createUserFailure = (error: unknown): ActionsTypes => ({
+  type: allUsersActionTypes.CREATE_USER_FAILURE,
+  payload: error,
 });

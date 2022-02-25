@@ -8,6 +8,7 @@ const INITIAL_STATE: IUserInitialState = {
   errorMessage: '',
   isLoading: true,
   isSearching: false,
+  currentUser: {},
 };
 
 const usersReducer = (
@@ -16,6 +17,7 @@ const usersReducer = (
 ): IUserInitialState => {
   switch (action.type) {
     case allUsersActionTypes.GET_USERS_START:
+    case allUsersActionTypes.CREATE_USER_START:
       return {
         ...state,
         isLoading: true,
@@ -30,6 +32,7 @@ const usersReducer = (
 
     case allUsersActionTypes.GET_USERS_FAILURE:
     case allUsersActionTypes.CHANGE_USER_PROFILE_FAILURE:
+    case allUsersActionTypes.CREATE_USER_FAILURE:
       return {
         ...state,
         errorMessage: action.payload,
@@ -55,6 +58,13 @@ const usersReducer = (
         isSearching: false,
       };
 
+    case allUsersActionTypes.CREATE_USER_SUCCESS:
+      return {
+        ...state,
+        currentUser: action.payload,
+        usersList: [...state.usersList, action.payload],
+        isLoading: false,
+      };
     default:
       return state;
   }

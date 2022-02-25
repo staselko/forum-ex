@@ -4,14 +4,16 @@ export interface IUserItem {
   name: string,
   email: string,
   phone?: string,
-  id?: number,
+  id?: number | string,
 }
 
 export interface IUser extends IUserItem {
-  id?: number,
+  id?: number | string,
   name: string,
-  username: string,
+  username?: string,
   email: string,
+  surname?: string,
+  password?: string,
   address?: {
     street: string,
     suite: string,
@@ -41,4 +43,5 @@ export interface IUserInitialState {
   errorMessage: unknown,
   isLoading: Boolean,
   isSearching: boolean,
+  currentUser: IUser | {},
 }

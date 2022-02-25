@@ -7,9 +7,9 @@ import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentUser } from '../redux/Users/UserSelector';
-import FormInput from '../components/FormInput/FormInput';
-import { changeUserProfileStart } from '../redux/Users/UsersActions';
+import { selectCurrentUser } from '../../redux/Users/UserSelector';
+import FormInput from '../FormInput/FormInput';
+import { changeUserProfileStart } from '../../redux/Users/UsersActions';
 
 const style = {
   position: 'absolute' as 'absolute',

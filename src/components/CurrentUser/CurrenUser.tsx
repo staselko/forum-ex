@@ -1,29 +1,23 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+/* eslint-disable max-len */
 import {
-  Card, CardMedia, CardContent, Typography, Avatar, Box, CardActions,
+  Card, Box, CardMedia, Avatar, CardActions, CardContent, Typography,
 } from '@mui/material';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import UserBG from '../../assets/images/UsersBG.png';
-import PostItem from '../../components/PostItem/PostItem';
-import { selectCurrentUser } from '../../redux/Users/UserSelector';
+import { IRootReducer } from '../../redux/RootReducer';
+import PostCreateModal from '../PostCreateModal/PostCreateModal';
+// import PostItem from '../PostItem/PostItem';
+import ProfileEditModal from '../ProfileEditModal/ProfileEditModal';
+import UserBG from '../../assets/images/Background.jpg';
 
-import './User.scss';
-import ProfileEditModal from '../../components/ProfileEditModal/ProfileEditModal';
-import PostCreateModal from '../../components/PostCreateModal/PostCreateModal';
-
-const User = () => {
-  const { userId } = useParams();
-  const {
-    email,
-    name,
-    posts,
-    imageUrl,
-  } = useSelector(selectCurrentUser(Number(userId)));
-
+const CurrentUser = () => {
+  const currentUser = useSelector((store: IRootReducer): any => store.users.currentUser);
+  console.log(currentUser);
   return (
-    <div className="forum__user-page">
-      <Card sx={{ maxWidth: 655 }}>
+    <div>
+      sda
+      {/* <Card sx={{ maxWidth: 655 }}>
         <Box className="forum__user-page-profile">
           <CardMedia
             component="img"
@@ -58,13 +52,13 @@ const User = () => {
           </CardActions>
         </Box>
         <Box className="forum__user-page-posts">
-          {
+          {/* {
             posts?.map((post) => <PostItem key={post.id} {...post} />)
           }
         </Box>
-      </Card>
+      </Card> */}
     </div>
   );
 };
 
-export default (User);
+export default CurrentUser;
