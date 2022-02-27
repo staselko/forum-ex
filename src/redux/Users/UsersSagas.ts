@@ -48,7 +48,6 @@ export function* changeProfile({ payload }: ActionsTypes): SagaIterator {
 export function* createUser({ payload }: ActionsTypes): SagaIterator {
   try {
     const newUser = yield call(axios.post, 'https://jsonplaceholder.typicode.com/users', payload);
-    console.log(newUser.data);
     yield put(
       createUserSuccess(newUser.data),
     );

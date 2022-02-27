@@ -14,30 +14,31 @@ import { createUserStart } from '../../redux/Users/UsersActions';
 const theme = createTheme();
 
 const Registration = () => {
-  const [userCredantials, setUserCredantials] = useState<IUser>({
+  const [userCredentials, setUserCredentials] = useState<IUser>({
     email: '',
     password: '',
     name: '',
     username: '',
     surname: '',
+    phone: '',
+    posts: [],
     id: uid(),
   });
   const location = useNavigate();
-  console.log(location);
   const dispatch = useDispatch();
 
   const handleChange = (event: any) => {
     const { value, name } = event.target;
 
-    setUserCredantials({ ...userCredantials, [name]: value });
+    setUserCredentials({ ...userCredentials, [name]: value });
   };
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
 
-    dispatch(createUserStart(userCredantials));
+    dispatch(createUserStart(userCredentials));
     location('/im', { replace: true });
-    setUserCredantials({
+    setUserCredentials({
       email: '',
       password: '',
       name: '',
@@ -74,7 +75,7 @@ const Registration = () => {
                   fullWidth
                   id="firstName"
                   label="First Name"
-                  value={userCredantials.name}
+                  value={userCredentials.name}
                   onChange={handleChange}
                   autoFocus
                 />
@@ -86,7 +87,7 @@ const Registration = () => {
                   id="lastName"
                   label="Last Name"
                   name="surname"
-                  value={userCredantials.surname}
+                  value={userCredentials.surname}
                   onChange={handleChange}
                   autoComplete="family-name"
                 />
@@ -99,7 +100,19 @@ const Registration = () => {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  value={userCredantials.email}
+                  value={userCredentials.email}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="number"
+                  label="Phone number"
+                  name="phone"
+                  autoComplete="phone"
+                  value={userCredentials.phone}
                   onChange={handleChange}
                 />
               </Grid>
@@ -111,7 +124,7 @@ const Registration = () => {
                   label="Username"
                   type="text"
                   id="userName"
-                  value={userCredantials.username}
+                  value={userCredentials.username}
                   autoComplete="username"
                   onChange={handleChange}
                 />
@@ -124,7 +137,7 @@ const Registration = () => {
                   label="Password"
                   type="password"
                   id="password"
-                  value={userCredantials.password}
+                  value={userCredentials.password}
                   autoComplete="new-password"
                   onChange={handleChange}
                 />

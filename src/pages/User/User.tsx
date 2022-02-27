@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Card, CardMedia, CardContent, Typography, Avatar, Box, CardActions,
+  Card, CardMedia, CardContent, Typography, Avatar, Box,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -9,8 +9,6 @@ import PostItem from '../../components/PostItem/PostItem';
 import { selectCurrentUser } from '../../redux/Users/UserSelector';
 
 import './User.scss';
-import ProfileEditModal from '../../components/ProfileEditModal/ProfileEditModal';
-import PostCreateModal from '../../components/PostCreateModal/PostCreateModal';
 
 const User = () => {
   const { userId } = useParams();
@@ -41,9 +39,6 @@ const User = () => {
               src={imageUrl}
               sx={{ height: 100, width: 100 }}
             />
-            <CardActions>
-              <ProfileEditModal />
-            </CardActions>
           </Box>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div" fontWeight={700}>
@@ -53,9 +48,6 @@ const User = () => {
               {email}
             </Typography>
           </CardContent>
-          <CardActions>
-            <PostCreateModal />
-          </CardActions>
         </Box>
         <Box className="forum__user-page-posts">
           {

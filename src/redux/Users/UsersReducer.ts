@@ -6,7 +6,8 @@ const INITIAL_STATE: IUserInitialState = {
   usersList: [],
   changedUser: {},
   errorMessage: '',
-  isLoading: true,
+  isLoading: false,
+  isCreating: false,
   isSearching: false,
   currentUser: {},
 };
@@ -17,10 +18,14 @@ const usersReducer = (
 ): IUserInitialState => {
   switch (action.type) {
     case allUsersActionTypes.GET_USERS_START:
-    case allUsersActionTypes.CREATE_USER_START:
       return {
         ...state,
         isLoading: true,
+      };
+    case allUsersActionTypes.CREATE_USER_START:
+      return {
+        ...state,
+        isCreating: true,
       };
 
     case allUsersActionTypes.GET_USERS_SUCCESS:
@@ -41,9 +46,9 @@ const usersReducer = (
     case allUsersActionTypes.CHANGE_USER_PROFILE_SUCCESS:
       return {
         ...state,
-        changedUser: action.payload,
         usersList: [...state.usersList
           .filter((user) => user.id !== action.payload.id), action.payload],
+        currentUser: action.payload,
       };
 
     case allUsersActionTypes.TOGGLE_SEARCHING_FIELD:
@@ -63,7 +68,7 @@ const usersReducer = (
         ...state,
         currentUser: action.payload,
         usersList: [...state.usersList, action.payload],
-        isLoading: false,
+        isCreating: false,
       };
     default:
       return state;

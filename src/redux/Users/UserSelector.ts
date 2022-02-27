@@ -4,6 +4,7 @@ import { IUser } from './UsersInterfaces';
 
 const usersWithPosts = ((store:IRootReducer) => store.users.usersList);
 const loading = ((store:IRootReducer) => store.users.isLoading);
+const creating = ((store:IRootReducer) => store.users.isCreating);
 
 export const selectCurrentUser = (id: number) => createSelector(
   [usersWithPosts],
@@ -15,8 +16,13 @@ export const selectIsUsersLoading = createSelector(
   (isLoading) => isLoading,
 );
 
+export const selectIsUsersCreating = createSelector(
+  [creating],
+  (isCreating) => isCreating,
+);
+
 export const selectUserFromSearch = (searcingValue: string) => createSelector(
   [usersWithPosts],
-  (usersList): IUser[] => usersList.filter((user: IUser) => user.name.toLocaleLowerCase()
+  (usersList): IUser[] => usersList.filter((user) => user.name?.toLocaleLowerCase()
     .includes(searcingValue.toLocaleLowerCase())),
 );

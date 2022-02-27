@@ -1,17 +1,17 @@
 import { IPost } from '../Posts/PostsInterfaces';
 
 export interface IUserItem {
-  name: string,
-  email: string,
+  name?: string,
+  email?: string,
   phone?: string,
   id?: number | string,
 }
 
 export interface IUser extends IUserItem {
   id?: number | string,
-  name: string,
+  name?: string,
   username?: string,
-  email: string,
+  email?: string,
   surname?: string,
   password?: string,
   address?: {
@@ -33,7 +33,7 @@ export interface IUser extends IUserItem {
   },
   imageUrl?: string,
   backgroundImageUrl?: string,
-  posts?: IPost[],
+  posts?: IPost[] | [],
   [x: string]: any,
 }
 
@@ -41,6 +41,7 @@ export interface IUserInitialState {
   usersList: IUser[],
   changedUser: IUser | {},
   errorMessage: unknown,
+  isCreating: Boolean,
   isLoading: Boolean,
   isSearching: boolean,
   currentUser: IUser | {},

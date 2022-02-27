@@ -8,11 +8,11 @@ import { Link } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 // import FormInput from '../../components/FormInput/FormInput';
 
-import './Authorisation.scss';
+import './Authorization.scss';
 
 const theme = createTheme();
 
-const Authorisation = () => {
+const Authorization = () => {
   const [userCredantials, setUserCredantials] = useState({
     email: '',
     password: '',
@@ -111,4 +111,4 @@ const Authorisation = () => {
   );
 };
 
-export default Authorisation;
+export default Authorization;
