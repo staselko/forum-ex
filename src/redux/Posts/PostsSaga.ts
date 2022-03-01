@@ -14,6 +14,8 @@ import { ActionsTypes } from '../Interfaces';
 export function* getPosts(): SagaIterator {
   try {
     const postsList = yield call(axios.get, 'https://jsonplaceholder.typicode.com/posts');
+    const postFromServer = yield call(axios.get, 'http://localhost:5000/posts');
+    console.log(postFromServer.data);
     yield put(
       getPostsSuccess(postsList.data),
     );
@@ -52,7 +54,7 @@ export function* createComment({ payload }: ActionsTypes): SagaIterator {
 
 export function* createPost({ payload }: ActionsTypes): SagaIterator {
   try {
-    const newPosts = yield call(axios.post, 'https://jsonplaceholder.typicode.com/posts', payload);
+    const newPosts = yield call(axios.post, 'http://localhost:5000/posts', payload);
     yield put(
       createPostSuccess(newPosts.data),
     );
