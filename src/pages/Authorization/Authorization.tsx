@@ -1,18 +1,17 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import {
   Grid, CssBaseline, Paper, Box, Avatar, Typography, TextField, FormControlLabel, Checkbox, Button,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-// import FormInput from '../../components/FormInput/FormInput';
 
 import './Authorization.scss';
 
 const theme = createTheme();
 
 const Authorization = () => {
+  const location = useNavigate();
   const [userCredantials, setUserCredantials] = useState({
     email: '',
     password: '',
@@ -26,6 +25,7 @@ const Authorization = () => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
+    location('/im', { replace: true });
   };
   return (
     <ThemeProvider theme={theme}>
