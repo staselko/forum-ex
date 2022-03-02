@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -23,12 +22,11 @@ const style = {
   p: 4,
 };
 
-const PostCreateModal = () => {
+const PostCreateModal = ({ userId }: any) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
-  const { userId } = useParams();
   const [postData, setPostData] = useState({
     userId,
     id: uid(),
@@ -77,14 +75,14 @@ const PostCreateModal = () => {
               <FormInput
                 type="text"
                 name="title"
-                label="Change email"
+                label="Title"
                 value={postData.title}
                 handleChange={handleChange}
               />
               <FormInput
                 type="text"
                 name="body"
-                label="Change name"
+                label="Text"
                 value={postData.body}
                 handleChange={handleChange}
               />

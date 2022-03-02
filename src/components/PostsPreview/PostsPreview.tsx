@@ -21,7 +21,6 @@ const PostsPreview: FC = () => {
       <div className="forum_home-data-field">
         {
         postsListToShow
-          .filter((item) => item.id <= pageNum)
           .map((item) => <PostItem key={item.id} {...item} />)
       }
       </div>

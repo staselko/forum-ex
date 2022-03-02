@@ -10,11 +10,14 @@ import PostItem from '../../components/PostItem/PostItem';
 import ProfileEditModal from '../../components/ProfileEditModal/ProfileEditModal';
 import UserBG from '../../assets/images/Background.jpg';
 import { IUser } from '../../redux/Users/UsersInterfaces';
+import { selectUsersPosts } from '../../redux/Posts/PostsSelector';
 
 const CurrentUser = () => {
   const {
-    name, email, id, imageUrl, posts,
+    firstName, secondName, email, id, imageUrl,
   } = useSelector((store: IRootReducer): IUser => store.users.currentUser);
+  const posts = useSelector(selectUsersPosts(id));
+
   const location = useNavigate();
   return (
     id
@@ -44,14 +47,14 @@ const CurrentUser = () => {
               </Box>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div" fontWeight={700}>
-                  {name}
+                  {`${firstName} ${secondName}`}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {email}
                 </Typography>
               </CardContent>
               <CardActions>
-                <PostCreateModal />
+                <PostCreateModal userId={id} />
               </CardActions>
             </Box>
             <Box className="forum__user-page-posts">

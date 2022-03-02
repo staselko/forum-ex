@@ -7,17 +7,19 @@ import { useParams } from 'react-router-dom';
 import UserBG from '../../assets/images/UsersBG.png';
 import PostItem from '../../components/PostItem/PostItem';
 import { selectCurrentUser } from '../../redux/Users/UserSelector';
-
+import { selectUsersPosts } from '../../redux/Posts/PostsSelector';
 import './User.scss';
 
 const User = () => {
   const { userId } = useParams();
   const {
     email,
-    name,
-    posts,
+    firstName,
+    secondName,
     imageUrl,
-  } = useSelector(selectCurrentUser(Number(userId)));
+  } = useSelector(selectCurrentUser(userId));
+
+  const posts = useSelector(selectUsersPosts(userId));
 
   return (
     <div className="forum__user-page">
@@ -42,7 +44,7 @@ const User = () => {
           </Box>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div" fontWeight={700}>
-              {name}
+              {`${firstName} ${secondName}`}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {email}

@@ -9,10 +9,10 @@ export interface IUserItem {
 
 export interface IUser extends IUserItem {
   id?: number | string,
-  name?: string,
+  firstName?: string,
   username?: string,
+  secondName?: string,
   email?: string,
-  surname?: string,
   password?: string,
   address?: {
     street: string,

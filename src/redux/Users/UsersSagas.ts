@@ -8,17 +8,15 @@ import {
   getUsersFailure, getUsersSuccess,
   changeUserProfileFailure, changeUserProfileSuccess, createUserFailure, createUserSuccess,
 } from './UsersActions';
-import { mergeUserAndPosts } from '../../utils/api/UserPosts';
 import { ActionsTypes } from '../Interfaces';
 import { IPost } from '../Posts/PostsInterfaces';
 import { IUser } from './UsersInterfaces';
 
-export function* getUsersList({ payload }: ActionsTypes): SagaIterator {
+export function* getUsersList(): SagaIterator {
   try {
-    const usersRef = yield call(axios.get, 'https://jsonplaceholder.typicode.com/users');
-    const newUser = mergeUserAndPosts(usersRef.data, payload);
+    const usersRef = yield call(axios.get, 'http://localhost:5000/users');
     yield put(
-      getUsersSuccess(newUser),
+      getUsersSuccess(usersRef.data),
     );
   } catch (error) {
     if (error instanceof Error) {
@@ -29,8 +27,8 @@ export function* getUsersList({ payload }: ActionsTypes): SagaIterator {
 
 export function* changeProfile({ payload }: ActionsTypes): SagaIterator {
   try {
-    const changeUser = yield call(axios.patch, `https://jsonplaceholder.typicode.com/users/${payload?.id}`, payload);
-    const posts = yield call(axios.get, 'https://jsonplaceholder.typicode.com/posts');
+    const changeUser = yield call(axios.patch, `http://localhost:5000/users/${payload?.id}`, payload);
+    const posts = yield call(axios.get, 'http://localhost:5000/posts');
     const user: IUser = {
       ...changeUser.data,
       posts: [...posts.data.filter((post: IPost) => post.userId === changeUser.data.id)],
@@ -47,7 +45,7 @@ export function* changeProfile({ payload }: ActionsTypes): SagaIterator {
 
 export function* createUser({ payload }: ActionsTypes): SagaIterator {
   try {
-    const newUser = yield call(axios.post, 'https://jsonplaceholder.typicode.com/users', payload);
+    const newUser = yield call(axios.post, 'http://localhost:5000/users', payload);
     yield put(
       createUserSuccess(newUser.data),
     );

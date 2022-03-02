@@ -2,11 +2,11 @@ import { createSelector } from 'reselect';
 import { IRootReducer } from '../RootReducer';
 import { IUser } from './UsersInterfaces';
 
-const usersWithPosts = ((store:IRootReducer) => store.users.usersList);
-const loading = ((store:IRootReducer) => store.users.isLoading);
-const creating = ((store:IRootReducer) => store.users.isCreating);
+const usersWithPosts = ((store: IRootReducer) => store.users.usersList);
+const loading = ((store: IRootReducer) => store.users.isLoading);
+const creating = ((store: IRootReducer) => store.users.isCreating);
 
-export const selectCurrentUser = (id: number) => createSelector(
+export const selectCurrentUser = (id: any) => createSelector(
   [usersWithPosts],
   (userWithPosts): IUser => userWithPosts.filter((user) => user.id === id)[0],
 );

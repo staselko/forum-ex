@@ -16,7 +16,12 @@ export const selectIsPostsLoading = createSelector(
   (isLoading) => isLoading,
 );
 
-export const selectCurrentPost = (postId: number) => createSelector(
+export const selectCurrentPost = (postId: string | undefined) => createSelector(
   [selectPostsList],
   (postsListToShow): IPost => postsListToShow.filter((item) => item.id === postId)[0],
+);
+
+export const selectUsersPosts = (userId: string | undefined | number) => createSelector(
+  [selectPostsList],
+  (postsListToShow): IPost[] => postsListToShow.filter((item) => item.userId === userId),
 );

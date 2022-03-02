@@ -17,9 +17,9 @@ const Registration = () => {
   const [userCredentials, setUserCredentials] = useState<IUser>({
     email: '',
     password: '',
-    name: '',
+    firstName: '',
+    secondName: '',
     username: '',
-    surname: '',
     phone: '',
     posts: [],
     id: uid(),
@@ -41,8 +41,8 @@ const Registration = () => {
     setUserCredentials({
       email: '',
       password: '',
-      name: '',
-      username: '',
+      firstName: '',
+      secondName: '',
       surname: '',
     });
   };
@@ -70,12 +70,12 @@ const Registration = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="name"
+                  name="firstName"
                   required
                   fullWidth
                   id="firstName"
                   label="First Name"
-                  value={userCredentials.name}
+                  value={userCredentials.firstName}
                   onChange={handleChange}
                   autoFocus
                 />
@@ -86,8 +86,8 @@ const Registration = () => {
                   fullWidth
                   id="lastName"
                   label="Last Name"
-                  name="surname"
-                  value={userCredentials.surname}
+                  name="secondName"
+                  value={userCredentials.secondName}
                   onChange={handleChange}
                   autoComplete="family-name"
                 />

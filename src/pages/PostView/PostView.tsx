@@ -22,7 +22,7 @@ const PostView = () => {
   const {
     userId,
     body,
-  } = useSelector(selectCurrentPost(Number(postId)));
+  } = useSelector(selectCurrentPost(postId));
   const comments = useSelector((store: IRootReducer) => store.posts.comments);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const PostView = () => {
   });
 
   const location = useHref(`/users/${userId}`);
-  const { name, email, imageUrl } = useSelector(selectCurrentUser(Number(userId)));
+  const { name, email, imageUrl } = useSelector(selectCurrentUser(userId));
 
   const handleSubmit = (event: any) => {
     event.preventDefault();

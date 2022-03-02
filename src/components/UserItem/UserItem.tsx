@@ -8,7 +8,8 @@ import './UserItem.scss';
 
 const UserItem = (item: IUser) => {
   const {
-    name,
+    firstName,
+    secondName,
     id,
     imageUrl,
     company,
@@ -30,7 +31,7 @@ const UserItem = (item: IUser) => {
             />
             <Box className="forum__users-field-item-info">
               <Typography className="forum__users-field-item-info-name">
-                {name}
+                {`${firstName} ${secondName}`}
               </Typography>
               <Typography>
                 {company?.catchPhrase}

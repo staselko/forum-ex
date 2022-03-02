@@ -28,11 +28,11 @@ const ProfileEditModal = ({ userId }: any) => {
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
   const {
-    name, phone, username, email, id,
-  } = useSelector(selectCurrentUser(Number(userId)));
+    firstName, secondName, phone, username, email, id,
+  } = useSelector(selectCurrentUser(userId));
 
   const [userData, setUserData] = useState({
-    name, phone, username, email, id,
+    firstName, secondName, phone, username, email, id,
   });
 
   const handleSubmit = (event: any) => {
@@ -77,16 +77,16 @@ const ProfileEditModal = ({ userId }: any) => {
               />
               <FormInput
                 type="text"
-                name="name"
+                name="firstName"
                 label="Change name"
-                value={userData.name}
+                value={userData.firstName}
                 handleChange={handleChange}
               />
               <FormInput
                 type="text"
-                name="username"
+                name="secondName"
                 label="Change Nickname"
-                value={userData.username}
+                value={userData.secondName}
                 handleChange={handleChange}
               />
               <FormInput

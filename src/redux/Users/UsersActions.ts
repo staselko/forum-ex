@@ -1,11 +1,9 @@
 import { ActionsTypes } from '../Interfaces';
 import allUsersActionTypes from './UsersTypes';
 import { IUser } from './UsersInterfaces';
-import { IPost } from '../Posts/PostsInterfaces';
 
-export const getUsersStart = (posts: IPost[]): ActionsTypes => ({
+export const getUsersStart = (): ActionsTypes => ({
   type: allUsersActionTypes.GET_USERS_START,
-  payload: posts,
 });
 
 export const getUsersSuccess = (users: IUser[]): ActionsTypes => ({
