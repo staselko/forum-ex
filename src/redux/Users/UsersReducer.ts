@@ -22,6 +22,8 @@ const usersReducer = (
         ...state,
         isLoading: true,
       };
+
+    case allUsersActionTypes.LOGIN_USER_START:
     case allUsersActionTypes.CREATE_USER_START:
       return {
         ...state,
@@ -33,6 +35,13 @@ const usersReducer = (
         ...state,
         usersList: action.payload,
         isLoading: false,
+      };
+
+    case allUsersActionTypes.LOGIN_USER_SUCCESS:
+      return {
+        ...state,
+        currentUser: action.payload,
+        isCreating: false,
       };
 
     case allUsersActionTypes.GET_USERS_FAILURE:

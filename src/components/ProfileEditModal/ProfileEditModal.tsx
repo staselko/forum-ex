@@ -6,9 +6,10 @@ import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentUser } from '../../redux/Users/UserSelector';
 import FormInput from '../FormInput/FormInput';
 import { changeUserProfileStart } from '../../redux/Users/UsersActions';
+import { IUser } from '../../redux/Users/UsersInterfaces';
+import { IRootReducer } from '../../redux/RootReducer';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -22,16 +23,20 @@ const style = {
   p: 4,
 };
 
-const ProfileEditModal = ({ userId }: any) => {
+const ProfileEditModal = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
   const {
-    firstName, secondName, phone, username, email, id,
-  } = useSelector(selectCurrentUser(userId));
-
-  const [userData, setUserData] = useState({
+    firstName,
+    secondName,
+    phone,
+    username,
+    email,
+    id,
+  }: IUser = useSelector((state: IRootReducer) => state.users.currentUser);
+  const [userData, setUserData] = useState<IUser>({
     firstName, secondName, phone, username, email, id,
   });
 
@@ -84,9 +89,9 @@ const ProfileEditModal = ({ userId }: any) => {
               />
               <FormInput
                 type="text"
-                name="secondName"
+                name="username"
                 label="Change Nickname"
-                value={userData.secondName}
+                value={userData.username}
                 handleChange={handleChange}
               />
               <FormInput

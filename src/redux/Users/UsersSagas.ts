@@ -6,7 +6,8 @@ import { SagaIterator } from 'redux-saga';
 import { allUsersActionTypes } from './UsersTypes';
 import {
   getUsersFailure, getUsersSuccess,
-  changeUserProfileFailure, changeUserProfileSuccess, createUserFailure, createUserSuccess,
+  changeUserProfileFailure, changeUserProfileSuccess,
+  createUserFailure, createUserSuccess, loginUserFailure, loginUserSuccess,
 } from './UsersActions';
 import { ActionsTypes } from '../Interfaces';
 import { IPost } from '../Posts/PostsInterfaces';
@@ -45,13 +46,30 @@ export function* changeProfile({ payload }: ActionsTypes): SagaIterator {
 
 export function* createUser({ payload }: ActionsTypes): SagaIterator {
   try {
-    const newUser = yield call(axios.post, 'http://localhost:5000/users', payload);
+    const newUser = yield call(axios.post, 'http://localhost:5000/registration', payload);
+    const currentUser = yield call(axios.post, 'http://localhost:5000/login', { email: payload.email, password: payload.password });
     yield put(
-      createUserSuccess(newUser.data),
+      createUserSuccess(newUser.data.user),
+    );
+    yield put(
+      loginUserSuccess(currentUser.data.user),
     );
   } catch (error) {
     yield put(
       createUserFailure(error),
+    );
+  }
+}
+
+export function* loginUser({ payload }: ActionsTypes): SagaIterator {
+  try {
+    const verifideUser = yield call(axios.post, 'http://localhost:5000/login', payload);
+    yield put(
+      loginUserSuccess(verifideUser.data.user),
+    );
+  } catch (error) {
+    yield put(
+      loginUserFailure(error),
     );
   }
 }
@@ -68,10 +86,15 @@ export function* onCrateUserStart() {
   yield takeLatest(allUsersActionTypes.CREATE_USER_START, createUser);
 }
 
+export function* onLoginUserStart() {
+  yield takeLatest(allUsersActionTypes.LOGIN_USER_START, loginUser);
+}
+
 export function* usersSaga() {
   yield all([
     call(onGetUsersStart),
     call(onChangeUserProfileStart),
     call(onCrateUserStart),
+    call(onLoginUserStart),
   ]);
 }

@@ -2,6 +2,11 @@ import { ActionsTypes } from '../Interfaces';
 import allUsersActionTypes from './UsersTypes';
 import { IUser } from './UsersInterfaces';
 
+type userCredential = {
+  email: string,
+  password: string,
+}
+
 export const getUsersStart = (): ActionsTypes => ({
   type: allUsersActionTypes.GET_USERS_START,
 });
@@ -51,5 +56,20 @@ export const createUserSuccess = (newUser: IUser): ActionsTypes => ({
 
 export const createUserFailure = (error: unknown): ActionsTypes => ({
   type: allUsersActionTypes.CREATE_USER_FAILURE,
+  payload: error,
+});
+
+export const loginUserStart = (credentials: userCredential): ActionsTypes => ({
+  type: allUsersActionTypes.LOGIN_USER_START,
+  payload: credentials,
+});
+
+export const loginUserSuccess = (user: IUser): ActionsTypes => ({
+  type: allUsersActionTypes.LOGIN_USER_SUCCESS,
+  payload: user,
+});
+
+export const loginUserFailure = (error: unknown): ActionsTypes => ({
+  type: allUsersActionTypes.LOGIN_USER_FAILURE,
   payload: error,
 });

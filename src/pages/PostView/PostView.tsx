@@ -38,7 +38,9 @@ const PostView = () => {
   });
 
   const location = useHref(`/users/${userId}`);
-  const { name, email, imageUrl } = useSelector(selectCurrentUser(userId));
+  const {
+    firstName, secondName, email, imageUrl,
+  } = useSelector(selectCurrentUser(userId));
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -88,7 +90,7 @@ const PostView = () => {
                 sx={{ marginBottom: 0 }}
                 className="forum__post-page-profile-user-name"
               >
-                {name}
+                {`${firstName} ${secondName}`}
               </Typography>
               <Typography gutterBottom variant="subtitle2" component="div" fontWeight={500} sx={{ paddingBottom: 0, lineHeight: 1 }}>
                 {email}

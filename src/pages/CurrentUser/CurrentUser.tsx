@@ -42,7 +42,7 @@ const CurrentUser = () => {
                   sx={{ height: 100, width: 100 }}
                 />
                 <CardActions>
-                  <ProfileEditModal userId={id} />
+                  <ProfileEditModal />
                 </CardActions>
               </Box>
               <CardContent>

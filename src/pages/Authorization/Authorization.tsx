@@ -1,18 +1,21 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import {
   Grid, CssBaseline, Paper, Box, Avatar, Typography, TextField, FormControlLabel, Checkbox, Button,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-// import FormInput from '../../components/FormInput/FormInput';
 
 import './Authorization.scss';
+import { useDispatch } from 'react-redux';
+import { loginUserStart } from '../../redux/Users/UsersActions';
 
 const theme = createTheme();
 
 const Authorization = () => {
+  const dispatch = useDispatch();
+  const location = useNavigate();
+
   const [userCredantials, setUserCredantials] = useState({
     email: '',
     password: '',
@@ -26,7 +29,15 @@ const Authorization = () => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
+
+    dispatch(loginUserStart(userCredantials));
+    location('/im', { replace: true });
+    setUserCredantials({
+      email: '',
+      password: '',
+    });
   };
+
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>

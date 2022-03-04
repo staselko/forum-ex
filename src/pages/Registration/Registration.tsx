@@ -1,13 +1,13 @@
 import {
   createTheme, Container, CssBaseline, Box, Avatar,
-  Typography, Grid, TextField, FormControlLabel, Checkbox, Button,
+  Typography, Grid, FormControlLabel, Checkbox, Button,
 } from '@mui/material';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import { v4 as uid } from 'uuid';
 import { IUser } from '../../redux/Users/UsersInterfaces';
 import { createUserStart } from '../../redux/Users/UsersActions';
 
@@ -22,7 +22,6 @@ const Registration = () => {
     username: '',
     phone: '',
     posts: [],
-    id: uid(),
   });
   const location = useNavigate();
   const dispatch = useDispatch();
@@ -65,105 +64,117 @@ const Registration = () => {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  value={userCredentials.firstName}
-                  onChange={handleChange}
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="secondName"
-                  value={userCredentials.secondName}
-                  onChange={handleChange}
-                  autoComplete="family-name"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  value={userCredentials.email}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="number"
-                  label="Phone number"
-                  name="phone"
-                  autoComplete="phone"
-                  value={userCredentials.phone}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="username"
-                  label="Username"
-                  type="text"
-                  id="userName"
-                  value={userCredentials.username}
-                  autoComplete="username"
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  value={userCredentials.password}
-                  autoComplete="new-password"
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+          <Box sx={{ mt: 3 }}>
+            <ValidatorForm
+              onSubmit={handleSubmit}
             >
-              Sign Up
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link to="/signin">
-                  Already have an account? Sign in
-                </Link>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextValidator
+                    autoComplete="given-name"
+                    name="firstName"
+                    required
+                    fullWidth
+                    id="firstName"
+                    label="First Name"
+                    value={userCredentials.firstName}
+                    onChange={handleChange}
+                    autoFocus
+                    validators={['required']}
+                    errorMessages={['this field is required']}
+
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextValidator
+                    required
+                    fullWidth
+                    id="lastName"
+                    label="Last Name"
+                    name="secondName"
+                    value={userCredentials.secondName}
+                    onChange={handleChange}
+                    autoComplete="family-name"
+                    validators={['required']}
+                    errorMessages={['this field is required']}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextValidator
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    value={userCredentials.email}
+                    onChange={handleChange}
+                    validators={['required', 'isEmail']}
+                    errorMessages="Input valid email"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextValidator
+                    required
+                    fullWidth
+                    id="number"
+                    label="Phone number"
+                    name="phone"
+                    autoComplete="phone"
+                    value={userCredentials.phone}
+                    validators={['required']}
+                    onChange={handleChange}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextValidator
+                    fullWidth
+                    name="username"
+                    label="Username"
+                    type="text"
+                    id="userName"
+                    value={userCredentials.username}
+                    autoComplete="username"
+                    onChange={handleChange}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextValidator
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="standard-required-passwordConfirm"
+                    value={userCredentials.password}
+                    autoComplete="new-password"
+                    validators={['required']}
+                    onChange={handleChange}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormControlLabel
+                    control={<Checkbox value="allowExtraEmails" color="primary" />}
+                    label="I want to receive inspiration, marketing promotions and updates via email."
+                  />
+                </Grid>
               </Grid>
-            </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign Up
+              </Button>
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <Link to="/signin">
+                    Already have an account? Sign in
+                  </Link>
+                </Grid>
+              </Grid>
+            </ValidatorForm>
           </Box>
         </Box>
       </Container>
