@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Routes, Route, Outlet } from 'react-router-dom';
-import { getUsersStart } from './redux/Users/UsersActions';
+import { checkUserAuth, getUsersStart } from './redux/Users/UsersActions';
 import { getPostsStart } from './redux/Posts/PostsActions';
 import HeaderComponent from './components/Header/Header';
-import HomePageContainer from './pages/Home/HomeContainer';
+// import HomePageContainer from './pages/Home/HomeContainer';
 import PostsOverviewContainer from './pages/PostsOverview/PostOverviewContainer';
 import UsersContainer from './pages/UsersList/UsersContainer';
 import UserPageContainer from './pages/User/UserContainer';
@@ -18,22 +18,26 @@ const App: React.FunctionComponent = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUsersStart());
+    if (localStorage.getItem('token')) {
+      dispatch(checkUserAuth());
+    }
+
     dispatch(getPostsStart());
+    dispatch(getUsersStart());
   }, []);
 
   return (
     <div className="forum">
       <HeaderComponent />
       <Routes>
-        <Route path="/" element={<HomePageContainer />} />
+        {/* <Route path="/" element={<HomePageContainer />} /> */}
         <Route path="/posts" element={<PostsOverviewContainer />} />
         <Route path="/users" element={<UsersContainer />} />
         <Route path="/users/:userId" element={<UserPageContainer />} />
         <Route path="/posts/:postId" element={<PostViewContainer />} />
         <Route path="/signin" element={<Authorization />} />
         <Route path="/reg" element={<RegistrationContainer />} />
-        <Route path="/im" element={<CurrentUserContainer />} />
+        <Route path="/" element={<CurrentUserContainer />} />
       </Routes>
       <Outlet />
     </div>

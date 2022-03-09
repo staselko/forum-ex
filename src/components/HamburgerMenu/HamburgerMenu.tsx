@@ -4,12 +4,19 @@ import {
   Box, Tooltip, IconButton, Avatar, Menu, MenuItem,
 } from '@mui/material';
 import './HamburgerMenu.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { IRootReducer } from '../../redux/RootReducer';
+import { logoutUserStart } from '../../redux/Users/UsersActions';
 
 const HamburgerMenu = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-
+  const user = useSelector((state: IRootReducer) => state.users.currentUser);
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    dispatch(logoutUserStart());
   };
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -38,9 +45,22 @@ const HamburgerMenu = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem onClick={handleCloseUserMenu} className="forum__hamburger-menu">
-          <Link to="/signin" className="forum__hamburger-menu-link-item">Registration</Link>
-          <Link to="/im" className="forum__hamburger-menu-link-item">Current User</Link>
+        <MenuItem
+          onClick={handleCloseUserMenu}
+          sx={{
+            padding: 0,
+            ':hover': {
+              backgroundColor: '#fff',
+            },
+          }}
+          className="forum__hamburger-menu"
+        >
+          <Link to="/" className="forum__hamburger-menu-link-item">I am</Link>
+          {
+            user.email
+              ? <div onClick={handleClick} className="forum__hamburger-menu-link-item">Log Out</div>
+              : <Link to="/signin" className="forum__hamburger-menu-link-item">Registration</Link>
+          }
         </MenuItem>
 
       </Menu>

@@ -8,6 +8,7 @@ type TProps = {
 
 const Spinner = (WrappedComponent: any) => ({ isLoading, ...otherProps }: TProps) => (isLoading ? (
   <SpinnerOverlay>
+    {console.log(isLoading)}
     <SpinnerContainer />
   </SpinnerOverlay>
 ) : (

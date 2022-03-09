@@ -6,9 +6,10 @@ const INITIAL_STATE: IUserInitialState = {
   usersList: [],
   changedUser: {},
   errorMessage: '',
-  isLoading: false,
+  isLoading: true,
   isCreating: false,
   isSearching: false,
+  isGettingCurrentUser: false,
   currentUser: {},
 };
 
@@ -21,6 +22,12 @@ const usersReducer = (
       return {
         ...state,
         isLoading: true,
+      };
+
+    case allUsersActionTypes.CHECK_USER_AUTH:
+      return {
+        ...state,
+        isGettingCurrentUser: false,
       };
 
     case allUsersActionTypes.LOGIN_USER_START:
@@ -78,6 +85,12 @@ const usersReducer = (
         currentUser: action.payload,
         usersList: [...state.usersList, action.payload],
         isCreating: false,
+      };
+
+    case allUsersActionTypes.LOGOUT_USER_SUCCESS:
+      return {
+        ...state,
+        currentUser: {},
       };
     default:
       return state;

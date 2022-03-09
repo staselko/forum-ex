@@ -73,3 +73,20 @@ export const loginUserFailure = (error: unknown): ActionsTypes => ({
   type: allUsersActionTypes.LOGIN_USER_FAILURE,
   payload: error,
 });
+
+export const checkUserAuth = (): ActionsTypes => ({
+  type: allUsersActionTypes.CHECK_USER_AUTH,
+});
+
+export const logoutUserStart = (): ActionsTypes => ({
+  type: allUsersActionTypes.LOGOUT_USER_START,
+});
+
+export const logoutUserSuccess = (): ActionsTypes => ({
+  type: allUsersActionTypes.LOGOUT_USER_SUCCESS,
+});
+
+export const logoutUserFailure = (error: unknown): ActionsTypes => ({
+  type: allUsersActionTypes.LOGOUT_USER_FAILURE,
+  payload: error,
+});

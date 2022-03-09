@@ -8,10 +8,12 @@ import {
   getUsersFailure, getUsersSuccess,
   changeUserProfileFailure, changeUserProfileSuccess,
   createUserFailure, createUserSuccess, loginUserFailure, loginUserSuccess,
+  logoutUserSuccess,
 } from './UsersActions';
 import { ActionsTypes } from '../Interfaces';
 import { IPost } from '../Posts/PostsInterfaces';
 import { IUser } from './UsersInterfaces';
+import $api from '../../http';
 
 export function* getUsersList(): SagaIterator {
   try {
@@ -48,6 +50,7 @@ export function* createUser({ payload }: ActionsTypes): SagaIterator {
   try {
     const newUser = yield call(axios.post, 'http://localhost:5000/registration', payload);
     const currentUser = yield call(axios.post, 'http://localhost:5000/login', { email: payload.email, password: payload.password });
+    localStorage.setItem('token', currentUser.data.accessToken);
     yield put(
       createUserSuccess(newUser.data.user),
     );
@@ -63,9 +66,36 @@ export function* createUser({ payload }: ActionsTypes): SagaIterator {
 
 export function* loginUser({ payload }: ActionsTypes): SagaIterator {
   try {
-    const verifideUser = yield call(axios.post, 'http://localhost:5000/login', payload);
+    const verifideUser = yield call($api.post, '/login', payload);
+    localStorage.setItem('token', verifideUser.data.accessToken);
     yield put(
       loginUserSuccess(verifideUser.data.user),
+    );
+  } catch (error) {
+    yield put(
+      loginUserFailure(error),
+    );
+  }
+}
+
+export function* checkUser(): SagaIterator {
+  try {
+    const response = yield call($api.get, '/refresh');
+    localStorage.setItem('token', response.data.accessToken);
+    yield put(
+      loginUserSuccess(response.data.user),
+    );
+  } catch (error) {
+    loginUserFailure(error);
+  }
+}
+
+export function* logoutUser(): SagaIterator {
+  try {
+    yield call($api.post, '/logout');
+    localStorage.clear();
+    yield put(
+      logoutUserSuccess(),
     );
   } catch (error) {
     yield put(
@@ -90,11 +120,21 @@ export function* onLoginUserStart() {
   yield takeLatest(allUsersActionTypes.LOGIN_USER_START, loginUser);
 }
 
+export function* onCheckUserAuth() {
+  yield takeLatest(allUsersActionTypes.CHECK_USER_AUTH, checkUser);
+}
+
+export function* onLogoutUser() {
+  yield takeLatest(allUsersActionTypes.LOGOUT_USER_START, logoutUser);
+}
+
 export function* usersSaga() {
   yield all([
     call(onGetUsersStart),
     call(onChangeUserProfileStart),
     call(onCrateUserStart),
     call(onLoginUserStart),
+    call(onCheckUserAuth),
+    call(onLogoutUser),
   ]);
 }

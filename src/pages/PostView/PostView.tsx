@@ -24,7 +24,6 @@ const PostView = () => {
     body,
   } = useSelector(selectCurrentPost(postId));
   const comments = useSelector((store: IRootReducer) => store.posts.comments);
-
   useEffect(() => {
     dispatch(getCommentsStart(postId));
   }, []);

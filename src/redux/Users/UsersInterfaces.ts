@@ -9,6 +9,7 @@ export interface IUserItem {
 
 export interface IUser extends IUserItem {
   id?: number | string,
+  _id?: string,
   firstName?: string,
   username?: string,
   secondName?: string,
@@ -43,6 +44,7 @@ export interface IUserInitialState {
   errorMessage: unknown,
   isCreating: Boolean,
   isLoading: Boolean,
+  isGettingCurrentUser: Boolean,
   isSearching: boolean,
-  currentUser: IUser | {},
+  currentUser: IUser,
 }

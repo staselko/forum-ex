@@ -31,7 +31,7 @@ const Authorization = () => {
     event.preventDefault();
 
     dispatch(loginUserStart(userCredantials));
-    location('/im', { replace: true });
+    location('/', { replace: true });
     setUserCredantials({
       email: '',
       password: '',
@@ -96,7 +96,7 @@ const Authorization = () => {
                 onChange={handleChange}
               />
               <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
+                control={<Checkbox value="remember" color="primary" checked />}
                 label="Remember me"
               />
               <Button

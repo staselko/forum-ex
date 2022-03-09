@@ -12,7 +12,7 @@ const UsersOverview: FC = () => {
   return (
     <div className="forum__users-field">
       <div className="forum__users-field-greet">Users you should enjoy</div>
-      {users.map((item: IUser) => <UserItem key={item.id} {...item} />)}
+      {users.map((item: IUser) => <UserItem key={item._id} {...item} />)}
     </div>
   );
 };

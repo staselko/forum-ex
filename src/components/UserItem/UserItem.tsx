@@ -10,13 +10,13 @@ const UserItem = (item: IUser) => {
   const {
     firstName,
     secondName,
-    id,
+    _id,
     imageUrl,
     company,
   } = item;
 
   return (
-    <Link to={`${id}`} className="forum__users-field-item">
+    <Link to={`${_id}`} className="forum__users-field-item">
       <div className="forum__users-field-item">
         <Card sx={{
           maxWidth: 700, width: '100%', display: 'flex', flexDirection: 'row', borderRadius: '20px',
