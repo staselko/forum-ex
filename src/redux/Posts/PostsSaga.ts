@@ -1,12 +1,12 @@
 import {
   takeLatest, call, all, put,
 } from 'redux-saga/effects';
-import axios from 'axios';
 import { SagaIterator } from 'redux-saga';
 import postsActionsTypes from './PostsTypes';
 
 import {
   changeCommentFailure,
+  changeCommentSuccess,
   createCommentFailure, createCommentSuccess, createPostSuccess,
   getCommentsSuccess, getPostsFailure, getPostsSuccess,
 } from './PostsActions';
@@ -15,7 +15,7 @@ import $api from '../../http';
 
 export function* getPosts(): SagaIterator {
   try {
-    const postFromServer = yield call(axios.get, 'http://localhost:5000/posts');
+    const postFromServer = yield call($api.get, '/posts');
     yield put(
       getPostsSuccess(postFromServer.data),
     );
@@ -67,9 +67,12 @@ export function* createPost({ payload }: ActionsTypes): SagaIterator {
 
 export function* changeComment({ payload }: ActionsTypes): SagaIterator {
   try {
-    console.log(payload);
     const changedComment = yield call($api.patch, '/comments', payload);
-    console.log(changedComment.data);
+    console.log(changedComment);
+
+    yield put(
+      changeCommentSuccess(changedComment.data),
+    );
   } catch (error) {
     yield put(
       changeCommentFailure(error),

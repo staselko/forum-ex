@@ -66,10 +66,10 @@ export function* createUser({ payload }: ActionsTypes): SagaIterator {
 
 export function* loginUser({ payload }: ActionsTypes): SagaIterator {
   try {
-    const verifideUser = yield call($api.post, '/login', payload);
-    localStorage.setItem('token', verifideUser.data.accessToken);
+    const verifiedUser = yield call($api.post, '/login', payload);
+    localStorage.setItem('token', verifiedUser.data.accessToken);
     yield put(
-      loginUserSuccess(verifideUser.data.user),
+      loginUserSuccess(verifiedUser.data.user),
     );
   } catch (error) {
     yield put(

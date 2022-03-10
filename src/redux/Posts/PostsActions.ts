@@ -70,7 +70,7 @@ export const changeCommentStart = (comment: any): ActionsTypes => ({
   payload: comment,
 });
 
-export const changeCommentSuccess = (comment: IComments): ActionsTypes => ({
+export const changeCommentSuccess = (comment: IComments[]): ActionsTypes => ({
   type: postsActionsTypes.CHANGE_COMMENT_SUCCESS,
   payload: comment,
 });

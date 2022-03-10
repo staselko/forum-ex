@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable no-underscore-dangle */
 import { createSelector } from 'reselect';
 import { IRootReducer } from '../RootReducer';
 import { IPost } from './PostsInterfaces';
@@ -19,10 +21,7 @@ export const selectIsPostsLoading = createSelector(
 
 export const selectIsCommentsLoading = createSelector(
   [isCommentsLoading],
-  (isGettingCurrentUser) => {
-    console.log(isGettingCurrentUser);
-    return isGettingCurrentUser;
-  },
+  (isGettingCurrentUser) => isGettingCurrentUser,
 );
 
 export const selectCurrentPost = (postId: string | undefined) => createSelector(
