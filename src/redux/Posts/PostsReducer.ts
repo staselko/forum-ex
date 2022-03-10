@@ -16,6 +16,7 @@ const postsReducer = (
   switch (action.type) {
     case postsActionsTypes.GET_POSTS_START:
     case postsActionsTypes.CREATE_POST_START:
+    case postsActionsTypes.GET_COMMENTS_START:
       return {
         ...state,
         isLoading: true,

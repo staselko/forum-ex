@@ -4,6 +4,7 @@ import { IPost } from './PostsInterfaces';
 
 const selectPosts = (posts: IPost[]) => posts;
 const selectPostsList = ((state: IRootReducer) => state.posts.postsListToShow);
+const isCommentsLoading = ((state: IRootReducer) => state.users.isGettingCurrentUser);
 const selestIsPostsLoading = (state: IRootReducer) => state.posts.isLoading;
 
 export const selectPostPage = createSelector(
@@ -14,6 +15,14 @@ export const selectPostPage = createSelector(
 export const selectIsPostsLoading = createSelector(
   [selestIsPostsLoading],
   (isLoading) => isLoading,
+);
+
+export const selectIsCommentsLoading = createSelector(
+  [isCommentsLoading],
+  (isGettingCurrentUser) => {
+    console.log(isGettingCurrentUser);
+    return isGettingCurrentUser;
+  },
 );
 
 export const selectCurrentPost = (postId: string | undefined) => createSelector(

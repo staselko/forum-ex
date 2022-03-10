@@ -1,10 +1,8 @@
 export interface IComments {
   postId?: string,
-  id: string,
-  name?: String,
-  email?: String,
   body: String,
   userId?: number | string,
+  _id?: string,
 }
 
 export interface IPost {

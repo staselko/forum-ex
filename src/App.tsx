@@ -4,7 +4,6 @@ import { Routes, Route, Outlet } from 'react-router-dom';
 import { checkUserAuth, getUsersStart } from './redux/Users/UsersActions';
 import { getPostsStart } from './redux/Posts/PostsActions';
 import HeaderComponent from './components/Header/Header';
-// import HomePageContainer from './pages/Home/HomeContainer';
 import PostsOverviewContainer from './pages/PostsOverview/PostOverviewContainer';
 import UsersContainer from './pages/UsersList/UsersContainer';
 import UserPageContainer from './pages/User/UserContainer';
@@ -30,7 +29,6 @@ const App: React.FunctionComponent = () => {
     <div className="forum">
       <HeaderComponent />
       <Routes>
-        {/* <Route path="/" element={<HomePageContainer />} /> */}
         <Route path="/posts" element={<PostsOverviewContainer />} />
         <Route path="/users" element={<UsersContainer />} />
         <Route path="/users/:userId" element={<UserPageContainer />} />

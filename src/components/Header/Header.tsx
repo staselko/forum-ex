@@ -34,7 +34,6 @@ const HeaderComponent = () => (
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <Link to="/posts" className="forum__header-link-item">Posts</Link>
             <Link to="/users" className="forum__header-link-item">Users</Link>
-            <Link to="/signin" className="forum__header-link-item">Sign In</Link>
           </Box>
           <HeaderSearch />
           <HamburgerMenu />

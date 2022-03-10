@@ -9,7 +9,7 @@ const INITIAL_STATE: IUserInitialState = {
   isLoading: true,
   isCreating: false,
   isSearching: false,
-  isGettingCurrentUser: false,
+  isGettingCurrentUser: true,
   currentUser: {},
 };
 
@@ -27,7 +27,7 @@ const usersReducer = (
     case allUsersActionTypes.CHECK_USER_AUTH:
       return {
         ...state,
-        isGettingCurrentUser: false,
+        isGettingCurrentUser: true,
       };
 
     case allUsersActionTypes.LOGIN_USER_START:
@@ -49,6 +49,7 @@ const usersReducer = (
         ...state,
         currentUser: action.payload,
         isCreating: false,
+        isGettingCurrentUser: false,
       };
 
     case allUsersActionTypes.GET_USERS_FAILURE:

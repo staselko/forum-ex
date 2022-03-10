@@ -6,10 +6,12 @@ import { SagaIterator } from 'redux-saga';
 import postsActionsTypes from './PostsTypes';
 
 import {
+  changeCommentFailure,
   createCommentFailure, createCommentSuccess, createPostSuccess,
   getCommentsSuccess, getPostsFailure, getPostsSuccess,
 } from './PostsActions';
 import { ActionsTypes } from '../Interfaces';
+import $api from '../../http';
 
 export function* getPosts(): SagaIterator {
   try {
@@ -26,7 +28,7 @@ export function* getPosts(): SagaIterator {
 
 export function* getComments({ payload }: ActionsTypes): SagaIterator {
   try {
-    const comments = yield call(axios.get, `https://jsonplaceholder.typicode.com/posts/${payload}/comments`);
+    const comments = yield call($api.get, `/comments/${payload}`);
     yield put(
       getCommentsSuccess(comments.data),
     );
@@ -39,7 +41,7 @@ export function* getComments({ payload }: ActionsTypes): SagaIterator {
 
 export function* createComment({ payload }: ActionsTypes): SagaIterator {
   try {
-    const newComment = yield call(axios.post, 'https://jsonplaceholder.typicode.com/comments', payload);
+    const newComment = yield call($api.post, '/comments', payload);
     yield put(
       createCommentSuccess(newComment.data),
     );
@@ -52,13 +54,25 @@ export function* createComment({ payload }: ActionsTypes): SagaIterator {
 
 export function* createPost({ payload }: ActionsTypes): SagaIterator {
   try {
-    const newPosts = yield call(axios.post, 'http://localhost:5000/posts', payload);
+    const newPosts = yield call($api.post, '/posts', payload);
     yield put(
       createPostSuccess(newPosts.data),
     );
   } catch (error) {
     yield put(
       getPostsFailure(error),
+    );
+  }
+}
+
+export function* changeComment({ payload }: ActionsTypes): SagaIterator {
+  try {
+    console.log(payload);
+    const changedComment = yield call($api.patch, '/comments', payload);
+    console.log(changedComment.data);
+  } catch (error) {
+    yield put(
+      changeCommentFailure(error),
     );
   }
 }
@@ -79,11 +93,16 @@ export function* onCreatePostStart() {
   yield takeLatest(postsActionsTypes.CREATE_POST_START, createPost);
 }
 
+export function* onChangeCommentStart() {
+  yield takeLatest(postsActionsTypes.CHANGE_COMMENT_START, changeComment);
+}
+
 export function* postsSaga() {
   yield all([
     call(onGetPostsStart),
     call(onGetCommentsStart),
     call(onCreateCommentStart),
     call(onCreatePostStart),
+    call(onChangeCommentStart),
   ]);
 }

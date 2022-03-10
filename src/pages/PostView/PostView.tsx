@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   Avatar, Box, Card, CardContent, Typography,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useHref } from 'react-router-dom';
-import { v4 } from 'uuid';
-
+import { v4 as uid } from 'uuid';
 import { selectCurrentPost } from '../../redux/Posts/PostsSelector';
 import Post from '../../assets/images/Post.jpg';
 import Comment from '../../components/Comment/Comment';
 
 import './PostView.scss';
 import { selectCurrentUser } from '../../redux/Users/UserSelector';
-import { createCommentStart, getCommentsStart } from '../../redux/Posts/PostsActions';
+import { getCommentsStart } from '../../redux/Posts/PostsActions';
 import { IRootReducer } from '../../redux/RootReducer';
-import FormInput from '../../components/FormInput/FormInput';
+import CommetnCreateFormContainer from '../../components/CommentCreateForm/CommentCreateForm';
 
 const PostView = () => {
   const { postId } = useParams();
@@ -28,38 +27,10 @@ const PostView = () => {
     dispatch(getCommentsStart(postId));
   }, []);
 
-  const [newPostData, setNewPostData] = useState({
-    userId,
-    postId,
-    id: '',
-    email: '',
-    body: '',
-  });
-
   const location = useHref(`/users/${userId}`);
   const {
     firstName, secondName, email, imageUrl,
   } = useSelector(selectCurrentUser(userId));
-
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
-    setNewPostData({ ...newPostData, id: v4() });
-
-    dispatch(createCommentStart(newPostData));
-
-    setNewPostData({
-      ...newPostData,
-      email: '',
-      body: '',
-      id: '',
-    });
-  };
-
-  const handleChange = (event: any) => {
-    const { value, name: targetName } = event.target;
-
-    setNewPostData({ ...newPostData, [targetName]: value });
-  };
 
   return (
     <div className="forum__post-page">
@@ -108,26 +79,10 @@ const PostView = () => {
           </div>
         </Box>
         <Box>
-          <form method="post" className="forum__post-page-comment-form" onSubmit={handleSubmit}>
-            <Avatar
-              className="forum__post-page-profile-avatar"
-              alt="users avatar"
-              src={imageUrl}
-              sx={{ height: 45, width: 45 }}
-            />
-            <FormInput
-              type="text"
-              name="body"
-              placeholder="Comment it"
-              value={newPostData.body}
-              handleChange={handleChange}
-              className="form-input-comments"
-            />
-            <button type="submit" className="forum__post-page-comment-form-submit">Reply</button>
-          </form>
+          <CommetnCreateFormContainer />
         </Box>
         {
-          comments?.map((item) => <Comment key={item.id} {...item} />)
+          comments?.map((item) => <Comment key={uid()} {...item} />).reverse()
         }
       </Card>
     </div>

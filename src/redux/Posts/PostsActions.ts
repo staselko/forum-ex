@@ -64,3 +64,18 @@ export const createPostSuccess = (post: IPost): ActionsTypes => ({
   type: postsActionsTypes.CREATE_POST_SUCCESS,
   payload: post,
 });
+
+export const changeCommentStart = (comment: any): ActionsTypes => ({
+  type: postsActionsTypes.CHANGE_COMMENT_START,
+  payload: comment,
+});
+
+export const changeCommentSuccess = (comment: IComments): ActionsTypes => ({
+  type: postsActionsTypes.CHANGE_COMMENT_SUCCESS,
+  payload: comment,
+});
+
+export const changeCommentFailure = (error: unknown): ActionsTypes => ({
+  type: postsActionsTypes.CHANGE_COMMENT_FAILURE,
+  payload: error,
+});
