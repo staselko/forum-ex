@@ -5,13 +5,14 @@ import {
 import { Link, useHref } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import SendIcon from '@mui/icons-material/Send';
+import ClearIcon from '@mui/icons-material/Clear';
 import { useDispatch, useSelector } from 'react-redux';
 import { IComments } from '../../redux/Posts/PostsInterfaces';
 
 import './Comment.scss';
 import { selectCurrentUser } from '../../redux/Users/UserSelector';
 import { IRootReducer } from '../../redux/RootReducer';
-import { changeCommentStart } from '../../redux/Posts/PostsActions';
+import { changeCommentStart, deleteCommentStart } from '../../redux/Posts/PostsActions';
 
 const Comment = ({ userId, body, _id }: IComments) => {
   const [redacting, setRedacting] = useState(false);
@@ -23,11 +24,7 @@ const Comment = ({ userId, body, _id }: IComments) => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     dispatch(changeCommentStart(redactedComment));
-
-    setRedactedComment({
-      ...redactedComment,
-      body: '',
-    });
+    setRedacting(!redacting);
   };
 
   const handleChange = (event: any) => {
@@ -35,6 +32,11 @@ const Comment = ({ userId, body, _id }: IComments) => {
 
     setRedactedComment({ ...redactedComment, [targetName]: value });
   };
+
+  const handleDelete = () => {
+    dispatch(deleteCommentStart(_id));
+  };
+
   const { firstName, secondName } = useSelector(selectCurrentUser(userId));
 
   const { id } = useSelector((state: IRootReducer) => state.users.currentUser);
@@ -102,8 +104,13 @@ const Comment = ({ userId, body, _id }: IComments) => {
           {
             userId === id
               ? (
-                <div onClick={() => setRedacting(!redacting)}>
-                  <EditIcon />
+                <div>
+                  <div onClick={() => setRedacting(!redacting)}>
+                    <EditIcon />
+                  </div>
+                  <div onClick={handleDelete}>
+                    <ClearIcon />
+                  </div>
                 </div>
               )
               : null

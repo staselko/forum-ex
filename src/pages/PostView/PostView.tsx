@@ -7,7 +7,7 @@ import { Link, useParams, useHref } from 'react-router-dom';
 import { v4 as uid } from 'uuid';
 import { selectCurrentPost } from '../../redux/Posts/PostsSelector';
 import Post from '../../assets/images/Post.jpg';
-import Comment from '../../components/Comment/Comment';
+import CommentContainer from '../../components/Comment/CommentContainer';
 
 import './PostView.scss';
 import { selectCurrentUser } from '../../redux/Users/UserSelector';
@@ -82,7 +82,7 @@ const PostView = () => {
           <CommetnCreateFormContainer />
         </Box>
         {
-          comments?.map((item) => <Comment key={uid()} {...item} />).reverse()
+          comments?.map((item) => <CommentContainer key={uid()} {...item} />).reverse()
         }
       </Card>
     </div>

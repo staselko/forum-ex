@@ -79,3 +79,18 @@ export const changeCommentFailure = (error: unknown): ActionsTypes => ({
   type: postsActionsTypes.CHANGE_COMMENT_FAILURE,
   payload: error,
 });
+
+export const deleteCommentStart = (id: any): ActionsTypes => ({
+  type: postsActionsTypes.DELETE_COMMENT_START,
+  payload: id,
+});
+
+export const deleteCommentSuccess = (comments: IComments[]): ActionsTypes => ({
+  type: postsActionsTypes.DELETE_COMMENT_SUCCESS,
+  payload: comments,
+});
+
+export const deleteCommentFailure = (error: unknown): ActionsTypes => ({
+  type: postsActionsTypes.DELETE_COMMENT_FAILURE,
+  payload: error,
+});

@@ -8,6 +8,8 @@ import {
   changeCommentFailure,
   changeCommentSuccess,
   createCommentFailure, createCommentSuccess, createPostSuccess,
+  deleteCommentFailure,
+  deleteCommentSuccess,
   getCommentsSuccess, getPostsFailure, getPostsSuccess,
 } from './PostsActions';
 import { ActionsTypes } from '../Interfaces';
@@ -68,14 +70,25 @@ export function* createPost({ payload }: ActionsTypes): SagaIterator {
 export function* changeComment({ payload }: ActionsTypes): SagaIterator {
   try {
     const changedComment = yield call($api.patch, '/comments', payload);
-    console.log(changedComment);
-
     yield put(
       changeCommentSuccess(changedComment.data),
     );
   } catch (error) {
     yield put(
       changeCommentFailure(error),
+    );
+  }
+}
+
+export function* deleteComment({ payload }: ActionsTypes): SagaIterator {
+  try {
+    const comments = yield call($api.delete, '/comments', { data: { _id: payload } });
+    yield put(
+      deleteCommentSuccess(comments.data),
+    );
+  } catch (error) {
+    yield put(
+      deleteCommentFailure(error),
     );
   }
 }
@@ -100,6 +113,10 @@ export function* onChangeCommentStart() {
   yield takeLatest(postsActionsTypes.CHANGE_COMMENT_START, changeComment);
 }
 
+export function* onDeleteCommentStart() {
+  yield takeLatest(postsActionsTypes.DELETE_COMMENT_START, deleteComment);
+}
+
 export function* postsSaga() {
   yield all([
     call(onGetPostsStart),
@@ -107,5 +124,6 @@ export function* postsSaga() {
     call(onCreateCommentStart),
     call(onCreatePostStart),
     call(onChangeCommentStart),
+    call(onDeleteCommentStart),
   ]);
 }

@@ -43,12 +43,20 @@ const postsReducer = (
         isLoading: false,
       };
 
+    case postsActionsTypes.CHANGE_COMMENT_START:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
     case postsActionsTypes.CHANGE_COMMENT_SUCCESS:
       return {
         ...state,
         comments: action.payload,
+        isLoading: false,
       };
 
+    case postsActionsTypes.DELETE_COMMENT_SUCCESS:
     case postsActionsTypes.GET_COMMENTS_SUCCESS:
       return {
         ...state,

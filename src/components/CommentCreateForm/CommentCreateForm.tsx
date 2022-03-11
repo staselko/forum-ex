@@ -24,6 +24,7 @@ const CommentCreateForm = () => {
     event.preventDefault();
 
     dispatch(createCommentStart(newComment));
+
     setNewComment({
       ...newComment,
       body: '',
