@@ -73,7 +73,7 @@ export function* loginUser({ payload }: ActionsTypes): SagaIterator {
     yield put(
       loginUserSuccess(verifiedUser.data.user),
     );
-  } catch (error) {
+  } catch (error: any) {
     yield put(
       loginUserFailure(error),
     );

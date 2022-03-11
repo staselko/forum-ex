@@ -1,7 +1,9 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-shadow */
 /* eslint-disable no-undef */
 /* eslint-disable no-param-reassign */
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { AuthResponse } from '../redux/Interfaces';
 
 export const API_URL = 'http://localhost:5000';
 
@@ -15,16 +17,23 @@ $api.interceptors.request.use((config: AxiosRequestConfig) => {
   return config;
 });
 
-// $api.interceptors.response.use((config: AxiosResponse) => config, async (error) => {
-//   if (error.response.status === 401) {
-//     try {
-// const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, { withCredentials: true });
-//       localStorage.setItem('token', response.data.accessToken);
-//       return $api.request(originalRequest);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-// });
+$api.interceptors.response.use((config: AxiosResponse) => config, async (error) => {
+  console.log(error.response.data.message);
+  if (error.response.status === 400) {
+    throw Error(error.response.message);
+  }
+  const originalRequest = error.config;
+  if (error.response.status === 401 && error.config && !error.config._isRetry) {
+    originalRequest._isRetry = true;
+    try {
+      const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, { withCredentials: true });
+      localStorage.setItem('token', response.data.accessToken);
+      return $api.request(originalRequest);
+    } catch (e) {
+      throw new Error('НЕ АВТОРИЗОВАН');
+    }
+  }
+  throw error;
+});
 
 export default $api;
