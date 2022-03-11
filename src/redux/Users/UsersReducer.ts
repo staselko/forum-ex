@@ -93,6 +93,13 @@ const usersReducer = (
         ...state,
         currentUser: {},
       };
+
+    case allUsersActionTypes.DELETE_USER_SUCCESS:
+      return {
+        ...state,
+        currentUser: {},
+        usersList: action.payload,
+      };
     default:
       return state;
   }

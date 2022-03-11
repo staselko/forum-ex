@@ -90,3 +90,18 @@ export const logoutUserFailure = (error: unknown): ActionsTypes => ({
   type: allUsersActionTypes.LOGOUT_USER_FAILURE,
   payload: error,
 });
+
+export const deleteUserStart = (url: string | number | undefined): ActionsTypes => ({
+  type: allUsersActionTypes.DELETE_USER_START,
+  payload: url,
+});
+
+export const deleteUserSuccess = (users: IUser[]): ActionsTypes => ({
+  type: allUsersActionTypes.DELETE_USER_SUCCESS,
+  payload: users,
+});
+
+export const deleteUserFailure = (error: unknown): ActionsTypes => ({
+  type: allUsersActionTypes.DELETE_USER_FAILURE,
+  payload: error,
+});

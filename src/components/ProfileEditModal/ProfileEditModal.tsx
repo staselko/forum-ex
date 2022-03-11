@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import FormInput from '../FormInput/FormInput';
-import { changeUserProfileStart } from '../../redux/Users/UsersActions';
+import { changeUserProfileStart, deleteUserStart } from '../../redux/Users/UsersActions';
 import { IUser } from '../../redux/Users/UsersInterfaces';
 import { IRootReducer } from '../../redux/RootReducer';
 
@@ -39,6 +39,10 @@ const ProfileEditModal = () => {
   const [userData, setUserData] = useState<IUser>({
     firstName, secondName, phone, username, email, id,
   });
+
+  const handleDelete = () => {
+    dispatch(deleteUserStart(id));
+  };
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -83,8 +87,15 @@ const ProfileEditModal = () => {
               <FormInput
                 type="text"
                 name="firstName"
-                label="Change name"
+                label="Change firstname"
                 value={userData.firstName}
+                handleChange={handleChange}
+              />
+              <FormInput
+                type="text"
+                name="secondName"
+                label="Change surname"
+                value={userData.secondName}
                 handleChange={handleChange}
               />
               <FormInput
@@ -103,6 +114,9 @@ const ProfileEditModal = () => {
               />
               <Button type="submit">
                 Confirm Changes
+              </Button>
+              <Button onClick={handleDelete} sx={{ color: 'red' }}>
+                Delete Profile
               </Button>
             </form>
           </Box>
