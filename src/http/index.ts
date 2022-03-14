@@ -18,9 +18,8 @@ $api.interceptors.request.use((config: AxiosRequestConfig) => {
 });
 
 $api.interceptors.response.use((config: AxiosResponse) => config, async (error) => {
-  console.log(error.response.data.message);
   if (error.response.status === 400) {
-    throw Error(error.response.message);
+    throw Error(error.response.data.message);
   }
   const originalRequest = error.config;
   if (error.response.status === 401 && error.config && !error.config._isRetry) {
