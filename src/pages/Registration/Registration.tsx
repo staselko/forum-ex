@@ -6,7 +6,7 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { IUser } from '../../redux/Users/UsersInterfaces';
 import { createUserStart } from '../../redux/Users/UsersActions';
@@ -23,7 +23,6 @@ const Registration = () => {
     phone: '',
     posts: [],
   });
-  const location = useNavigate();
   const dispatch = useDispatch();
 
   const handleChange = (event: any) => {
@@ -36,13 +35,15 @@ const Registration = () => {
     event.preventDefault();
 
     dispatch(createUserStart(userCredentials));
-    location('/im', { replace: true });
+
     setUserCredentials({
       email: '',
       password: '',
       firstName: '',
       secondName: '',
-      surname: '',
+      username: '',
+      phone: '',
+      posts: [],
     });
   };
 
@@ -82,7 +83,6 @@ const Registration = () => {
                     autoFocus
                     validators={['required']}
                     errorMessages={['this field is required']}
-
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>

@@ -50,8 +50,8 @@ export function* changeProfile({ payload }: ActionsTypes): SagaIterator {
 
 export function* createUser({ payload }: ActionsTypes): SagaIterator {
   try {
-    const newUser = yield call(axios.post, 'http://localhost:5000/registration', payload);
-    const currentUser = yield call(axios.post, 'http://localhost:5000/login', { email: payload.email, password: payload.password });
+    const newUser = yield call($api.post, '/registration', payload);
+    const currentUser = yield call($api.post, '/login', { email: payload.email, password: payload.password });
     localStorage.setItem('token', currentUser.data.accessToken);
     yield put(
       createUserSuccess(newUser.data.user),

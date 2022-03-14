@@ -50,11 +50,12 @@ const usersReducer = (
         currentUser: action.payload,
         isCreating: false,
         isGettingCurrentUser: false,
+        errorMessage: '',
+
       };
 
     case allUsersActionTypes.GET_USERS_FAILURE:
     case allUsersActionTypes.CHANGE_USER_PROFILE_FAILURE:
-    case allUsersActionTypes.CREATE_USER_FAILURE:
       return {
         ...state,
         errorMessage: action.payload,
@@ -92,6 +93,13 @@ const usersReducer = (
       return {
         ...state,
         currentUser: {},
+      };
+
+    case allUsersActionTypes.LOGIN_USER_FAILURE:
+    case allUsersActionTypes.CREATE_USER_FAILURE:
+      return {
+        ...state,
+        errorMessage: action.payload,
       };
 
     case allUsersActionTypes.DELETE_USER_SUCCESS:

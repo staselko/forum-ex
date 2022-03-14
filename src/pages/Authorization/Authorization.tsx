@@ -3,23 +3,25 @@ import {
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import './Authorization.scss';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUserStart } from '../../redux/Users/UsersActions';
+import { IRootReducer } from '../../redux/RootReducer';
 
 const theme = createTheme();
 
 const Authorization = () => {
   const dispatch = useDispatch();
-  const location = useNavigate();
 
   const [userCredantials, setUserCredantials] = useState({
     email: '',
     password: '',
   });
+
+  const loginErrors = useSelector((state: IRootReducer) => state.users.errorMessage);
 
   const handleChange = (event: any) => {
     const { value, name } = event.target;
@@ -31,7 +33,6 @@ const Authorization = () => {
     event.preventDefault();
 
     dispatch(loginUserStart(userCredantials));
-    location('/', { replace: true });
     setUserCredantials({
       email: '',
       password: '',
@@ -65,6 +66,9 @@ const Authorization = () => {
               alignItems: 'center',
             }}
           >
+            {
+              loginErrors ? <div>{loginErrors as string}</div> : null
+            }
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               <LockOutlinedIcon />
             </Avatar>
