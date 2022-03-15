@@ -1,7 +1,6 @@
 import {
   takeLatest, call, all, put,
 } from 'redux-saga/effects';
-import axios from 'axios';
 import { SagaIterator } from 'redux-saga';
 import { allUsersActionTypes } from './UsersTypes';
 import {
@@ -19,7 +18,7 @@ import $api from '../../http';
 
 export function* getUsersList(): SagaIterator {
   try {
-    const usersRef = yield call(axios.get, 'http://localhost:5000/users');
+    const usersRef = yield call($api.get, '/users');
     yield put(
       getUsersSuccess(usersRef.data),
     );
@@ -32,8 +31,8 @@ export function* getUsersList(): SagaIterator {
 
 export function* changeProfile({ payload }: ActionsTypes): SagaIterator {
   try {
-    const changeUser = yield call(axios.patch, `http://localhost:5000/users/${payload?.id}`, payload);
-    const posts = yield call(axios.get, 'http://localhost:5000/posts');
+    const changeUser = yield call($api.patch, `/users/${payload?.id}`, payload);
+    const posts = yield call($api.get, '/posts');
     const user: IUser = {
       ...changeUser.data,
       posts: [...posts.data.filter((post: IPost) => post.userId === changeUser.data.id)],
@@ -59,9 +58,9 @@ export function* createUser({ payload }: ActionsTypes): SagaIterator {
     yield put(
       loginUserSuccess(currentUser.data.user),
     );
-  } catch (error) {
+  } catch (error: any) {
     yield put(
-      createUserFailure(error),
+      createUserFailure(error.message),
     );
   }
 }

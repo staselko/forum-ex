@@ -28,7 +28,7 @@ const PostCreateModal = ({ userId }: any) => {
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
   const [postData, setPostData] = useState({
-    userId,
+    user: userId,
     id: uid(),
     title: '',
     body: '',
@@ -40,7 +40,7 @@ const PostCreateModal = ({ userId }: any) => {
     handleClose();
 
     setPostData({
-      userId,
+      user: userId,
       id: uid(),
       title: '',
       body: '',

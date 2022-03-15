@@ -1,15 +1,17 @@
+/* eslint-disable prefer-regex-literals */
 import {
   createTheme, Container, CssBaseline, Box, Avatar,
   Typography, Grid, FormControlLabel, Checkbox, Button,
 } from '@mui/material';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { IUser } from '../../redux/Users/UsersInterfaces';
 import { createUserStart } from '../../redux/Users/UsersActions';
+import { IRootReducer } from '../../redux/RootReducer';
 
 const theme = createTheme();
 
@@ -23,6 +25,9 @@ const Registration = () => {
     phone: '',
     posts: [],
   });
+  const loginErrors = useSelector((state: IRootReducer) => state.users.errorMessage);
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   const handleChange = (event: any) => {
@@ -35,17 +40,34 @@ const Registration = () => {
     event.preventDefault();
 
     dispatch(createUserStart(userCredentials));
-
-    setUserCredentials({
-      email: '',
-      password: '',
-      firstName: '',
-      secondName: '',
-      username: '',
-      phone: '',
-      posts: [],
-    });
   };
+  useEffect(() => {
+    ValidatorForm.addValidationRule('isEmpty', (value) => {
+      if (!value.trim()) {
+        return false;
+      }
+
+      return true;
+    });
+    ValidatorForm.addValidationRule('isPassword', (value) => {
+      if (new RegExp(/(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}/).test(value.trim())) {
+        return true;
+      }
+
+      return false;
+    });
+  }, []);
+
+  const isFirstRender = useRef(true);
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (!(loginErrors as string).length) {
+      navigate('/');
+    }
+  }, [loginErrors]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -59,12 +81,16 @@ const Registration = () => {
             alignItems: 'center',
           }}
         >
+
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
+          {
+            loginErrors ? <div style={{ color: 'red' }}>{loginErrors as string}</div> : null
+          }
           <Box sx={{ mt: 3 }}>
             <ValidatorForm
               onSubmit={handleSubmit}
@@ -81,8 +107,8 @@ const Registration = () => {
                     value={userCredentials.firstName}
                     onChange={handleChange}
                     autoFocus
-                    validators={['required']}
-                    errorMessages={['this field is required']}
+                    validators={['isEmpty']}
+                    errorMessages={['This field is required']}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -95,8 +121,8 @@ const Registration = () => {
                     value={userCredentials.secondName}
                     onChange={handleChange}
                     autoComplete="family-name"
-                    validators={['required']}
-                    errorMessages={['this field is required']}
+                    validators={['isEmpty']}
+                    errorMessages={['This field is required']}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -109,8 +135,8 @@ const Registration = () => {
                     autoComplete="email"
                     value={userCredentials.email}
                     onChange={handleChange}
-                    validators={['required', 'isEmail']}
-                    errorMessages="Input valid email"
+                    validators={['isEmail', 'isEmpty']}
+                    errorMessages={['Input valid email', 'Email must be filed']}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -122,7 +148,8 @@ const Registration = () => {
                     name="phone"
                     autoComplete="phone"
                     value={userCredentials.phone}
-                    validators={['required']}
+                    validators={['isEmpty']}
+                    errorMessages={['This field is required']}
                     onChange={handleChange}
                   />
                 </Grid>
@@ -148,7 +175,8 @@ const Registration = () => {
                     id="standard-required-passwordConfirm"
                     value={userCredentials.password}
                     autoComplete="new-password"
-                    validators={['required']}
+                    validators={['isEmpty', 'isPassword']}
+                    errorMessages={['This field is required', 'Minimum eight characters, at least one letter and one numberd']}
                     onChange={handleChange}
                   />
                 </Grid>

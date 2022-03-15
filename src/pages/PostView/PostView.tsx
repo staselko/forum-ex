@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Avatar, Box, Card, CardContent, Typography,
 } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link, useParams, useHref } from 'react-router-dom';
 import { v4 as uid } from 'uuid';
 import { selectCurrentPost } from '../../redux/Posts/PostsSelector';
@@ -10,28 +10,17 @@ import Post from '../../assets/images/Post.jpg';
 import CommentContainer from '../../components/Comment/CommentContainer';
 
 import './PostView.scss';
-import { selectCurrentUser } from '../../redux/Users/UserSelector';
-import { getCommentsStart } from '../../redux/Posts/PostsActions';
-import { IRootReducer } from '../../redux/RootReducer';
 import CommetnCreateFormContainer from '../../components/CommentCreateForm/CommentCreateForm';
 
 const PostView = () => {
   const { postId } = useParams();
-  const dispatch = useDispatch();
   const {
-    userId,
+    user,
     body,
+    comments,
   } = useSelector(selectCurrentPost(postId));
-  const comments = useSelector((store: IRootReducer) => store.posts.comments);
-  useEffect(() => {
-    dispatch(getCommentsStart(postId));
-  }, []);
 
-  const location = useHref(`/users/${userId}`);
-  const {
-    firstName, secondName, email, imageUrl,
-  } = useSelector(selectCurrentUser(userId));
-
+  const location = useHref(`/users/${user._id}`);
   return (
     <div className="forum__post-page">
       <Card sx={{ boxShadow: '0px 0px 10px 5px #dbdbdb69', padding: '20px' }}>
@@ -44,7 +33,6 @@ const PostView = () => {
           <Avatar
             className="forum__post-page-profile-avatar"
             alt="users avatar"
-            src={imageUrl}
             sx={{ height: 45, width: 45 }}
           />
           <Link to={location} className="forum__post-page-page-profile">
@@ -60,10 +48,10 @@ const PostView = () => {
                 sx={{ marginBottom: 0 }}
                 className="forum__post-page-profile-user-name"
               >
-                {`${firstName} ${secondName}`}
+                {`${user.firstName} ${user.secondName}`}
               </Typography>
               <Typography gutterBottom variant="subtitle2" component="div" fontWeight={500} sx={{ paddingBottom: 0, lineHeight: 1 }}>
-                {email}
+                {user.email}
               </Typography>
             </CardContent>
           </Link>

@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Routes, Route, Outlet } from 'react-router-dom';
+import {
+  Routes, Route, Outlet, useLocation,
+} from 'react-router-dom';
 import { checkUserAuth, getUsersStart } from './redux/Users/UsersActions';
 import { getPostsStart } from './redux/Posts/PostsActions';
 import HeaderComponent from './components/Header/Header';
@@ -15,15 +17,20 @@ import CurrentUserContainer from './pages/CurrentUser/CurrentUserContainer';
 
 const App: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-
+  const href = useLocation();
   useEffect(() => {
     if (localStorage.getItem('token')) {
       dispatch(checkUserAuth());
     }
 
-    dispatch(getPostsStart());
-    dispatch(getUsersStart());
-  }, []);
+    if (href.pathname.includes('/users')) {
+      dispatch(getUsersStart());
+    }
+
+    if (href.pathname.includes('/posts')) {
+      dispatch(getPostsStart());
+    }
+  }, [href]);
 
   return (
     <div className="forum">

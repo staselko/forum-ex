@@ -35,6 +35,7 @@ const usersReducer = (
       return {
         ...state,
         isCreating: true,
+        isGettingCurrentUser: true,
       };
 
     case allUsersActionTypes.GET_USERS_SUCCESS:
@@ -87,6 +88,8 @@ const usersReducer = (
         currentUser: action.payload,
         usersList: [...state.usersList, action.payload],
         isCreating: false,
+        isGettingCurrentUser: false,
+        errorMessage: '',
       };
 
     case allUsersActionTypes.LOGOUT_USER_SUCCESS:

@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom';
 import UserBG from '../../assets/images/UsersBG.png';
 import PostItem from '../../components/PostItem/PostItem';
 import { selectCurrentUser } from '../../redux/Users/UserSelector';
-import { selectUsersPosts } from '../../redux/Posts/PostsSelector';
 import './User.scss';
 
 const User = () => {
@@ -17,10 +16,8 @@ const User = () => {
     firstName,
     secondName,
     imageUrl,
+    posts,
   } = useSelector(selectCurrentUser(userId));
-
-  const posts = useSelector(selectUsersPosts(userId));
-
   return (
     <div className="forum__user-page">
       <Card sx={{ maxWidth: 655 }}>
@@ -53,7 +50,7 @@ const User = () => {
         </Box>
         <Box className="forum__user-page-posts">
           {
-            posts?.map((post) => <PostItem key={post.id} {...post} />)
+            posts?.map((post) => <PostItem key={post._id} {...post} />)
           }
         </Box>
       </Card>

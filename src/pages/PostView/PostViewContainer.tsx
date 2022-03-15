@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import PostViev from './PostView';
-import { selectIsGettingCurrentUser } from '../../redux/Users/UserSelector';
+import { selectIsPostsLoading } from '../../redux/Posts/PostsSelector';
 import Spinner from '../../components/Spinner/Spinner';
 
 const mapStateToProps = createStructuredSelector({
-  isLoading: (state) => selectIsGettingCurrentUser(state),
+  isLoading: (state) => selectIsPostsLoading(state),
 });
 
 const PostViewContainer: any = compose(

@@ -57,7 +57,6 @@ export function* createComment({ payload }: ActionsTypes): SagaIterator {
 export function* createPost({ payload }: ActionsTypes): SagaIterator {
   try {
     const newPosts = yield call($api.post, '/posts', payload);
-
     yield put(
       createPostSuccess(newPosts.data),
     );

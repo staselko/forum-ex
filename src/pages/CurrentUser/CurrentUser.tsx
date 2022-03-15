@@ -63,7 +63,7 @@ const CurrentUser = () => {
                 {
                 posts
 
-                  ? posts.map((post) => <PostItem key={post.id} {...post} />)
+                  ? posts.map((post) => <PostItem key={post._id} {...post} />)
                   : null
           }
               </Box>

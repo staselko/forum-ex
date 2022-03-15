@@ -2,8 +2,8 @@ import {
   Grid, CssBaseline, Paper, Box, Avatar, Typography, TextField, FormControlLabel, Checkbox, Button,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import './Authorization.scss';
@@ -15,13 +15,13 @@ const theme = createTheme();
 
 const Authorization = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  const isFirstRender = useRef(true);
+  const loginErrors = useSelector((state: IRootReducer) => state.users.errorMessage);
   const [userCredantials, setUserCredantials] = useState({
     email: '',
     password: '',
   });
-
-  const loginErrors = useSelector((state: IRootReducer) => state.users.errorMessage);
 
   const handleChange = (event: any) => {
     const { value, name } = event.target;
@@ -33,11 +33,22 @@ const Authorization = () => {
     event.preventDefault();
 
     dispatch(loginUserStart(userCredantials));
+
     setUserCredantials({
-      email: '',
+      ...userCredantials,
       password: '',
     });
   };
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (!(loginErrors as string).length) {
+      navigate('/');
+    }
+  }, [loginErrors]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -66,15 +77,15 @@ const Authorization = () => {
               alignItems: 'center',
             }}
           >
-            {
-              loginErrors ? <div>{loginErrors as string}</div> : null
-            }
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
+            {
+                loginErrors ? <div style={{ color: 'red' }}>{loginErrors as string}</div> : null
+            }
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
