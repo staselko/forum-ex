@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  Routes, Route, Outlet, useLocation, useParams,
+  Routes, Route, Outlet, useLocation,
 } from 'react-router-dom';
 import { checkUserAuth, getTargetUserStart, getUsersStart } from './redux/Users/UsersActions';
-import { getPostsStart } from './redux/Posts/PostsActions';
+import { getPostsStart, getTargetPostStart } from './redux/Posts/PostsActions';
 import HeaderComponent from './components/Header/Header';
 import PostsOverviewContainer from './pages/PostsOverview/PostOverviewContainer';
 import UsersContainer from './pages/UsersList/UsersContainer';
@@ -18,7 +18,7 @@ import CurrentUserContainer from './pages/CurrentUser/CurrentUserContainer';
 const App: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const href = useLocation();
-  const { userId } = useParams();
+  const params = href.pathname.split('/')[2];
   useEffect(() => {
     if (localStorage.getItem('token')) {
       dispatch(checkUserAuth());
@@ -28,11 +28,15 @@ const App: React.FunctionComponent = () => {
       dispatch(getUsersStart());
     }
 
-    if (href.pathname === ('/users/:userId')) {
-      dispatch(getTargetUserStart(userId as string));
+    if (href.pathname.includes('/users/')) {
+      dispatch(getTargetUserStart(params as string));
     }
 
-    if (href.pathname.includes('/posts')) {
+    if (href.pathname.includes('/posts/')) {
+      dispatch(getTargetPostStart(params as string));
+    }
+
+    if (href.pathname === ('/posts')) {
       dispatch(getPostsStart());
     }
   }, [href]);

@@ -10,11 +10,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IComments } from '../../redux/Posts/PostsInterfaces';
 
 import './Comment.scss';
-import { selectCurrentUser } from '../../redux/Users/UserSelector';
 import { IRootReducer } from '../../redux/RootReducer';
 import { changeCommentStart, deleteCommentStart } from '../../redux/Posts/PostsActions';
 
-const Comment = ({ userId, body, _id }: IComments) => {
+const Comment = ({
+  userId, body, _id, firstName, secondName,
+}: IComments) => {
   const [redacting, setRedacting] = useState(false);
   const [redactedComment, setRedactedComment] = useState({
     _id,
@@ -36,8 +37,6 @@ const Comment = ({ userId, body, _id }: IComments) => {
   const handleDelete = () => {
     dispatch(deleteCommentStart(_id));
   };
-
-  const { firstName, secondName } = useSelector(selectCurrentUser(userId));
 
   const { id } = useSelector((state: IRootReducer) => state.users.currentUser);
   const link = useHref('/users');

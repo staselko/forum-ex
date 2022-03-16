@@ -10,7 +10,8 @@ import {
   createCommentFailure, createCommentSuccess, createPostSuccess,
   deleteCommentFailure,
   deleteCommentSuccess,
-  getCommentsSuccess, getPostsFailure, getPostsSuccess,
+  getTargetPostSuccess,
+  getCommentsSuccess, getPostsFailure, getPostsSuccess, getTargetPostFailure,
 } from './PostsActions';
 import { ActionsTypes } from '../Interfaces';
 import $api from '../../http';
@@ -44,6 +45,7 @@ export function* getComments({ payload }: ActionsTypes): SagaIterator {
 export function* createComment({ payload }: ActionsTypes): SagaIterator {
   try {
     const newComment = yield call($api.post, '/comments', payload);
+
     yield put(
       createCommentSuccess(newComment.data),
     );
@@ -93,6 +95,19 @@ export function* deleteComment({ payload }: ActionsTypes): SagaIterator {
   }
 }
 
+export function* getTargetPost({ payload }: ActionsTypes): SagaIterator {
+  try {
+    const post = yield call($api.get, `/posts/${payload}`);
+    yield put(
+      getTargetPostSuccess(post.data),
+    );
+  } catch (error) {
+    yield put(
+      getTargetPostFailure(error),
+    );
+  }
+}
+
 export function* onGetPostsStart() {
   yield takeLatest(postsActionsTypes.GET_POSTS_START, getPosts);
 }
@@ -117,6 +132,10 @@ export function* onDeleteCommentStart() {
   yield takeLatest(postsActionsTypes.DELETE_COMMENT_START, deleteComment);
 }
 
+export function* onGetTargetPostStart() {
+  yield takeLatest(postsActionsTypes.GET_TARGET_POST_START, getTargetPost);
+}
+
 export function* postsSaga() {
   yield all([
     call(onGetPostsStart),
@@ -125,5 +144,6 @@ export function* postsSaga() {
     call(onCreatePostStart),
     call(onChangeCommentStart),
     call(onDeleteCommentStart),
+    call(onGetTargetPostStart),
   ]);
 }

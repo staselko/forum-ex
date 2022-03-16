@@ -94,3 +94,18 @@ export const deleteCommentFailure = (error: unknown): ActionsTypes => ({
   type: postsActionsTypes.DELETE_COMMENT_FAILURE,
   payload: error,
 });
+
+export const getTargetPostStart = (postId: string): ActionsTypes => ({
+  type: postsActionsTypes.GET_TARGET_POST_START,
+  payload: postId,
+});
+
+export const getTargetPostSuccess = (post: IPost): ActionsTypes => ({
+  type: postsActionsTypes.GET_TARGET_POST_SUCCESS,
+  payload: post,
+});
+
+export const getTargetPostFailure = (error: unknown): ActionsTypes => ({
+  type: postsActionsTypes.GET_TARGET_POST_FAILURE,
+  payload: error,
+});

@@ -23,6 +23,7 @@ const postsReducer = (
       };
 
     case postsActionsTypes.GET_POSTS_SUCCESS:
+    case postsActionsTypes.GET_TARGET_POST_SUCCESS:
       return {
         ...state,
         postsListToShow: action.payload,

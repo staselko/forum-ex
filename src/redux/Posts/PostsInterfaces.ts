@@ -1,6 +1,8 @@
 export interface IComments {
   postId?: string,
   body: String,
+  firstName?: string,
+  secondName?: string,
   userId?: number | string,
   _id?: string,
 }

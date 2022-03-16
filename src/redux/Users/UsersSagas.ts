@@ -11,6 +11,7 @@ import {
   deleteUserFailure,
   deleteUserSuccess,
   getTargetUserFailure,
+  getTargetUserSuccess,
 } from './UsersActions';
 import { ActionsTypes } from '../Interfaces';
 import { IPost } from '../Posts/PostsInterfaces';
@@ -122,8 +123,10 @@ export function* deleteUser({ payload }: ActionsTypes): SagaIterator {
 
 export function* targetUser({ payload }: ActionsTypes): SagaIterator {
   try {
-    const user = yield call($api.get, `/user/${payload}`);
-    console.log(user);
+    const user = yield call($api.get, `/users/${payload}`);
+    yield put(
+      getTargetUserSuccess([user.data]),
+    );
   } catch (error) {
     getTargetUserFailure(error);
   }

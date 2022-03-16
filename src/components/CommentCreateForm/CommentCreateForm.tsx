@@ -11,11 +11,11 @@ import { createCommentStart } from '../../redux/Posts/PostsActions';
 import { IRootReducer } from '../../redux/RootReducer';
 
 const CommentCreateForm = () => {
-  const { id } = useSelector((store: IRootReducer) => store.users.currentUser);
+  const { _id } = useSelector((store: IRootReducer) => store.users.currentUser);
   const { postId } = useParams();
   const dispatch = useDispatch();
   const [newComment, setNewComment] = useState({
-    id,
+    _id,
     postId,
     body: '',
   });

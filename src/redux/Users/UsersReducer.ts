@@ -39,6 +39,7 @@ const usersReducer = (
       };
 
     case allUsersActionTypes.GET_USERS_SUCCESS:
+    case allUsersActionTypes.GET_TARGET_USER_SUCCESS:
       return {
         ...state,
         usersList: action.payload,
