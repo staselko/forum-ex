@@ -20,9 +20,14 @@ const PostItem = (post: IPost) => {
               <CardActionArea>
                 <CardMedia
                   component="img"
-                  height="250"
+                  // height="250"
                   image={Post}
                   alt="green iguana"
+                  sx={{
+                    width: {
+                      height: '40px',
+                    },
+                  }}
                 />
                 <CardContent className="forum__home-data-field-item">
                   <Typography gutterBottom variant="h5" component="div" className="forum__home-data-field-item-title">

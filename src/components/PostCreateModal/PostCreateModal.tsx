@@ -38,7 +38,6 @@ const PostCreateModal = ({ userId }: any) => {
 
     dispatch(createPostStart(postData));
     handleClose();
-
     setPostData({
       user: userId,
       id: uid(),
