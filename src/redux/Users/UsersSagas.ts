@@ -10,6 +10,7 @@ import {
   logoutUserSuccess,
   deleteUserFailure,
   deleteUserSuccess,
+  getTargetUserFailure,
 } from './UsersActions';
 import { ActionsTypes } from '../Interfaces';
 import { IPost } from '../Posts/PostsInterfaces';
@@ -119,6 +120,15 @@ export function* deleteUser({ payload }: ActionsTypes): SagaIterator {
   }
 }
 
+export function* targetUser({ payload }: ActionsTypes): SagaIterator {
+  try {
+    const user = yield call($api.get, `/user/${payload}`);
+    console.log(user);
+  } catch (error) {
+    getTargetUserFailure(error);
+  }
+}
+
 export function* onChangeUserProfileStart() {
   yield takeLatest(allUsersActionTypes.CHANGE_USER_PROFILE_START, changeProfile);
 }
@@ -147,6 +157,10 @@ export function* onDeleteUserStart() {
   yield takeLatest(allUsersActionTypes.DELETE_USER_START, deleteUser);
 }
 
+export function* onGetTargetUserStart() {
+  yield takeLatest(allUsersActionTypes.GET_TARGET_USER_START, targetUser);
+}
+
 export function* usersSaga() {
   yield all([
     call(onGetUsersStart),
@@ -156,5 +170,6 @@ export function* usersSaga() {
     call(onCheckUserAuth),
     call(onLogoutUser),
     call(onDeleteUserStart),
+    call(onGetTargetUserStart),
   ]);
 }

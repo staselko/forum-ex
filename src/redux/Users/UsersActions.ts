@@ -105,3 +105,18 @@ export const deleteUserFailure = (error: unknown): ActionsTypes => ({
   type: allUsersActionTypes.DELETE_USER_FAILURE,
   payload: error,
 });
+
+export const getTargetUserStart = (userId: string) => ({
+  type: allUsersActionTypes.GET_TARGET_USER_START,
+  payload: userId,
+});
+
+export const getTargetUserSuccess = (user: IUser) => ({
+  type: allUsersActionTypes.GET_TARGET_USER_SUCCESS,
+  payload: user,
+});
+
+export const getTargetUserFailure = (error: unknown) => ({
+  type: allUsersActionTypes.GET_TARGET_USER_FAILURE,
+  payload: error,
+});

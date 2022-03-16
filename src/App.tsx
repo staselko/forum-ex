@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  Routes, Route, Outlet, useLocation,
+  Routes, Route, Outlet, useLocation, useParams,
 } from 'react-router-dom';
-import { checkUserAuth, getUsersStart } from './redux/Users/UsersActions';
+import { checkUserAuth, getTargetUserStart, getUsersStart } from './redux/Users/UsersActions';
 import { getPostsStart } from './redux/Posts/PostsActions';
 import HeaderComponent from './components/Header/Header';
 import PostsOverviewContainer from './pages/PostsOverview/PostOverviewContainer';
@@ -18,13 +18,18 @@ import CurrentUserContainer from './pages/CurrentUser/CurrentUserContainer';
 const App: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const href = useLocation();
+  const { userId } = useParams();
   useEffect(() => {
     if (localStorage.getItem('token')) {
       dispatch(checkUserAuth());
     }
 
-    if (href.pathname.includes('/users')) {
+    if (href.pathname === ('/users')) {
       dispatch(getUsersStart());
+    }
+
+    if (href.pathname === ('/users/:userId')) {
+      dispatch(getTargetUserStart(userId as string));
     }
 
     if (href.pathname.includes('/posts')) {
