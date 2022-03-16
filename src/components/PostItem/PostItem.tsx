@@ -16,18 +16,21 @@ const PostItem = (post: IPost) => {
       {
         path.pathname.includes('/posts') ? (
           <Link to={`/posts/${_id}`} className="forum__home-data-field-item_link">
-            <Card sx={{ maxWidth: 400, height: 300 }}>
+            <Card sx={{
+              maxWidth: 400,
+              width: ['170px', '250px', '300px', '400px'],
+              height: ['150px', '250px', '300px'],
+            }}
+            >
               <CardActionArea>
                 <CardMedia
                   component="img"
-                  // height="250"
+                  sx={{
+                    width: ['100%'],
+                    height: ['80px', '180px', '230px'],
+                  }}
                   image={Post}
                   alt="green iguana"
-                  sx={{
-                    width: {
-                      height: '40px',
-                    },
-                  }}
                 />
                 <CardContent className="forum__home-data-field-item">
                   <Typography gutterBottom variant="h5" component="div" className="forum__home-data-field-item-title">

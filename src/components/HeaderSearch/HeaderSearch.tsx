@@ -40,12 +40,21 @@ const HeaderSearch = () => {
       <Box
         component="form"
         sx={{
-          '& > :not(style)': { m: 1, width: '25ch' },
+          '& > :not(style)': {
+            m: 1,
+            width: ['5ch', '25ch'],
+          },
         }}
         noValidate
         autoComplete="off"
       >
-        <Box sx={{ height: 40, display: 'flex', flexDirection: 'row-reverse' }}>
+        <Box sx={{
+          height: 40,
+          display: 'flex',
+          flexDirection: 'row-reverse',
+          width: ['5ch', '25ch'],
+        }}
+        >
           <Button onClick={handleClick} sx={{ color: '#fff' }}><SearchIcon /></Button>
           <Box
             sx={{
@@ -57,7 +66,7 @@ const HeaderSearch = () => {
               },
             }}
           >
-            <div>
+            <div className="forum__header-search_mobile">
               <Collapse
                 in={isSearching}
                 orientation="horizontal"
@@ -70,6 +79,7 @@ const HeaderSearch = () => {
                   value={searchingValue}
                   handleChange={handleChange}
                   className="form-input-header"
+
                 />
               </Collapse>
             </div>

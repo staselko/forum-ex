@@ -19,7 +19,7 @@ const UserItem = (item: IUser) => {
     <Link to={`${_id}`} className="forum__users-field-item">
       <div className="forum__users-field-item">
         <Card sx={{
-          maxWidth: 700, width: '100%', display: 'flex', flexDirection: 'row', borderRadius: '20px',
+          maxWidth: 700, width: ['300px', '500px'], display: 'flex', flexDirection: 'row', borderRadius: '20px',
         }}
         >
           <Box sx={{ display: 'flex', flexDirection: 'row' }}>

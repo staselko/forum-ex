@@ -47,7 +47,6 @@ $main-color: black;
     font-size: 18px;
     padding: 10px 10px 10px 5px;
     display: block;
-    width: 100%;
     border: none;
     border-radius: 15px;
     border-bottom: 1px solid $sub-color;
@@ -58,7 +57,6 @@ $main-color: black;
 
     &:focus ~ .form-input-label {
       color: #fff;
-      @include shrinkLabel();
     }
   }
 

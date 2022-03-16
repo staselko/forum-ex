@@ -19,6 +19,11 @@
     padding-bottom: 10px;
     max-width: 270px;
     width: 100%;
+
+    @media screen and (max-width: 600px) {
+      top: 120px;
+      left: 10%;
+    };
   }
   
   &-result-error {
@@ -26,5 +31,14 @@
     font-size: 1em;
     font-weight: normal;
     text-align: center;
+  }
+
+  &_mobile {
+    @media screen and (max-width: 600px) {
+      position: relative;
+      top: 60px;
+      left: 35%;
+      width: 100%;
+    };
   }
 }
