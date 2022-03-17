@@ -15,15 +15,14 @@ const CommentCreateForm = () => {
   const { postId } = useParams();
   const dispatch = useDispatch();
   const [newComment, setNewComment] = useState({
-    _id,
+
     postId,
     body: '',
   });
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-
-    dispatch(createCommentStart(newComment));
+    dispatch(createCommentStart({ ...newComment, _id }));
 
     setNewComment({
       ...newComment,

@@ -6,16 +6,14 @@ import { allUsersActionTypes } from './UsersTypes';
 import {
   getUsersFailure, getUsersSuccess,
   changeUserProfileFailure, changeUserProfileSuccess,
-  createUserFailure, createUserSuccess, loginUserFailure, loginUserSuccess,
-  logoutUserSuccess,
-  deleteUserFailure,
-  deleteUserSuccess,
-  getTargetUserFailure,
+  createUserFailure, createUserSuccess,
+  loginUserFailure, loginUserSuccess,
+  logoutUserSuccess, deleteUserFailure,
+  deleteUserSuccess, getTargetUserFailure,
   getTargetUserSuccess,
 } from './UsersActions';
 import { ActionsTypes } from '../Interfaces';
-import { IPost } from '../Posts/PostsInterfaces';
-import { IUser } from './UsersInterfaces';
+
 import $api from '../../http';
 
 export function* getUsersList(): SagaIterator {
@@ -33,14 +31,9 @@ export function* getUsersList(): SagaIterator {
 
 export function* changeProfile({ payload }: ActionsTypes): SagaIterator {
   try {
-    const changeUser = yield call($api.patch, `/users/${payload?.id}`, payload);
-    const posts = yield call($api.get, '/posts');
-    const user: IUser = {
-      ...changeUser.data,
-      posts: [...posts.data.filter((post: IPost) => post.userId === changeUser.data.id)],
-    };
+    const changeUser = yield call($api.patch, `/users/${payload._id}`, payload);
     yield put(
-      changeUserProfileSuccess(user),
+      changeUserProfileSuccess(changeUser),
     );
   } catch (error) {
     yield put(

@@ -14,12 +14,13 @@ import { IRootReducer } from '../../redux/RootReducer';
 import { changeCommentStart, deleteCommentStart } from '../../redux/Posts/PostsActions';
 
 const Comment = ({
-  userId, body, _id, firstName, secondName,
+  userId, body, _id, firstName, secondName, postId,
 }: IComments) => {
   const [redacting, setRedacting] = useState(false);
   const [redactedComment, setRedactedComment] = useState({
     _id,
     body,
+    postId,
   });
   const dispatch = useDispatch();
   const handleSubmit = (event: any) => {
@@ -35,10 +36,10 @@ const Comment = ({
   };
 
   const handleDelete = () => {
-    dispatch(deleteCommentStart(_id));
+    dispatch(deleteCommentStart({ _id, postId }));
   };
 
-  const { id } = useSelector((state: IRootReducer) => state.users.currentUser);
+  const currentUserId = useSelector((state: IRootReducer) => state.users.currentUser._id);
   const link = useHref('/users');
   return (
     <div className="forum__comment">
@@ -50,7 +51,10 @@ const Comment = ({
       >
         <Box
           sx={{
-            display: 'flex', alignItems: 'center', padding: '10px',
+            display: 'flex',
+            alignItems: 'center',
+            padding: '10px',
+            alignContent: 'space-between',
           }}
           className="forum__post-page-profile"
         >
@@ -63,8 +67,18 @@ const Comment = ({
             '&:last-child': { paddingBottom: 0 }, padding: 0, color: '#000', lineHeight: 1,
           }}
           >
-            <Typography gutterBottom variant="subtitle2" component="div" fontWeight={500} sx={{ paddingBottom: 0, lineHeight: 1 }}>
-              <Link to={`${link}/${userId}`}>{`${firstName} ${secondName}`}</Link>
+            <Typography
+              gutterBottom
+              variant="subtitle2"
+              component="div"
+              fontWeight={500}
+              sx={{
+                paddingBottom: 0,
+                lineHeight: 1,
+                textDecoration: 'none',
+              }}
+            >
+              <Link className="forum__comment-item-name" to={`${link}/${userId}`}>{`${firstName} ${secondName}`}</Link>
             </Typography>
             {
               redacting ? (
@@ -94,16 +108,27 @@ const Comment = ({
                   </form>
                 </FormControl>
               ) : (
-                <Typography gutterBottom variant="subtitle2" component="div" fontWeight={500} sx={{ paddingBottom: 0, lineHeight: 1 }}>
+                <Typography
+                  gutterBottom
+                  variant="subtitle2"
+                  component="div"
+                  fontWeight={500}
+                  sx={{
+                    paddingBottom: 0,
+                    lineHeight: 1,
+                    mt: '10px',
+                  }}
+                >
                   {body}
                 </Typography>
               )
             }
           </CardContent>
-          {
-            userId === id
+        </Box>
+        {
+            userId === currentUserId
               ? (
-                <div>
+                <div className="forum__comment-item-settings">
                   <div onClick={() => setRedacting(!redacting)}>
                     <EditIcon />
                   </div>
@@ -114,7 +139,6 @@ const Comment = ({
               )
               : null
           }
-        </Box>
       </Card>
     </div>
   );

@@ -25,6 +25,7 @@ const Registration = () => {
     phone: '',
     posts: [],
   });
+  const user = useSelector((state: IRootReducer) => state.users.currentUser);
   const loginErrors = useSelector((state: IRootReducer) => state.users.errorMessage);
   const navigate = useNavigate();
 
@@ -64,10 +65,8 @@ const Registration = () => {
       isFirstRender.current = false;
       return;
     }
-    if (!(loginErrors as string).length) {
-      navigate('/');
-    }
-  }, [loginErrors]);
+    navigate('/');
+  }, [user]);
 
   return (
     <ThemeProvider theme={theme}>

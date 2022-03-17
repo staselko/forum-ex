@@ -11,16 +11,17 @@ import CommentContainer from '../../components/Comment/CommentContainer';
 
 import './PostView.scss';
 import CommetnCreateFormContainer from '../../components/CommentCreateForm/CommentCreateForm';
+import { IRootReducer } from '../../redux/RootReducer';
 
 const PostView = () => {
   const { postId } = useParams();
   const {
     user,
     body,
-    comments,
   } = useSelector(selectCurrentPost(postId));
   const checked = true;
   const location = useHref(`/users/${user._id}`);
+  const comments = useSelector((state: IRootReducer) => state.posts.comments);
   return (
     <div className="forum__post-page">
       <Zoom in={checked} style={{ transitionDelay: '200ms' }}>

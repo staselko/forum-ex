@@ -4,10 +4,10 @@ import { createStructuredSelector } from 'reselect';
 
 import Commetn from './Comment';
 import Spinner from '../../components/Spinner/Spinner';
-import { selectIsPostsLoading } from '../../redux/Posts/PostsSelector';
+import { IRootReducer } from '../../redux/RootReducer';
 
 const mapStateToProps = createStructuredSelector({
-  isLoading: (state) => selectIsPostsLoading(state),
+  isLoading: (state: IRootReducer) => state.posts.isCommenting,
 });
 
 const CommentContainer: any = compose(

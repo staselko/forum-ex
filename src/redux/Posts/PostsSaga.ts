@@ -5,13 +5,15 @@ import { SagaIterator } from 'redux-saga';
 import postsActionsTypes from './PostsTypes';
 
 import {
-  changeCommentFailure,
-  changeCommentSuccess,
-  createCommentFailure, createCommentSuccess, createPostSuccess,
-  deleteCommentFailure,
-  deleteCommentSuccess,
-  getTargetPostSuccess,
-  getCommentsSuccess, getPostsFailure, getPostsSuccess, getTargetPostFailure,
+  changeCommentFailure, changeCommentSuccess, createCommentFailure,
+  createCommentSuccess, createPostSuccess,
+  deleteCommentFailure, deleteCommentSuccess,
+  getTargetPostSuccess, getCommentsSuccess,
+  getPostsFailure, getPostsSuccess,
+  getTargetPostFailure, deletePostFailure,
+  deletePostSuccess,
+  editPostFailure,
+  editPostSuccess,
 } from './PostsActions';
 import { ActionsTypes } from '../Interfaces';
 import $api from '../../http';
@@ -45,7 +47,6 @@ export function* getComments({ payload }: ActionsTypes): SagaIterator {
 export function* createComment({ payload }: ActionsTypes): SagaIterator {
   try {
     const newComment = yield call($api.post, '/comments', payload);
-
     yield put(
       createCommentSuccess(newComment.data),
     );
@@ -84,7 +85,7 @@ export function* changeComment({ payload }: ActionsTypes): SagaIterator {
 
 export function* deleteComment({ payload }: ActionsTypes): SagaIterator {
   try {
-    const comments = yield call($api.delete, '/comments', { data: { _id: payload } });
+    const comments = yield call($api.delete, '/comments', { data: { ...payload } });
     yield put(
       deleteCommentSuccess(comments.data),
     );
@@ -104,6 +105,32 @@ export function* getTargetPost({ payload }: ActionsTypes): SagaIterator {
   } catch (error) {
     yield put(
       getTargetPostFailure(error),
+    );
+  }
+}
+
+export function* deletePost({ payload }: ActionsTypes): SagaIterator {
+  try {
+    const posts = yield call($api.delete, `/posts/${payload}`);
+    yield put(
+      deletePostSuccess(posts.data.posts),
+    );
+  } catch (error) {
+    yield put(
+      deletePostFailure(error),
+    );
+  }
+}
+
+export function* editPost({ payload }: ActionsTypes): SagaIterator {
+  try {
+    const posts = yield call($api.patch, '/posts', payload);
+    yield put(
+      editPostSuccess(posts.data),
+    );
+  } catch (error) {
+    yield put(
+      editPostFailure(error),
     );
   }
 }
@@ -136,6 +163,14 @@ export function* onGetTargetPostStart() {
   yield takeLatest(postsActionsTypes.GET_TARGET_POST_START, getTargetPost);
 }
 
+export function* onDeletePostStart() {
+  yield takeLatest(postsActionsTypes.DELETE_POST_START, deletePost);
+}
+
+export function* onEditPostStart() {
+  yield takeLatest(postsActionsTypes.EDIT_POST_START, editPost);
+}
+
 export function* postsSaga() {
   yield all([
     call(onGetPostsStart),
@@ -145,5 +180,7 @@ export function* postsSaga() {
     call(onChangeCommentStart),
     call(onDeleteCommentStart),
     call(onGetTargetPostStart),
+    call(onDeletePostStart),
+    call(onEditPostStart),
   ]);
 }

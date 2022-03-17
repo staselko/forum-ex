@@ -7,6 +7,7 @@ const INITIAL_STATE:PostsInitialState = {
   comments: [],
   errorMessage: null,
   isLoading: true,
+  isCommenting: false,
 };
 
 const postsReducer = (
@@ -27,6 +28,7 @@ const postsReducer = (
       return {
         ...state,
         postsListToShow: action.payload,
+        comments: action.payload[0].comments,
         isLoading: false,
       };
 
@@ -37,24 +39,31 @@ const postsReducer = (
         isLoading: false,
       };
 
+    case postsActionsTypes.DELETE_COMMENT_START:
+    case postsActionsTypes.CREATE_COMMENT_START:
+      return {
+        ...state,
+        isCommenting: true,
+      };
+
     case postsActionsTypes.CREATE_COMMENT_SUCCESS:
       return {
         ...state,
         comments: [...state.comments, action.payload],
-        isLoading: false,
+        isCommenting: false,
       };
 
     case postsActionsTypes.CHANGE_COMMENT_START:
       return {
         ...state,
-        isLoading: true,
+        isCommenting: true,
       };
 
     case postsActionsTypes.CHANGE_COMMENT_SUCCESS:
       return {
         ...state,
         comments: action.payload,
-        isLoading: false,
+        isCommenting: false,
       };
 
     case postsActionsTypes.DELETE_COMMENT_SUCCESS:
@@ -62,7 +71,7 @@ const postsReducer = (
       return {
         ...state,
         comments: action.payload,
-        isLoading: false,
+        isCommenting: false,
       };
 
     case postsActionsTypes.GET_POSTS_FAILURE:

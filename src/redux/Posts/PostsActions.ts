@@ -109,3 +109,33 @@ export const getTargetPostFailure = (error: unknown): ActionsTypes => ({
   type: postsActionsTypes.GET_TARGET_POST_FAILURE,
   payload: error,
 });
+
+export const deletePostStart = (postId: string): ActionsTypes => ({
+  type: postsActionsTypes.DELETE_POST_START,
+  payload: postId,
+});
+
+export const deletePostSuccess = (posts: IPost[]): ActionsTypes => ({
+  type: postsActionsTypes.DELETE_POST_SUCCESS,
+  payload: posts,
+});
+
+export const deletePostFailure = (error: unknown): ActionsTypes => ({
+  type: postsActionsTypes.DELETE_POST_FAILURE,
+  payload: error,
+});
+
+export const editPostStart = (body: any): ActionsTypes => ({
+  type: postsActionsTypes.EDIT_POST_START,
+  payload: body,
+});
+
+export const editPostSuccess = (posts: IPost[]): ActionsTypes => ({
+  type: postsActionsTypes.EDIT_POST_SUCCESS,
+  payload: posts,
+});
+
+export const editPostFailure = (error: unknown): ActionsTypes => ({
+  type: postsActionsTypes.EDIT_POST_FAILURE,
+  payload: error,
+});

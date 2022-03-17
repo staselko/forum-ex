@@ -1,6 +1,9 @@
+/* eslint-disable max-len */
 import allUsersActionTypes from './UsersTypes';
 import { IUserInitialState } from './UsersInterfaces';
 import { ActionsTypes } from '../Interfaces';
+import postsActionsTypes from '../Posts/PostsTypes';
+import { IPost } from '../Posts/PostsInterfaces';
 
 const INITIAL_STATE: IUserInitialState = {
   usersList: [],
@@ -35,6 +38,7 @@ const usersReducer = (
       return {
         ...state,
         isCreating: true,
+        isLoading: true,
         isGettingCurrentUser: true,
       };
 
@@ -53,7 +57,45 @@ const usersReducer = (
         isCreating: false,
         isGettingCurrentUser: false,
         errorMessage: '',
+      };
 
+    case postsActionsTypes.EDIT_POST_START:
+      return {
+        ...state,
+        isGettingCurrentUser: true,
+      };
+
+    case postsActionsTypes.EDIT_POST_SUCCESS:
+      return {
+        ...state,
+        currentUser: { ...state.currentUser, posts: action.payload },
+        isGettingCurrentUser: false,
+      };
+
+    case postsActionsTypes.CREATE_POST_START:
+      return {
+        ...state,
+        isGettingCurrentUser: true,
+      };
+
+    case postsActionsTypes.CREATE_POST_SUCCESS:
+      return {
+        ...state,
+        currentUser: { ...state.currentUser, posts: [...state.currentUser.posts as IPost[], action.payload] },
+        isGettingCurrentUser: false,
+      };
+
+    case postsActionsTypes.DELETE_POST_START:
+      return {
+        ...state,
+        isGettingCurrentUser: true,
+      };
+
+    case postsActionsTypes.DELETE_POST_SUCCESS:
+      return {
+        ...state,
+        currentUser: { ...state.currentUser, posts: action.payload },
+        isGettingCurrentUser: false,
       };
 
     case allUsersActionTypes.GET_USERS_FAILURE:
@@ -90,6 +132,7 @@ const usersReducer = (
         usersList: [...state.usersList, action.payload],
         isCreating: false,
         isGettingCurrentUser: false,
+        isLoading: false,
         errorMessage: '',
       };
 

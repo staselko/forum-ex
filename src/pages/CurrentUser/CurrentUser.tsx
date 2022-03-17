@@ -15,7 +15,6 @@ const CurrentUser = () => {
   const {
     firstName, secondName, email, _id, imageUrl, posts,
   } = useSelector((store: IRootReducer): IUser => store.users.currentUser);
-
   const location = useNavigate();
   return (
     <div>

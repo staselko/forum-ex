@@ -28,11 +28,11 @@ const App: React.FunctionComponent = () => {
       dispatch(getUsersStart());
     }
 
-    if (href.pathname.includes('/users/')) {
+    if (href.pathname === (`/users/${params}`)) {
       dispatch(getTargetUserStart(params as string));
     }
 
-    if (href.pathname.includes('/posts/')) {
+    if (href.pathname === (`/posts/${params}`)) {
       dispatch(getTargetPostStart(params as string));
     }
 

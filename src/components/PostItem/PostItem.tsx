@@ -11,6 +11,7 @@ import PostItemUser from './PostItemUser';
 const PostItem = (post: IPost) => {
   const { title, _id } = post;
   const path = useLocation();
+
   return (
     <div className="forum__home-data-field-item">
       {

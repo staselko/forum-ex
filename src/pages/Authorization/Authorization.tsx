@@ -17,6 +17,7 @@ const Authorization = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isFirstRender = useRef(true);
+  const user = useSelector((state: IRootReducer) => state.users.currentUser);
   const loginErrors = useSelector((state: IRootReducer) => state.users.errorMessage);
   const [userCredantials, setUserCredantials] = useState({
     email: '',
@@ -27,6 +28,8 @@ const Authorization = () => {
     const { value, name } = event.target;
 
     setUserCredantials({ ...userCredantials, [name]: value });
+
+    // setUserCredantials((prev) => { ...prev, [name]: value });
   };
 
   const handleSubmit = (event: any) => {
@@ -45,10 +48,8 @@ const Authorization = () => {
       isFirstRender.current = false;
       return;
     }
-    if (!(loginErrors as string).length) {
-      navigate('/');
-    }
-  }, [loginErrors]);
+    navigate('/');
+  }, [user]);
 
   return (
     <ThemeProvider theme={theme}>

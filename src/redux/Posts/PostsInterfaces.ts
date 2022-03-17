@@ -21,4 +21,5 @@ export interface PostsInitialState {
   comments: IComments[],
   errorMessage?: unknown,
   isLoading: Boolean,
+  isCommenting: Boolean,
 }

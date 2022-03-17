@@ -34,14 +34,14 @@ const ProfileEditModal = () => {
     phone,
     username,
     email,
-    id,
+    _id,
   }: IUser = useSelector((state: IRootReducer) => state.users.currentUser);
   const [userData, setUserData] = useState<IUser>({
-    firstName, secondName, phone, username, email, id,
+    firstName, secondName, phone, username, email, _id,
   });
 
   const handleDelete = () => {
-    dispatch(deleteUserStart(id));
+    dispatch(deleteUserStart(_id));
   };
 
   const handleSubmit = (event: any) => {
