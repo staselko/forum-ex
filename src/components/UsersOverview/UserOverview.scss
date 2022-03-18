@@ -1,12 +1,10 @@
 .forum__users-field {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
   align-items: center;
   padding-top: 40px;
   justify-content: center;
-
+  overflow-y: scroll;
+  height: 100vh;
   &-greet {
     font-size: 1.5em;
     margin-bottom: 30px;

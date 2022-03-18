@@ -32,6 +32,10 @@ $api.interceptors.response.use((config: AxiosResponse) => config, async (error) 
       throw new Error('НЕ АВТОРИЗОВАН');
     }
   }
+
+  if (error.response.status === 404) {
+    console.log('????????????');
+  }
   throw error;
 });
 

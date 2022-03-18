@@ -18,7 +18,7 @@ import $api from '../../http';
 
 export function* getUsersList(): SagaIterator {
   try {
-    const usersRef = yield call($api.get, '/users');
+    const usersRef = yield call($api.get, '/users?page=1');
     yield put(
       getUsersSuccess(usersRef.data),
     );

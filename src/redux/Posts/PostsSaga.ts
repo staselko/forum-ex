@@ -20,7 +20,7 @@ import $api from '../../http';
 
 export function* getPosts(): SagaIterator {
   try {
-    const postFromServer = yield call($api.get, '/posts');
+    const postFromServer = yield call($api.get, '/posts?page=1');
     yield put(
       getPostsSuccess(postFromServer.data),
     );
