@@ -14,6 +14,7 @@ import PostViewContainer from './pages/PostView/PostViewContainer';
 import Authorization from './pages/Authorization/Authorization';
 import RegistrationContainer from './pages/Registration/RegistrationContainer';
 import CurrentUserContainer from './pages/CurrentUser/CurrentUserContainer';
+import NotFound from './pages/NotFound/NotFound';
 
 const App: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ const App: React.FunctionComponent = () => {
         <Route path="/signin" element={<Authorization />} />
         <Route path="/reg" element={<RegistrationContainer />} />
         <Route path="/" element={<CurrentUserContainer />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Outlet />
     </div>

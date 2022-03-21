@@ -34,7 +34,7 @@ $api.interceptors.response.use((config: AxiosResponse) => config, async (error) 
   }
 
   if (error.response.status === 404) {
-    console.log('????????????');
+    console.log('333');
   }
   throw error;
 });
