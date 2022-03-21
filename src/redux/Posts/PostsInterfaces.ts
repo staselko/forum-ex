@@ -11,7 +11,8 @@ export interface IPost {
   userId?: string | number,
   id: number | string,
   title: String,
-  body: String,
+  body?: String,
+  imageUrl?: String,
   comments?: IComments[]
   [x: string]: any,
 }

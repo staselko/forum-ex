@@ -17,7 +17,7 @@ const PostView = () => {
   const { postId } = useParams();
   const {
     user,
-    body,
+    title,
   } = useSelector(selectCurrentPost(postId));
   const checked = true;
   const location = useHref(`/users/${user._id}`);
@@ -62,7 +62,7 @@ const PostView = () => {
           </Box>
           <Box className="forum__post-page-post" sx={{ borderBottom: '1px solid #e6e6e6', paddingBottom: '20px' }}>
             <Typography className="forum__post-page-post-value" gutterBottom variant="subtitle1" fontSize={20} component="div" fontWeight={700}>
-              {body.charAt(0).toUpperCase() + body.slice(1)}
+              {title.charAt(0).toUpperCase() + title.slice(1)}
             </Typography>
             <CardMedia
               component="img"

@@ -31,18 +31,27 @@ const PostCreateModal = ({ userId }: any) => {
     user: userId,
     id: uid(),
     title: '',
-    body: '',
+    imageUrl: '',
   });
   const handleSubmit = (event: any) => {
     event.preventDefault();
+    const inputFile: any = document.getElementById('post-image')!;
 
+    if (inputFile !== null) {
+      setPostData({
+        ...postData,
+        imageUrl: inputFile.files[0].fileSize,
+      });
+    }
+
+    console.log(inputFile.files[0]);
     dispatch(createPostStart(postData));
     handleClose();
     setPostData({
       user: userId,
       id: uid(),
       title: '',
-      body: '',
+      imageUrl: '',
     });
   };
 
@@ -72,17 +81,18 @@ const PostCreateModal = ({ userId }: any) => {
             </Typography>
             <form method="PUT" onSubmit={handleSubmit}>
               <FormInput
-                type="text"
+                type="title"
                 name="title"
                 label="Title"
                 value={postData.title}
                 handleChange={handleChange}
               />
               <FormInput
-                type="text"
-                name="body"
-                label="Text"
-                value={postData.body}
+                type="file"
+                name="imageUrl"
+                label="image"
+                id="post-image"
+                value={postData.imageUrl}
                 handleChange={handleChange}
               />
               <Button type="submit">
