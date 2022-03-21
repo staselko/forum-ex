@@ -28,8 +28,6 @@ const Authorization = () => {
     const { value, name } = event.target;
 
     setUserCredantials({ ...userCredantials, [name]: value });
-
-    // setUserCredantials((prev) => { ...prev, [name]: value });
   };
 
   const handleSubmit = (event: any) => {

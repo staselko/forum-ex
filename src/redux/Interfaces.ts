@@ -10,3 +10,7 @@ export interface AuthResponse {
   refreshToken: string,
   user: IUser,
 }
+
+export interface IErrorInitialState {
+  path: string,
+}

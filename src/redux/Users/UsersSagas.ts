@@ -121,7 +121,6 @@ export function* targetUser({ payload }: ActionsTypes): SagaIterator {
       getTargetUserSuccess([user.data]),
     );
   } catch (error) {
-    console.log((error as any).response.status);
     getTargetUserFailure(error);
   }
 }

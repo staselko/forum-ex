@@ -3,6 +3,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-param-reassign */
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { Dispatch } from 'redux';
+import { replace } from '../redux/Errors/ErrorsActions';
 import { AuthResponse } from '../redux/Interfaces';
 
 export const API_URL = 'http://localhost:5000';
@@ -17,26 +19,32 @@ $api.interceptors.request.use((config: AxiosRequestConfig) => {
   return config;
 });
 
-$api.interceptors.response.use((config: AxiosResponse) => config, async (error) => {
-  if (error.response.status === 400) {
-    throw Error(error.response.data.message);
-  }
-  const originalRequest = error.config;
-  if (error.response.status === 401 && error.config && !error.config._isRetry) {
-    originalRequest._isRetry = true;
-    try {
-      const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, { withCredentials: true });
-      localStorage.setItem('token', response.data.accessToken);
-      return $api.request(originalRequest);
-    } catch (e) {
-      throw new Error('НЕ АВТОРИЗОВАН');
+export function responseInstance(dispatch: Dispatch): any {
+  $api.interceptors.response.use((config: AxiosResponse) => config, async (error) => {
+    if (error.response.status === 400) {
+      throw Error(error.response.data.message);
     }
-  }
+    const originalRequest = error.config;
+    if (error.response.status === 401 && error.config && !error.config._isRetry) {
+      originalRequest._isRetry = true;
+      try {
+        const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, { withCredentials: true });
+        localStorage.setItem('token', response.data.accessToken);
+        return $api.request(originalRequest);
+      } catch (e) {
+        throw new Error('НЕ АВТОРИЗОВАН');
+      }
+    }
 
-  if (error.response.status === 404) {
-    console.log('333');
-  }
-  throw error;
-});
+    if (error.response.status === 404) {
+      dispatch(replace('/not-found'));
+    }
+
+    if (error.response.status === 500) {
+      dispatch(replace('/server-error'));
+    }
+    throw error;
+  });
+}
 
 export default $api;
