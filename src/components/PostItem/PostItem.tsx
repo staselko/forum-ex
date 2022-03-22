@@ -4,12 +4,11 @@ import {
   Card, CardActionArea, CardMedia, CardContent, Typography,
 } from '@mui/material';
 import { IPost } from '../../redux/Posts/PostsInterfaces';
-import Post from '../../assets/images/Post.jpg';
 import './PostItem.scss';
 import PostItemUser from './PostItemUser';
 
 const PostItem = (post: IPost) => {
-  const { title, _id } = post;
+  const { title, _id, imageUrl } = post;
   const path = useLocation();
 
   return (
@@ -30,7 +29,7 @@ const PostItem = (post: IPost) => {
                     width: ['100%'],
                     height: ['80px', '180px', '230px'],
                   }}
-                  image={Post}
+                  image={(imageUrl as string)}
                   alt="green iguana"
                 />
                 <CardContent className="forum__home-data-field-item">

@@ -9,6 +9,7 @@ import { v4 as uid } from 'uuid';
 import { useDispatch } from 'react-redux';
 import FormInput from '../../components/FormInput/FormInput';
 import { createPostStart } from '../../redux/Posts/PostsActions';
+import { convertBase64 } from '../../utils/api/Base64Parse';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -27,25 +28,35 @@ const PostCreateModal = ({ userId }: any) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
+  const formData = new FormData();
+
   const [postData, setPostData] = useState({
     user: userId,
     id: uid(),
     title: '',
     imageUrl: '',
   });
+
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    const inputFile: any = document.getElementById('post-image')!;
 
-    if (inputFile !== null) {
-      setPostData({
-        ...postData,
-        imageUrl: inputFile.files[0].fileSize,
-      });
-    }
+    formData.append(
+      'title',
+      postData.title,
+    );
 
-    console.log(inputFile.files[0]);
-    dispatch(createPostStart(postData));
+    formData.append(
+      'id',
+      postData.id,
+    );
+
+    formData.append(
+      'user',
+      postData.user,
+    );
+
+    dispatch(createPostStart(formData));
+
     handleClose();
     setPostData({
       user: userId,
@@ -53,6 +64,15 @@ const PostCreateModal = ({ userId }: any) => {
       title: '',
       imageUrl: '',
     });
+  };
+
+  const handleFileRead = async (event: any) => {
+    const file = event.target.files[0];
+    const toBase64 = await convertBase64(file);
+    formData.append(
+      'imageUrl',
+      toBase64,
+    );
   };
 
   const handleChange = (event: any) => {
@@ -87,13 +107,11 @@ const PostCreateModal = ({ userId }: any) => {
                 value={postData.title}
                 handleChange={handleChange}
               />
-              <FormInput
+              <input
                 type="file"
                 name="imageUrl"
-                label="image"
                 id="post-image"
-                value={postData.imageUrl}
-                handleChange={handleChange}
+                onChange={handleFileRead}
               />
               <Button type="submit">
                 Post It

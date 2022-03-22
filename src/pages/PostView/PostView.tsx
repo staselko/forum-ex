@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 import { Link, useParams, useHref } from 'react-router-dom';
 import { v4 as uid } from 'uuid';
 import { selectCurrentPost } from '../../redux/Posts/PostsSelector';
-import Post from '../../assets/images/Post.jpg';
 import CommentContainer from '../../components/Comment/CommentContainer';
 
 import './PostView.scss';
@@ -18,6 +17,7 @@ const PostView = () => {
   const {
     user,
     title,
+    imageUrl,
   } = useSelector(selectCurrentPost(postId));
   const checked = true;
   const location = useHref(`/users/${user._id}`);
@@ -70,7 +70,7 @@ const PostView = () => {
                 width: ['100%'],
                 height: ['180px', '260px', '340px'],
               }}
-              image={Post}
+              image={(imageUrl as string)}
               alt="green iguana"
             />
             <div className="forum__post-page-created">

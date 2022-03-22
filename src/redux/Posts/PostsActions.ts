@@ -55,7 +55,7 @@ export const createCommentFailure = (error: unknown) => ({
   payload: error,
 });
 
-export const createPostStart = (post: IPost): ActionsTypes => ({
+export const createPostStart = (post: any): ActionsTypes => ({
   type: postsActionsTypes.CREATE_POST_START,
   payload: post,
 });

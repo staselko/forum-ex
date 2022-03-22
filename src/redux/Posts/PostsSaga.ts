@@ -57,10 +57,12 @@ export function* createComment({ payload }: ActionsTypes): SagaIterator {
   }
 }
 
-export function* createPost({ payload }: ActionsTypes): SagaIterator {
+export function* createPost({ payload }: any): SagaIterator {
   try {
-    console.log(payload);
-    const newPosts = yield call($api.post, '/posts', payload);
+    const newPosts = yield call($api.post, '/posts', payload, {
+      headers: { 'content-type': 'multipart/form-data', 'Access-Control-Allow-Origin': '*' },
+    });
+
     yield put(
       createPostSuccess(newPosts.data),
     );

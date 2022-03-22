@@ -62,7 +62,9 @@ export function* createUser({ payload }: ActionsTypes): SagaIterator {
 
 export function* loginUser({ payload }: ActionsTypes): SagaIterator {
   try {
-    const verifiedUser = yield call($api.post, '/login', payload);
+    const verifiedUser = yield call($api.post, '/login', payload, {
+      headers: { 'Cache-Control': 'max-age=86400' },
+    });
     localStorage.setItem('token', verifiedUser.data.accessToken);
     yield put(
       loginUserSuccess(verifiedUser.data.user),
@@ -76,7 +78,9 @@ export function* loginUser({ payload }: ActionsTypes): SagaIterator {
 
 export function* checkUser(): SagaIterator {
   try {
-    const response = yield call($api.get, '/refresh');
+    const response = yield call($api.get, '/refresh', {
+      headers: { 'Cache-Control': 'max-age=86400' },
+    });
     localStorage.setItem('token', response.data.accessToken);
     yield put(
       loginUserSuccess(response.data.user),
