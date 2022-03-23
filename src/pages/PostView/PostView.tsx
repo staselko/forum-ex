@@ -12,12 +12,15 @@ import './PostView.scss';
 import CommetnCreateFormContainer from '../../components/CommentCreateForm/CommentCreateForm';
 import { IRootReducer } from '../../redux/RootReducer';
 
+const strftime = require('strftime');
+
 const PostView = () => {
   const { postId } = useParams();
   const {
     user,
     title,
     imageUrl,
+    createdAt,
   } = useSelector(selectCurrentPost(postId));
   const checked = true;
   const location = useHref(`/users/${user._id}`);
@@ -35,9 +38,10 @@ const PostView = () => {
             <Avatar
               className="forum__post-page-profile-avatar"
               alt="users avatar"
+              src={user.imageUrl}
               sx={{ height: 45, width: 45 }}
             />
-            <Link to={location} className="forum__post-page-page-profile">
+            <Link to={location} style={{ textDecoration: 'none' }} className="forum__post-page-page-profile">
               <CardContent sx={{
                 '&:last-child': { paddingBottom: 0 }, padding: 0, color: '#000', lineHeight: 1,
               }}
@@ -74,8 +78,7 @@ const PostView = () => {
               alt="green iguana"
             />
             <div className="forum__post-page-created">
-              <div>1.36 PM</div>
-              <div>Feb 24, 2022</div>
+              <div>{strftime('%a %e %b %Y %H:%M', new Date(createdAt))}</div>
             </div>
           </Box>
           <Box>

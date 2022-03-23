@@ -6,6 +6,7 @@ import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
+import { convertBase64 } from '../../utils/api/Base64Parse';
 import FormInput from '../FormInput/FormInput';
 import { changeUserProfileStart, deleteUserStart } from '../../redux/Users/UsersActions';
 import { IUser } from '../../redux/Users/UsersInterfaces';
@@ -28,16 +29,17 @@ const ProfileEditModal = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
+  const formData = new FormData();
+
   const {
     firstName,
     secondName,
-    phone,
     username,
     email,
     _id,
   }: IUser = useSelector((state: IRootReducer) => state.users.currentUser);
   const [userData, setUserData] = useState<IUser>({
-    firstName, secondName, phone, username, email, _id,
+    firstName, secondName, imageUrl: '', username, email, _id,
   });
 
   const handleDelete = () => {
@@ -46,9 +48,37 @@ const ProfileEditModal = () => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-
-    dispatch(changeUserProfileStart(userData));
+    formData.append(
+      'firstName',
+      (userData.firstName as string),
+    );
+    formData.append(
+      'secondName',
+      (userData.secondName as string),
+    );
+    formData.append(
+      'username',
+      (userData.username as string),
+    );
+    formData.append(
+      'email',
+      (userData.email as string),
+    );
+    formData.append(
+      '_id',
+      (userData._id as string),
+    );
+    dispatch(changeUserProfileStart(formData));
     handleClose();
+  };
+
+  const handleFileRead = async (event: any) => {
+    const file = event.target.files[0];
+    const toBase64 = await convertBase64(file);
+    formData.append(
+      'imageUrl',
+      toBase64,
+    );
   };
 
   const handleChange = (event: any) => {
@@ -105,12 +135,11 @@ const ProfileEditModal = () => {
                 value={userData.username}
                 handleChange={handleChange}
               />
-              <FormInput
-                type="text"
+              <input
+                type="file"
                 name="phone"
-                label="Write email"
-                value={userData.phone}
-                handleChange={handleChange}
+                value={userData.imageUrl}
+                onChange={handleFileRead}
               />
               <Button type="submit">
                 Confirm Changes

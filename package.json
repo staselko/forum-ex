@@ -42,6 +42,7 @@
     "redux-thunk": "^2.4.1",
     "reselect": "^4.1.5",
     "sass": "^1.49.7",
+    "strftime": "^0.10.1",
     "styled-components": "^5.3.3",
     "typescript": "^4.5.5",
     "uuid": "^8.3.2",
@@ -75,6 +76,7 @@
   },
   "devDependencies": {
     "@types/react-material-ui-form-validator": "^2.1.1",
+    "@types/strftime": "^0.9.4",
     "@types/styled-components": "^5.1.22",
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.11.0",

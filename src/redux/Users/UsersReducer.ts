@@ -108,11 +108,21 @@ const usersReducer = (
     case allUsersActionTypes.CHANGE_USER_PROFILE_SUCCESS:
       return {
         ...state,
+        isCreating: false,
+        isLoading: false,
+        isGettingCurrentUser: false,
         usersList: [...state.usersList
           .filter((user) => user.id !== action.payload.id), action.payload],
         currentUser: action.payload,
       };
 
+    case allUsersActionTypes.CHANGE_USER_PROFILE_START:
+      return {
+        ...state,
+        isCreating: true,
+        isLoading: true,
+        isGettingCurrentUser: true,
+      };
     case allUsersActionTypes.TOGGLE_SEARCHING_FIELD:
       return {
         ...state,

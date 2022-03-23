@@ -12,10 +12,10 @@ const PostItem = (post: IPost) => {
   const path = useLocation();
 
   return (
-    <div className="forum__home-data-field-item">
+    <div className="forum__home-data-field-post">
       {
         path.pathname.includes('/posts') ? (
-          <Link to={`/posts/${_id}`} className="forum__home-data-field-item_link">
+          <Link to={`/posts/${_id}`} className="forum__user-data-field-item_link">
             <Card sx={{
               maxWidth: 400,
               width: ['170px', '250px', '300px', '400px'],

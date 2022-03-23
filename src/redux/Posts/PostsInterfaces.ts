@@ -3,6 +3,7 @@ export interface IComments {
   body: String,
   firstName?: string,
   secondName?: string,
+  imageUrl?: string,
   userId?: number | string,
   _id?: string,
 }

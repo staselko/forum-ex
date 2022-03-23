@@ -14,7 +14,7 @@ import { IRootReducer } from '../../redux/RootReducer';
 import { changeCommentStart, deleteCommentStart } from '../../redux/Posts/PostsActions';
 
 const Comment = ({
-  userId, body, _id, firstName, secondName, postId,
+  userId, body, _id, firstName, secondName, postId, imageUrl,
 }: IComments) => {
   const [redacting, setRedacting] = useState(false);
   const [redactedComment, setRedactedComment] = useState({
@@ -61,6 +61,7 @@ const Comment = ({
           <Avatar
             className="forum__post-page-profile-avatar"
             alt="users avatar"
+            src={imageUrl}
             sx={{ height: 45, width: 45, marginRight: '20px' }}
           />
           <CardContent sx={{

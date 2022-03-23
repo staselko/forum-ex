@@ -5,15 +5,15 @@ import EditIcon from '@mui/icons-material/Edit';
 import SendIcon from '@mui/icons-material/Send';
 import ClearIcon from '@mui/icons-material/Clear';
 import {
-  FormControl, Box, TextField, Button,
+  FormControl, Box, TextField, Button, CardMedia,
 } from '@mui/material';
-import Post from '../../assets/images/Post.jpg';
 import { IPost } from '../../redux/Posts/PostsInterfaces';
 import { deletePostStart, editPostStart } from '../../redux/Posts/PostsActions';
 
 const PostItemUser = ({
   title,
   _id,
+  imageUrl,
 }: IPost) => {
   const [redacting, setRedacting] = useState(false);
   const [postText, setPostText] = useState({
@@ -74,7 +74,16 @@ const PostItemUser = ({
         ) : (
           <Link to={`/posts/${_id}`} className="forum__user-data-field-item_link">
             <div className="forum__user-data-field-item_info">
-              <img src={Post} alt="post preview" className="forum__user-data-field-item-image" />
+              <CardMedia
+                component="img"
+                sx={{
+                  width: ['170px'],
+                }}
+                className="forum__user-data-field-item-image"
+                image={(imageUrl as string)}
+                alt="green iguana"
+              />
+              {' '}
               <div className="forum__user-data-field-item-title">{title}</div>
             </div>
           </Link>

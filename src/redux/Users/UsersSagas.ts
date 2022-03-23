@@ -31,9 +31,12 @@ export function* getUsersList(): SagaIterator {
 
 export function* changeProfile({ payload }: ActionsTypes): SagaIterator {
   try {
-    const changeUser = yield call($api.patch, `/users/${payload._id}`, payload);
+    const changeUser = yield call($api.patch, `/users/${payload.get('_id')}`, payload, {
+      headers: { 'content-type': 'multipart/form-data', 'Access-Control-Allow-Origin': '*' },
+    });
+
     yield put(
-      changeUserProfileSuccess(changeUser),
+      changeUserProfileSuccess(changeUser.data),
     );
   } catch (error) {
     yield put(
