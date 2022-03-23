@@ -6,6 +6,9 @@ import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import { Input } from '@mui/material';
 import { convertBase64 } from '../../utils/api/Base64Parse';
 import FormInput from '../FormInput/FormInput';
 import { changeUserProfileStart, deleteUserStart } from '../../redux/Users/UsersActions';
@@ -135,12 +138,20 @@ const ProfileEditModal = () => {
                 value={userData.username}
                 handleChange={handleChange}
               />
-              <input
-                type="file"
-                name="phone"
-                value={userData.imageUrl}
-                onChange={handleFileRead}
-              />
+
+              <label htmlFor="icon-button-file">
+                <Input
+                  id="icon-button-file"
+                  type="file"
+                  name="phone"
+                  value={userData.imageUrl}
+                  onChange={handleFileRead}
+                  sx={{ display: 'none' }}
+                />
+                <IconButton color="primary" aria-label="upload picture" component="span">
+                  <PhotoCamera />
+                </IconButton>
+              </label>
               <Button type="submit">
                 Confirm Changes
               </Button>

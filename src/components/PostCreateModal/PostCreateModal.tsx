@@ -4,6 +4,9 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import { Input } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { v4 as uid } from 'uuid';
 import { useDispatch } from 'react-redux';
@@ -107,12 +110,19 @@ const PostCreateModal = ({ userId }: any) => {
                 value={postData.title}
                 handleChange={handleChange}
               />
-              <input
-                type="file"
-                name="imageUrl"
-                id="post-image"
-                onChange={handleFileRead}
-              />
+
+              <label htmlFor="icon-button-file">
+                <Input
+                  id="icon-button-file"
+                  type="file"
+                  name="imageUrl"
+                  onChange={handleFileRead}
+                  sx={{ display: 'none' }}
+                />
+                <IconButton color="primary" aria-label="upload picture" component="span">
+                  <PhotoCamera />
+                </IconButton>
+              </label>
               <Button type="submit">
                 Post It
               </Button>

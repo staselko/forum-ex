@@ -23,6 +23,7 @@ const App: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   responseInstance(dispatch);
   const { path } = useSelector((state: IRootReducer) => state.errorHandling);
+  const { _id } = useSelector((state: IRootReducer) => state.users.currentUser);
   const href = useLocation();
   const changeUrl = useNavigate();
   const params = href.pathname.split('/')[2];
@@ -36,6 +37,10 @@ const App: React.FunctionComponent = () => {
   useEffect(() => {
     if (href.pathname === ('/users')) {
       dispatch(getUsersStart());
+    }
+
+    if (href.pathname === '/' && !_id) {
+      changeUrl('/signin');
     }
 
     if (href.pathname === (`/users/${params}`)) {

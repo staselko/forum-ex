@@ -5,6 +5,9 @@ import {
 } from '@mui/material';
 import './HamburgerMenu.scss';
 import { useDispatch, useSelector } from 'react-redux';
+import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { IRootReducer } from '../../redux/RootReducer';
 import { logoutUserStart } from '../../redux/Users/UsersActions';
 
@@ -55,11 +58,24 @@ const HamburgerMenu = () => {
           }}
           className="forum__hamburger-menu"
         >
-          <Link to="/" className="forum__hamburger-menu-link-item">I am</Link>
+          <Link to="/" className="forum__hamburger-menu-link-item">
+            <div>Profile</div>
+            <PersonOutlineIcon />
+          </Link>
           {
             user.email
-              ? <div onClick={handleClick} className="forum__hamburger-menu-link-item">Log Out</div>
-              : <Link to="/signin" className="forum__hamburger-menu-link-item">Registration</Link>
+              ? (
+                <div onClick={handleClick} className="forum__hamburger-menu-link-item">
+                  <div>Log out</div>
+                  <LogoutIcon />
+                </div>
+              )
+              : (
+                <Link to="/signin" className="forum__hamburger-menu-link-item">
+                  <div>Sign in</div>
+                  <LoginIcon />
+                </Link>
+              )
           }
         </MenuItem>
 
