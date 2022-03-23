@@ -3,11 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   Routes, Route, Outlet, useLocation, useNavigate,
 } from 'react-router-dom';
-import { checkUserAuth, getTargetUserStart, getUsersStart } from './redux/Users/UsersActions';
+import { checkUserAuth, getTargetUserStart } from './redux/Users/UsersActions';
 import { getPostsStart, getTargetPostStart } from './redux/Posts/PostsActions';
 import HeaderComponent from './components/Header/Header';
 import PostsOverviewContainer from './pages/PostsOverview/PostOverviewContainer';
-import UsersContainer from './pages/UsersList/UsersContainer';
 import UserPageContainer from './pages/User/UserContainer';
 import './App.scss';
 import PostViewContainer from './pages/PostView/PostViewContainer';
@@ -18,6 +17,7 @@ import NotFound from './pages/NotFound/NotFound';
 import { responseInstance } from './http';
 import { IRootReducer } from './redux/RootReducer';
 import ServerError from './pages/ServerError/ServerError';
+import Users from './pages/UsersList/Users';
 
 const App: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -35,10 +35,6 @@ const App: React.FunctionComponent = () => {
   }, []);
 
   useEffect(() => {
-    if (href.pathname === ('/users')) {
-      dispatch(getUsersStart());
-    }
-
     if (href.pathname === '/' && !_id) {
       changeUrl('/signin');
     }
@@ -70,7 +66,7 @@ const App: React.FunctionComponent = () => {
       <HeaderComponent />
       <Routes>
         <Route path="/posts" element={<PostsOverviewContainer />} />
-        <Route path="/users" element={<UsersContainer />} />
+        <Route path="/users" element={<Users />} />
         <Route path="/users/:userId" element={<UserPageContainer />} />
         <Route path="/posts/:postId" element={<PostViewContainer />} />
         <Route path="/signin" element={<Authorization />} />

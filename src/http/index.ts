@@ -21,6 +21,7 @@ $api.interceptors.request.use((config: AxiosRequestConfig) => {
 
 export function responseInstance(dispatch: Dispatch): any {
   $api.interceptors.response.use((config: AxiosResponse) => config, async (error) => {
+    console.log(error.response.data);
     if (error.response.status === 400) {
       throw Error(error.response.data.message);
     }

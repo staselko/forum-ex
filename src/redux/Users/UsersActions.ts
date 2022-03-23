@@ -7,8 +7,9 @@ type userCredential = {
   password: string,
 }
 
-export const getUsersStart = (): ActionsTypes => ({
+export const getUsersStart = (page: any): ActionsTypes => ({
   type: allUsersActionTypes.GET_USERS_START,
+  payload: page,
 });
 
 export const getUsersSuccess = (users: IUser[]): ActionsTypes => ({

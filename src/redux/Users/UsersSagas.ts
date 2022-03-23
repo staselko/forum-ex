@@ -16,9 +16,9 @@ import { ActionsTypes } from '../Interfaces';
 
 import $api from '../../http';
 
-export function* getUsersList(): SagaIterator {
+export function* getUsersList({ payload }: ActionsTypes): SagaIterator {
   try {
-    const usersRef = yield call($api.get, '/users?page=1');
+    const usersRef = yield call($api.get, `/users?page=${payload}`);
     yield put(
       getUsersSuccess(usersRef.data),
     );
@@ -74,7 +74,7 @@ export function* loginUser({ payload }: ActionsTypes): SagaIterator {
     );
   } catch (error: any) {
     yield put(
-      loginUserFailure(error.message),
+      loginUserFailure(error.response.message),
     );
   }
 }
@@ -88,8 +88,8 @@ export function* checkUser(): SagaIterator {
     yield put(
       loginUserSuccess(response.data.user),
     );
-  } catch (error) {
-    loginUserFailure(error);
+  } catch (error: any) {
+    loginUserFailure((error as Error).message);
   }
 }
 

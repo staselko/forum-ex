@@ -46,7 +46,7 @@ const usersReducer = (
     case allUsersActionTypes.GET_TARGET_USER_SUCCESS:
       return {
         ...state,
-        usersList: action.payload,
+        usersList: [...INITIAL_STATE.usersList, ...action.payload],
         isLoading: false,
       };
 
