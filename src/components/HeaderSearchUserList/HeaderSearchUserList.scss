@@ -3,6 +3,7 @@
   &-item {
     display: flex;
     flex-direction: row;
+    align-items: center;
     margin: 10px;
     text-decoration: none;
     color: #000;
@@ -11,6 +12,7 @@
   &-item-image {
     width: 40px;
     height: 40px;
+    margin-right: 10px;
     border-radius: 50%;
   }
 }

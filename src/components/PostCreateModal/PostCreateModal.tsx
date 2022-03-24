@@ -17,9 +17,9 @@ import { convertBase64 } from '../../utils/api/Base64Parse';
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
+  width: [200, 400],
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -96,6 +96,7 @@ const PostCreateModal = ({ userId }: any) => {
         BackdropProps={{
           timeout: 500,
         }}
+
       >
         <Fade in={open}>
           <Box sx={style}>
@@ -107,6 +108,7 @@ const PostCreateModal = ({ userId }: any) => {
                 type="title"
                 name="title"
                 label="Title"
+                required
                 value={postData.title}
                 handleChange={handleChange}
               />

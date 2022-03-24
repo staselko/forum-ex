@@ -22,7 +22,7 @@ const CurrentUser = () => {
       email
         ? (
           <div className="forum__user-page">
-            <Card sx={{ maxWidth: 655 }}>
+            <Card sx={{ maxWidth: [300, 400, 655] }}>
               <Box className="forum__user-page-profile">
                 <CardMedia
                   component="img"

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import EditIcon from '@mui/icons-material/Edit';
 import SendIcon from '@mui/icons-material/Send';
 import ClearIcon from '@mui/icons-material/Clear';
 import {
-  FormControl, Box, TextField, Button, CardMedia,
+  FormControl, Box, TextField, Button, CardMedia, Typography, Collapse,
 } from '@mui/material';
 import { IPost } from '../../redux/Posts/PostsInterfaces';
 import { deletePostStart, editPostStart } from '../../redux/Posts/PostsActions';
@@ -20,11 +21,13 @@ const PostItemUser = ({
     _id,
     title,
   });
+  const [checked, setChecked] = useState(false);
   const location = useLocation();
   const dispatch = useDispatch();
   const handleDelete = () => {
     dispatch(deletePostStart(_id));
   };
+
   const handleSubmit = (event: any) => {
     event.preventDefault();
     dispatch(editPostStart(postText));
@@ -42,7 +45,14 @@ const PostItemUser = ({
   };
 
   return (
-    <div className="forum__user-data-field-item">
+    <Box
+      className="forum__user-data-field-item"
+      sx={{
+        maxWidth: [300, 400, 655],
+        height: [100, 150],
+        mt: ['10px', '20px'],
+      }}
+    >
       {
       redacting
         ? (
@@ -52,9 +62,12 @@ const PostItemUser = ({
               width: '100%',
             }}
           >
-            <form onSubmit={handleSubmit}>
+            <FormControl onSubmit={handleSubmit}>
               <Box sx={{
-                display: 'flex', justifyContent: 'center', width: '100%', alignItems: 'flex-end',
+                display: 'flex',
+                justifyContent: 'center',
+                width: '100%',
+                alignItems: 'flex-end',
               }}
               >
                 {' '}
@@ -64,44 +77,66 @@ const PostItemUser = ({
                   name="title"
                   value={postText.title}
                   variant="standard"
+                  sx={{
+                    width: '100px',
+                  }}
                 />
-                <Button variant="contained" type="submit" endIcon={<SendIcon />}>
+                <Button
+                  variant="contained"
+                  type="submit"
+                  endIcon={<SendIcon />}
+                >
                   Send
                 </Button>
               </Box>
-            </form>
+            </FormControl>
           </FormControl>
         ) : (
           <Link to={`/posts/${_id}`} className="forum__user-data-field-item_link">
-            <div className="forum__user-data-field-item_info">
+            <Box
+              sx={{
+                width: ['100%'],
+                paddingBottom: ['10px', '30px'],
+              }}
+              className="forum__user-data-field-item_info"
+            >
               <CardMedia
                 component="img"
                 sx={{
-                  width: ['170px'],
+                  width: ['110px', '170px'],
+                  height: ['110px', '170px'],
+                  mr: ['10px', '30px'],
                 }}
                 className="forum__user-data-field-item-image"
                 image={(imageUrl as string)}
                 alt="green iguana"
               />
               {' '}
-              <div className="forum__user-data-field-item-title">{title}</div>
-            </div>
+              <Typography
+                className="forum__user-data-field-item-title"
+              >
+                {title}
+              </Typography>
+            </Box>
           </Link>
         )
     }
       {
         location.pathname === '/' ? (
-          <div>
-            <div onClick={handleEdit}>
-              <EditIcon />
-            </div>
-            <div onClick={handleDelete}>
-              <ClearIcon />
-            </div>
+          <div onClick={() => setChecked(!checked)}>
+            <MoreHorizIcon />
+            <Collapse in={checked}>
+              <div onClick={handleEdit}>
+                <EditIcon />
+              </div>
+              <div onClick={handleDelete}>
+                <ClearIcon />
+              </div>
+            </Collapse>
           </div>
         ) : null
       }
-    </div>
+    </Box>
   );
 };
 

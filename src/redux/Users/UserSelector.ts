@@ -30,6 +30,6 @@ export const selectIsGettingCurrentUser = createSelector(
 
 export const selectUserFromSearch = (searcingValue: string) => createSelector(
   [usersWithPosts],
-  (usersList): IUser[] => usersList.filter((user) => user.name?.toLocaleLowerCase()
+  (usersList): IUser[] => usersList.filter((user) => user.firstName?.toLocaleLowerCase()
     .includes(searcingValue.toLocaleLowerCase())),
 );

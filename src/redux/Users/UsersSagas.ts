@@ -74,7 +74,7 @@ export function* loginUser({ payload }: ActionsTypes): SagaIterator {
     );
   } catch (error: any) {
     yield put(
-      loginUserFailure(error.response.message),
+      loginUserFailure(error.message),
     );
   }
 }
@@ -127,7 +127,7 @@ export function* targetUser({ payload }: ActionsTypes): SagaIterator {
     yield put(
       getTargetUserSuccess([user.data]),
     );
-  } catch (error) {
+  } catch (error: any) {
     getTargetUserFailure(error);
   }
 }

@@ -75,11 +75,9 @@ const HeaderSearch = () => {
                 <FormInput
                   title="search"
                   name="searchingValue"
-                  label="Search"
                   value={searchingValue}
                   handleChange={handleChange}
                   className="form-input-header"
-
                 />
               </Collapse>
             </div>
@@ -93,9 +91,8 @@ const HeaderSearch = () => {
               {
           searchingValue && isSearching
 
-            ? select.map((user) => <HeaderSearchUserList key={user.id} {...user} />)
+            ? select.map((user) => <HeaderSearchUserList key={user._id} {...user} />)
             : <h2 className="forum__header-search-result-error">Type any name or username</h2>
-
         }
             </div>
           ) : null

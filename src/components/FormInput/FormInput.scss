@@ -21,9 +21,11 @@ $main-color: black;
     width: 100%;
     border: none;
     border-radius: 0;
-    border: 1px solid $sub-color;
+    border-bottom: 1px solid $sub-color;
     margin: 25px 0;
 
+
+    
     &:invalid {
       border-bottom: 1px solid red;
     }

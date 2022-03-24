@@ -21,11 +21,19 @@ $api.interceptors.request.use((config: AxiosRequestConfig) => {
 
 export function responseInstance(dispatch: Dispatch): any {
   $api.interceptors.response.use((config: AxiosResponse) => config, async (error) => {
-    console.log(error.response.data);
+    const originalRequest = error.config;
+    if (error.response.status === 404) {
+      dispatch(replace('/not-found'));
+    }
+
+    if (error.response.status === 500) {
+      dispatch(replace('/server-error'));
+    }
+
     if (error.response.status === 400) {
       throw Error(error.response.data.message);
     }
-    const originalRequest = error.config;
+
     if (error.response.status === 401 && error.config && !error.config._isRetry) {
       originalRequest._isRetry = true;
       try {
@@ -37,13 +45,6 @@ export function responseInstance(dispatch: Dispatch): any {
       }
     }
 
-    if (error.response.status === 404) {
-      dispatch(replace('/not-found'));
-    }
-
-    if (error.response.status === 500) {
-      dispatch(replace('/server-error'));
-    }
     throw error;
   });
 }

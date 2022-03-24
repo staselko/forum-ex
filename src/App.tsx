@@ -21,7 +21,6 @@ import Users from './pages/UsersList/Users';
 
 const App: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-  responseInstance(dispatch);
   const { path } = useSelector((state: IRootReducer) => state.errorHandling);
   const { _id } = useSelector((state: IRootReducer) => state.users.currentUser);
   const href = useLocation();
@@ -29,6 +28,8 @@ const App: React.FunctionComponent = () => {
   const params = href.pathname.split('/')[2];
 
   useEffect(() => {
+    responseInstance(dispatch);
+
     if (localStorage.getItem('token')) {
       dispatch(checkUserAuth());
     }

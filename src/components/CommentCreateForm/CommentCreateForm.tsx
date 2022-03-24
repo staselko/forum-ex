@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { AccountCircle } from '@mui/icons-material';
 import {
   FormControl,
-  Box, TextField, Button,
+  Box, TextField, Button, Avatar,
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { useParams } from 'react-router-dom';
@@ -11,7 +10,7 @@ import { createCommentStart } from '../../redux/Posts/PostsActions';
 import { IRootReducer } from '../../redux/RootReducer';
 
 const CommentCreateForm = () => {
-  const { _id } = useSelector((store: IRootReducer) => store.users.currentUser);
+  const { _id, imageUrl } = useSelector((store: IRootReducer) => store.users.currentUser);
   const { postId } = useParams();
   const dispatch = useDispatch();
   const [newComment, setNewComment] = useState({
@@ -48,7 +47,7 @@ const CommentCreateForm = () => {
           display: 'flex', justifyContent: 'center', width: '100%', alignItems: 'flex-end',
         }}
         >
-          <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+          <Avatar src={imageUrl} sx={{ color: 'action.active', mr: 1, my: 0.1 }} />
           <TextField
             id="input-with-sx"
             onChange={handleChange}

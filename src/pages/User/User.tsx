@@ -20,13 +20,17 @@ const User = () => {
   } = useSelector(selectCurrentUser(userId));
   return (
     <div className="forum__user-page">
-      <Card sx={{ maxWidth: 655 }}>
-        <Box className="forum__user-page-profile">
+      <Card sx={{ maxWidth: 500, width: [300, 400] }}>
+        <Box
+          className="forum__user-page-profile"
+        >
           <CardMedia
             component="img"
-            height="240"
             image={UserBG}
             alt="users background"
+            sx={{
+              height: [150, 200],
+            }}
           />
           <Box sx={{
             display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '0 30px',

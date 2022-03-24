@@ -28,10 +28,15 @@ const PostView = () => {
   return (
     <div className="forum__post-page">
       <Zoom in={checked} style={{ transitionDelay: '200ms' }}>
-        <Card sx={{ boxShadow: '0px 0px 10px 5px #dbdbdb69', padding: '20px' }}>
+        <Card sx={{
+          boxShadow: '0px 0px 10px 5px #dbdbdb69', padding: '20px', width: [300, 400],
+        }}
+        >
           <Box
             sx={{
-              display: 'flex', alignItems: 'center', padding: '10px',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '10px',
             }}
             className="forum__post-page-profile"
           >

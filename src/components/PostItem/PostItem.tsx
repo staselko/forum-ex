@@ -18,8 +18,9 @@ const PostItem = (post: IPost) => {
           <Link to={`/posts/${_id}`} className="forum__user-data-field-item_link">
             <Card sx={{
               maxWidth: 400,
-              width: ['170px', '250px', '300px', '400px'],
-              height: ['150px', '250px', '300px'],
+              width: ['250px', '300px', '400px'],
+              height: ['200px', '250px', '300px'],
+              mb: '20px',
             }}
             >
               <CardActionArea>
@@ -27,7 +28,7 @@ const PostItem = (post: IPost) => {
                   component="img"
                   sx={{
                     width: ['100%'],
-                    height: ['80px', '180px', '230px'],
+                    height: ['140px', '180px', '230px'],
                   }}
                   image={(imageUrl as string)}
                   alt="green iguana"
