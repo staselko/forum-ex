@@ -49,7 +49,7 @@ const PostItemUser = ({
       className="forum__user-data-field-item"
       sx={{
         maxWidth: [300, 400, 655],
-        height: [100, 150],
+        height: [100, 170],
         mt: ['10px', '20px'],
       }}
     >
