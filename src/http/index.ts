@@ -41,7 +41,7 @@ export function responseInstance(dispatch: Dispatch): any {
         localStorage.setItem('token', response.data.accessToken);
         return $api.request(originalRequest);
       } catch (e) {
-        throw new Error('НЕ АВТОРИЗОВАН');
+        throw new Error('Unauthorized');
       }
     }
 

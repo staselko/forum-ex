@@ -85,6 +85,7 @@ const PostItemUser = ({
                   variant="contained"
                   type="submit"
                   endIcon={<SendIcon />}
+                  onClick={handleSubmit}
                 >
                   Send
                 </Button>

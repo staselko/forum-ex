@@ -2,7 +2,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import Commetn from './Comment';
+import Comment from './Comment';
 import Spinner from '../../components/Spinner/Spinner';
 import { IRootReducer } from '../../redux/RootReducer';
 
@@ -13,6 +13,6 @@ const mapStateToProps = createStructuredSelector({
 const CommentContainer: any = compose(
   connect(mapStateToProps),
   Spinner,
-)(Commetn);
+)(Comment);
 
 export default CommentContainer;
