@@ -14,6 +14,8 @@ const INITIAL_STATE: IUserInitialState = {
   isSearching: false,
   isGettingCurrentUser: true,
   currentUser: {},
+  targetUser: {},
+  searchingResults: [],
 };
 
 const usersReducer = (
@@ -25,6 +27,12 @@ const usersReducer = (
       return {
         ...state,
         isLoading: true,
+      };
+
+    case allUsersActionTypes.SEARCH_USER_SUCCESS:
+      return {
+        ...state,
+        searchingResults: action.payload,
       };
 
     case allUsersActionTypes.CHECK_USER_AUTH:
@@ -43,10 +51,16 @@ const usersReducer = (
       };
 
     case allUsersActionTypes.GET_USERS_SUCCESS:
-    case allUsersActionTypes.GET_TARGET_USER_SUCCESS:
       return {
         ...state,
         usersList: [...INITIAL_STATE.usersList, ...action.payload],
+        isLoading: false,
+      };
+
+    case allUsersActionTypes.GET_TARGET_USER_SUCCESS:
+      return {
+        ...state,
+        targetUser: action.payload,
         isLoading: false,
       };
 

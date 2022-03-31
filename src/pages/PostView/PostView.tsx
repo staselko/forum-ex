@@ -3,9 +3,8 @@ import {
   Avatar, Box, Card, CardContent, CardMedia, Typography, Zoom,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { Link, useParams, useHref } from 'react-router-dom';
+import { Link, useHref } from 'react-router-dom';
 import { v4 as uid } from 'uuid';
-import { selectCurrentPost } from '../../redux/Posts/PostsSelector';
 import CommentContainer from '../../components/Comment/CommentContainer';
 
 import './PostView.scss';
@@ -15,13 +14,12 @@ import { IRootReducer } from '../../redux/RootReducer';
 const strftime = require('strftime');
 
 const PostView = () => {
-  const { postId } = useParams();
   const {
     user,
     title,
     imageUrl,
     createdAt,
-  } = useSelector(selectCurrentPost(postId));
+  } = useSelector((state: IRootReducer) => state.posts.targetPost);
   const checked = true;
   const location = useHref(`/users/${user._id}`);
   const comments = useSelector((state: IRootReducer) => state.posts.comments);

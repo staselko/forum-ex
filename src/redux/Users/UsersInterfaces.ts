@@ -47,4 +47,7 @@ export interface IUserInitialState {
   isGettingCurrentUser: Boolean,
   isSearching: boolean,
   currentUser: IUser,
+  searchingResults: IUser[],
+  targetUser: IUser,
+
 }

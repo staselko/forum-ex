@@ -24,4 +24,5 @@ export interface PostsInitialState {
   errorMessage?: unknown,
   isLoading: Boolean,
   isCommenting: Boolean,
+  targetPost: any,
 }

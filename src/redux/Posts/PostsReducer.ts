@@ -2,12 +2,13 @@ import postsActionsTypes from './PostsTypes';
 import { ActionsTypes } from '../Interfaces';
 import { PostsInitialState } from './PostsInterfaces';
 
-const INITIAL_STATE:PostsInitialState = {
+const INITIAL_STATE: PostsInitialState = {
   postsListToShow: [],
   comments: [],
   errorMessage: null,
   isLoading: true,
   isCommenting: false,
+  targetPost: {},
 };
 
 const postsReducer = (
@@ -24,10 +25,16 @@ const postsReducer = (
       };
 
     case postsActionsTypes.GET_POSTS_SUCCESS:
-    case postsActionsTypes.GET_TARGET_POST_SUCCESS:
       return {
         ...state,
         postsListToShow: action.payload,
+        comments: action.payload[0].comments,
+        isLoading: false,
+      };
+    case postsActionsTypes.GET_TARGET_POST_SUCCESS:
+      return {
+        ...state,
+        targetPost: action.payload[0],
         comments: action.payload[0].comments,
         isLoading: false,
       };

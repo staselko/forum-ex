@@ -121,3 +121,18 @@ export const getTargetUserFailure = (error: unknown) => ({
   type: allUsersActionTypes.GET_TARGET_USER_FAILURE,
   payload: error,
 });
+
+export const searchUserStart = (searchingValue: string) => ({
+  type: allUsersActionTypes.SEARCH_USER_START,
+  payload: searchingValue,
+});
+
+export const searchUserSuccess = (searchingResults: IUser[]) => ({
+  type: allUsersActionTypes.SEARCH_USER_SUCCESS,
+  payload: searchingResults,
+});
+
+export const searchUserFailure = (error: any) => ({
+  type: allUsersActionTypes.SEARCH_USER_FAILURE,
+  payload: error,
+});

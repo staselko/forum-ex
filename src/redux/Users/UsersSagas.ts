@@ -11,6 +11,8 @@ import {
   logoutUserSuccess, deleteUserFailure,
   deleteUserSuccess, getTargetUserFailure,
   getTargetUserSuccess,
+  searchUserFailure,
+  searchUserSuccess,
 } from './UsersActions';
 import { ActionsTypes } from '../Interfaces';
 
@@ -125,10 +127,23 @@ export function* targetUser({ payload }: ActionsTypes): SagaIterator {
   try {
     const user = yield call($api.get, `/users/${payload}`);
     yield put(
-      getTargetUserSuccess([user.data]),
+      getTargetUserSuccess(user.data),
     );
   } catch (error: any) {
     getTargetUserFailure(error);
+  }
+}
+
+export function* searchUser({ payload }: ActionsTypes): SagaIterator {
+  try {
+    const results = yield call($api.get, `/users?search=${payload}`);
+    yield put(
+      searchUserSuccess(results.data),
+    );
+  } catch (error) {
+    yield put(
+      searchUserFailure(error),
+    );
   }
 }
 
@@ -164,6 +179,9 @@ export function* onGetTargetUserStart() {
   yield takeLatest(allUsersActionTypes.GET_TARGET_USER_START, targetUser);
 }
 
+export function* onSearchUserStart() {
+  yield takeLatest(allUsersActionTypes.SEARCH_USER_START, searchUser);
+}
 export function* usersSaga() {
   yield all([
     call(onGetUsersStart),
@@ -174,5 +192,6 @@ export function* usersSaga() {
     call(onLogoutUser),
     call(onDeleteUserStart),
     call(onGetTargetUserStart),
+    call(onSearchUserStart),
   ]);
 }

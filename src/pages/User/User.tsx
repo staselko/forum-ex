@@ -3,21 +3,19 @@ import {
   Card, CardMedia, CardContent, Typography, Avatar, Box,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import UserBG from '../../assets/images/UsersBG.png';
 import PostItem from '../../components/PostItem/PostItem';
-import { selectCurrentUser } from '../../redux/Users/UserSelector';
 import './User.scss';
+import { IRootReducer } from '../../redux/RootReducer';
 
 const User = () => {
-  const { userId } = useParams();
   const {
     email,
     firstName,
     secondName,
     imageUrl,
     posts,
-  } = useSelector(selectCurrentUser(userId));
+  } = useSelector((state: IRootReducer) => state.users.targetUser);
   return (
     <div className="forum__user-page">
       <Card sx={{ maxWidth: 500, width: [300, 400] }}>

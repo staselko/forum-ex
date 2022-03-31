@@ -7,9 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import FormInput from '../FormInput/FormInput';
 import { IRootReducer } from '../../redux/RootReducer';
-import { selectUserFromSearch } from '../../redux/Users/UserSelector';
 import HeaderSearchUserList from '../HeaderSearchUserList/HeaderSearchUserList';
-import { closeSearchingField, toggleSearchingField } from '../../redux/Users/UsersActions';
+import { closeSearchingField, searchUserStart, toggleSearchingField } from '../../redux/Users/UsersActions';
 
 import './HeaderSearch.scss';
 
@@ -22,6 +21,7 @@ const HeaderSearch = () => {
   const handleChange = (event: any) => {
     const { value } = event.target;
     setSearchingValue(value);
+    dispatch(searchUserStart(searchingValue));
   };
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const HeaderSearch = () => {
     dispatch(toggleSearchingField());
   };
 
-  const select = useSelector(selectUserFromSearch(searchingValue));
+  const select = useSelector((state: IRootReducer) => state.users.searchingResults);
 
   return (
     <div className="forum__header-search">
@@ -92,7 +92,7 @@ const HeaderSearch = () => {
           searchingValue && isSearching
 
             ? select.map((user) => <HeaderSearchUserList key={user._id} {...user} />)
-            : <h2 className="forum__header-search-result-error">Type any name or username</h2>
+            : <h2 className="forum__header-search-result-error">Type username</h2>
         }
             </div>
           ) : null

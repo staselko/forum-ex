@@ -26,10 +26,8 @@ const App: React.FunctionComponent = () => {
   const href = useLocation();
   const changeUrl = useNavigate();
   const params = href.pathname.split('/')[2];
-
   useEffect(() => {
     responseInstance(dispatch);
-
     if (localStorage.getItem('token')) {
       dispatch(checkUserAuth());
     }
