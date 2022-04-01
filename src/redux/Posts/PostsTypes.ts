@@ -27,6 +27,7 @@ export const postsActionsTypes = {
   EDIT_POST_START: 'EDIT_POST_START',
   EDIT_POST_SUCCESS: 'EDIT_POST_SUCCESS',
   EDIT_POST_FAILURE: 'EDIT_POST_FAILURE',
+  CLEAR_TARGET_POST: 'CLEAR_TARGET_POST',
 };
 
 export default postsActionsTypes;

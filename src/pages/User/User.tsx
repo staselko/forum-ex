@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Card, CardMedia, CardContent, Typography, Avatar, Box,
 } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import UserBG from '../../assets/images/UsersBG.png';
 import PostItem from '../../components/PostItem/PostItem';
 import './User.scss';
 import { IRootReducer } from '../../redux/RootReducer';
+import { clearTargetUser } from '../../redux/Users/UsersActions';
 
 const User = () => {
   const {
@@ -16,6 +17,12 @@ const User = () => {
     imageUrl,
     posts,
   } = useSelector((state: IRootReducer) => state.users.targetUser);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => () => {
+    dispatch(clearTargetUser());
+  }, []);
   return (
     <div className="forum__user-page">
       <Card sx={{ maxWidth: 500, width: [300, 400] }}>
@@ -52,7 +59,9 @@ const User = () => {
         </Box>
         <Box className="forum__user-page-posts">
           {
-            posts?.map((post) => <PostItem key={post._id} {...post} />)
+            posts?.length
+              ? posts?.map((post) => <PostItem key={post._id} {...post} />)
+              : <Typography sx={{ mb: 10 }}>No posts!</Typography>
           }
         </Box>
       </Card>

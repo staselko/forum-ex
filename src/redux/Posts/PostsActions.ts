@@ -139,3 +139,7 @@ export const editPostFailure = (error: unknown): ActionsTypes => ({
   type: postsActionsTypes.EDIT_POST_FAILURE,
   payload: error,
 });
+
+export const clearTargetPost = (): ActionsTypes => ({
+  type: postsActionsTypes.CLEAR_TARGET_POST,
+});

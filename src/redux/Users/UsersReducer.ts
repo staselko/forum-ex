@@ -24,6 +24,7 @@ const usersReducer = (
 ): IUserInitialState => {
   switch (action.type) {
     case allUsersActionTypes.GET_USERS_START:
+    case allUsersActionTypes.GET_TARGET_USER_START:
       return {
         ...state,
         isLoading: true,
@@ -60,8 +61,14 @@ const usersReducer = (
     case allUsersActionTypes.GET_TARGET_USER_SUCCESS:
       return {
         ...state,
-        targetUser: action.payload,
         isLoading: false,
+        targetUser: action.payload,
+      };
+
+    case allUsersActionTypes.CLEAR_TARGET_USER:
+      return {
+        ...state,
+        targetUser: {},
       };
 
     case allUsersActionTypes.LOGIN_USER_SUCCESS:

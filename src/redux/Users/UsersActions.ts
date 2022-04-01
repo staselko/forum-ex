@@ -136,3 +136,7 @@ export const searchUserFailure = (error: any) => ({
   type: allUsersActionTypes.SEARCH_USER_FAILURE,
   payload: error,
 });
+
+export const clearTargetUser = () => ({
+  type: allUsersActionTypes.CLEAR_TARGET_USER,
+});

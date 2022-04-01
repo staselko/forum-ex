@@ -17,6 +17,7 @@ const postsReducer = (
 ): PostsInitialState => {
   switch (action.type) {
     case postsActionsTypes.GET_POSTS_START:
+    case postsActionsTypes.GET_TARGET_POST_START:
     case postsActionsTypes.CREATE_POST_START:
     case postsActionsTypes.GET_COMMENTS_START:
       return {
@@ -37,6 +38,12 @@ const postsReducer = (
         targetPost: action.payload[0],
         comments: action.payload[0].comments,
         isLoading: false,
+      };
+
+    case postsActionsTypes.CLEAR_TARGET_POST:
+      return {
+        ...state,
+        targetPost: {},
       };
 
     case postsActionsTypes.CREATE_POST_SUCCESS:
