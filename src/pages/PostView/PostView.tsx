@@ -7,6 +7,7 @@ import { Link, useHref } from 'react-router-dom';
 import { v4 as uid } from 'uuid';
 import CommentContainer from '../../components/Comment/CommentContainer';
 
+import DefaultImg from '../../assets/images/default.jpg';
 import './PostView.scss';
 import CommetnCreateFormContainer from '../../components/CommentCreateForm/CommentCreateForm';
 import { IRootReducer } from '../../redux/RootReducer';
@@ -77,7 +78,7 @@ const PostView = () => {
                 width: ['100%'],
                 height: ['180px', '260px', '340px'],
               }}
-              image={(imageUrl as string)}
+              image={imageUrl ? (imageUrl as string) : DefaultImg}
               alt="green iguana"
             />
             <div className="forum__post-page-created">

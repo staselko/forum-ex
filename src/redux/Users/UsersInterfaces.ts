@@ -13,6 +13,7 @@ export interface IUser extends IUserItem {
   firstName?: string,
   username?: string,
   secondName?: string,
+  isActivated?: boolean,
   email?: string,
   password?: string,
   address?: {

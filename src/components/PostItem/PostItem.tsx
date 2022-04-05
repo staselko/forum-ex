@@ -4,6 +4,7 @@ import {
   Card, CardActionArea, CardMedia, CardContent, Typography,
 } from '@mui/material';
 import { IPost } from '../../redux/Posts/PostsInterfaces';
+import DefaultImg from '../../assets/images/default.jpg';
 import './PostItem.scss';
 import PostItemUser from './PostItemUser';
 
@@ -30,7 +31,7 @@ const PostItem = (post: IPost) => {
                     width: ['100%'],
                     height: ['140px', '180px', '230px'],
                   }}
-                  image={(imageUrl as string)}
+                  image={imageUrl ? (imageUrl as string) : DefaultImg}
                   alt="green iguana"
                 />
                 <CardContent className="forum__home-data-field-item">

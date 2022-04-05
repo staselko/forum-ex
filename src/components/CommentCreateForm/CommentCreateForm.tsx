@@ -10,18 +10,23 @@ import { createCommentStart } from '../../redux/Posts/PostsActions';
 import { IRootReducer } from '../../redux/RootReducer';
 
 const CommentCreateForm = () => {
-  const { _id, imageUrl } = useSelector((store: IRootReducer) => store.users.currentUser);
+  const {
+    _id,
+    imageUrl,
+    isActivated,
+  } = useSelector((store: IRootReducer) => store.users.currentUser);
   const { postId } = useParams();
   const dispatch = useDispatch();
   const [newComment, setNewComment] = useState({
-
     postId,
     body: '',
   });
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    dispatch(createCommentStart({ ...newComment, _id }));
+    if (newComment.body.trim()) {
+      dispatch(createCommentStart({ ...newComment, _id }));
+    }
 
     setNewComment({
       ...newComment,
@@ -56,7 +61,12 @@ const CommentCreateForm = () => {
             label="Comment It"
             variant="standard"
           />
-          <Button variant="contained" type="submit" endIcon={<SendIcon />}>
+          <Button
+            variant="contained"
+            disabled={!isActivated}
+            type="submit"
+            endIcon={<SendIcon />}
+          >
             Send
           </Button>
         </Box>

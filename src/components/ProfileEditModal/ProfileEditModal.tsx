@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -28,7 +28,9 @@ const style = {
 };
 
 const ProfileEditModal = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const isFirstRender = useRef(true);
+  const [isUpdated, setIsUpdated] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
@@ -45,33 +47,46 @@ const ProfileEditModal = () => {
     firstName, secondName, imageUrl: '', username, email, _id,
   });
 
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+    } else {
+      setIsUpdated(true);
+    }
+  }, [userData]);
+
   const handleDelete = () => {
     dispatch(deleteUserStart(_id));
   };
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    formData.append(
-      'firstName',
-      (userData.firstName as string),
-    );
-    formData.append(
-      'secondName',
-      (userData.secondName as string),
-    );
-    formData.append(
-      'username',
-      (userData.username as string),
-    );
-    formData.append(
-      'email',
-      (userData.email as string),
-    );
-    formData.append(
-      '_id',
-      (userData._id as string),
-    );
-    dispatch(changeUserProfileStart(formData));
+
+    if (isUpdated) {
+      formData.append(
+        'firstName',
+        (userData.firstName as string),
+      );
+      formData.append(
+        'secondName',
+        (userData.secondName as string),
+      );
+      formData.append(
+        'username',
+        (userData.username as string),
+      );
+      formData.append(
+        'email',
+        (userData.email as string),
+      );
+      formData.append(
+        '_id',
+        (userData._id as string),
+      );
+      setIsUpdated(false);
+      dispatch(changeUserProfileStart(formData));
+    }
+
     handleClose();
   };
 
@@ -112,22 +127,17 @@ const ProfileEditModal = () => {
             <form method="PUT" onSubmit={handleSubmit}>
               <FormInput
                 type="text"
-                name="email"
-                label="Change email"
-                value={userData.email}
-                handleChange={handleChange}
-              />
-              <FormInput
-                type="text"
                 name="firstName"
                 label="Change firstname"
                 value={userData.firstName}
+                required
                 handleChange={handleChange}
               />
               <FormInput
                 type="text"
                 name="secondName"
                 label="Change surname"
+                required
                 value={userData.secondName}
                 handleChange={handleChange}
               />
@@ -147,6 +157,9 @@ const ProfileEditModal = () => {
                   value={userData.imageUrl}
                   onChange={handleFileRead}
                   sx={{ display: 'none' }}
+                  inputProps={{
+                    accept: '.png, .jpg, .jpeg',
+                  }}
                 />
                 <IconButton color="primary" aria-label="upload picture" component="span">
                   <PhotoCamera />

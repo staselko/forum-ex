@@ -1,8 +1,9 @@
 import {
   Card, Box, CardMedia, Avatar, CardActions, CardContent, Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { IRootReducer } from '../../redux/RootReducer';
 import PostCreateModal from '../../components/PostCreateModal/PostCreateModal';
 import PostItem from '../../components/PostItem/PostItem';
@@ -14,6 +15,12 @@ const CurrentUser = () => {
   const {
     firstName, secondName, email, _id, imageUrl, posts,
   } = useSelector((store: IRootReducer): IUser => store.users.currentUser);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!_id) {
+      navigate('/signin');
+    }
+  }, [_id]);
   return (
     <div>
       <div className="forum__user-page">
@@ -53,10 +60,11 @@ const CurrentUser = () => {
           </Box>
           <Box className="forum__user-page-posts">
             {
-                posts
+                posts?.length
 
                   ? posts.map((post) => <PostItem key={post._id} {...post} />)
-                  : <div>No posts!</div>
+                  : <Typography sx={{ mb: 10 }}>No posts!</Typography>
+
             }
           </Box>
         </Card>

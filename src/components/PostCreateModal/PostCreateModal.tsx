@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -6,11 +6,11 @@ import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 import { Input } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { v4 as uid } from 'uuid';
 import { useDispatch } from 'react-redux';
-import FormInput from '../../components/FormInput/FormInput';
 import { createPostStart } from '../../redux/Posts/PostsActions';
 import { convertBase64 } from '../../utils/api/Base64Parse';
 
@@ -36,9 +36,23 @@ const PostCreateModal = ({ userId }: any) => {
   const [postData, setPostData] = useState({
     user: userId,
     id: uid(),
-    title: '',
+    title: ' ',
     imageUrl: '',
   });
+
+  useEffect(() => {
+    ValidatorForm.addValidationRule('isEmpty', (value) => {
+      if (!value.trim()) {
+        return false;
+      }
+
+      return true;
+    });
+
+    return () => {
+      ValidatorForm.removeValidationRule('isEmpty');
+    };
+  }, []);
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -100,17 +114,23 @@ const PostCreateModal = ({ userId }: any) => {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <Typography id="transition-modal-title" variant="h6" component="h2">
+            <Typography id="transition-modal-title" variant="h6" component="h2" sx={{ mb: '20px' }}>
               Create Post
             </Typography>
-            <form method="PUT" onSubmit={handleSubmit}>
-              <FormInput
+            <ValidatorForm onSubmit={handleSubmit}>
+              <TextValidator
                 type="title"
+                className="form-input-comments"
                 name="title"
                 label="Title"
-                required
+                validators={['isEmpty']}
+                fullWidth
+                errorMessages={[]}
                 value={postData.title}
-                handleChange={handleChange}
+                onChange={handleChange}
+                sx={{
+                  mb: '20px',
+                }}
               />
 
               <label htmlFor="icon-button-file">
@@ -120,6 +140,9 @@ const PostCreateModal = ({ userId }: any) => {
                   name="imageUrl"
                   onChange={handleFileRead}
                   sx={{ display: 'none' }}
+                  inputProps={{
+                    accept: '.png, .jpg, .jpeg',
+                  }}
                 />
                 <IconButton color="primary" aria-label="upload picture" component="span">
                   <PhotoCamera />
@@ -128,7 +151,7 @@ const PostCreateModal = ({ userId }: any) => {
               <Button type="submit">
                 Post It
               </Button>
-            </form>
+            </ValidatorForm>
           </Box>
         </Fade>
       </Modal>

@@ -8,6 +8,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import {
   FormControl, Box, TextField, Button, CardMedia, Typography, Collapse,
 } from '@mui/material';
+import DefaultImg from '../../assets/images/default.jpg';
 import { IPost } from '../../redux/Posts/PostsInterfaces';
 import { deletePostStart, editPostStart } from '../../redux/Posts/PostsActions';
 
@@ -26,11 +27,15 @@ const PostItemUser = ({
   const dispatch = useDispatch();
   const handleDelete = () => {
     dispatch(deletePostStart(_id));
+    setChecked(false);
   };
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    dispatch(editPostStart(postText));
+    if (title !== postText.title) {
+      dispatch(editPostStart(postText));
+    }
+    setChecked(false);
     setRedacting(!redacting);
   };
 
@@ -40,7 +45,8 @@ const PostItemUser = ({
     setPostText({ ...postText, [targetName]: value });
   };
 
-  const handleEdit = () => {
+  const handleEdit = (event: any) => {
+    event.stopPropagation();
     setRedacting(!redacting);
   };
 
@@ -109,7 +115,7 @@ const PostItemUser = ({
                   mr: ['10px', '30px'],
                 }}
                 className="forum__user-data-field-item-image"
-                image={(imageUrl as string)}
+                image={imageUrl ? (imageUrl as string) : DefaultImg}
                 alt="green iguana"
               />
               {' '}
@@ -124,7 +130,13 @@ const PostItemUser = ({
     }
       {
         location.pathname === '/' ? (
-          <div onClick={() => setChecked(!checked)}>
+          <div onClick={() => {
+            setChecked(!checked);
+            if (redacting) {
+              setRedacting(false);
+            }
+          }}
+          >
             <MoreHorizIcon />
             <Collapse in={checked}>
               <div onClick={handleEdit}>

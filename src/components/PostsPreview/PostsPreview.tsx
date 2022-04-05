@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import { Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { showNextPage } from '../../redux/Posts/PostsActions';
 import { IRootReducer } from '../../redux/RootReducer';
@@ -20,8 +21,10 @@ const PostsPreview: FC = () => {
     <div>
       <div className="forum_home-data-field">
         {
-        postsListToShow
-          .map((item) => <PostItem key={item.id} {...item} />)
+        postsListToShow.length
+          ? postsListToShow
+            .map((item) => <PostItem key={item.id} {...item} />)
+          : <Typography>You can be first owner of the first post</Typography>
       }
       </div>
       <Button onClick={nextPage}>Next Page</Button>
