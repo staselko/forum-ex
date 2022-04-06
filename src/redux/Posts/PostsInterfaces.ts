@@ -1,10 +1,12 @@
+import { IUser } from '../Users/UsersInterfaces';
+
 export interface IComments {
   postId?: string,
   body: String,
   firstName?: string,
   secondName?: string,
   imageUrl?: string,
-  userId?: number | string,
+  userId?: number | string | IUser| any,
   _id?: string,
 }
 

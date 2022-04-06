@@ -136,7 +136,7 @@ export function* targetUser({ payload }: ActionsTypes): SagaIterator {
 
 export function* searchUser({ payload }: ActionsTypes): SagaIterator {
   try {
-    const results = yield call($api.get, `/users?search=${payload}`);
+    const results = yield call($api.get, `/users?search=${payload.searchingValue}&page=${payload.page}`);
     yield put(
       searchUserSuccess(results.data),
     );

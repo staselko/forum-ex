@@ -122,9 +122,11 @@ export const getTargetUserFailure = (error: unknown) => ({
   payload: error,
 });
 
-export const searchUserStart = (searchingValue: string) => ({
+export const searchUserStart = (
+  settings: {searchingValue: string, page: number },
+) => ({
   type: allUsersActionTypes.SEARCH_USER_START,
-  payload: searchingValue,
+  payload: settings,
 });
 
 export const searchUserSuccess = (searchingResults: IUser[]) => ({

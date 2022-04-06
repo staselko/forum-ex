@@ -15,19 +15,32 @@ import './HeaderSearch.scss';
 const HeaderSearch = () => {
   const [searchingValue, setSearchingValue] = useState('');
   const isSearching = useSelector((store: IRootReducer) => store.users.isSearching);
+  const [page, setPage] = useState(1);
+
   const dispatch = useDispatch();
   const location = useLocation();
 
   const handleChange = (event: any) => {
     const { value } = event.target;
     setSearchingValue(value);
-    dispatch(searchUserStart(searchingValue));
+    setPage(1);
+    if (value.trim().length) {
+      dispatch(searchUserStart({ searchingValue, page }));
+    }
   };
 
   useEffect(() => {
     dispatch(closeSearchingField());
     setSearchingValue('');
   }, [location]);
+
+  const handleScroll = (event: any) => {
+    const bottom = event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight;
+    if (bottom) {
+      setPage(page + 1);
+      dispatch(searchUserStart({ searchingValue, page }));
+    }
+  };
 
   const handleClick = () => {
     dispatch(toggleSearchingField());
@@ -87,7 +100,7 @@ const HeaderSearch = () => {
       {
         isSearching
           ? (
-            <div className="forum__header-search-result">
+            <div className="forum__header-search-result" onScroll={handleScroll}>
               {
           searchingValue && isSearching
 

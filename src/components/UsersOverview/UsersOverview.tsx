@@ -13,7 +13,7 @@ import './UserOverview.scss';
 const UsersOverview = () => {
   const users: IUser[] = useSelector((store: IRootReducer) => store.users.usersList);
   const [collapse, setCollapse] = useState(false);
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   useEffect(() => {
     setCollapse(true);
