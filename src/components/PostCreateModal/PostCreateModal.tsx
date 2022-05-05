@@ -72,6 +72,11 @@ const PostCreateModal = ({ userId }: any) => {
       postData.user,
     );
 
+    formData.append(
+      'imageUrl',
+      postData.imageUrl,
+    );
+
     dispatch(createPostStart(formData));
 
     handleClose();
@@ -86,10 +91,10 @@ const PostCreateModal = ({ userId }: any) => {
   const handleFileRead = async (event: any) => {
     const file = event.target.files[0];
     const toBase64 = await convertBase64(file);
-    formData.append(
-      'imageUrl',
-      toBase64,
-    );
+    setPostData({
+      ...postData,
+      imageUrl: toBase64,
+    });
   };
 
   const handleChange = (event: any) => {
